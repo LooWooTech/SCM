@@ -6,7 +6,6 @@
 @{
     Business business=ViewBag.Business;
     ViewBag.Title = business.GetDescription();
-    Dictionary<int, List<loowootech.SCM.Model.Contact>> Dictionary = ViewBag.Dictionary;
     int serialNumber = 1;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -31,19 +30,7 @@
             <td>@(item.Address)</td>
             <td>
                 @(item.Contact)
-                @if (Dictionary.ContainsKey(item.ID))
-                {
-                    var value = Dictionary[item.ID];
-                    var message = string.Empty;
-                    foreach (var str in value)
-                    {
-
-                        message += " " + str.Name;
-                    }
-                    <a data-container="body" data-toggle="popover" data-placement="right" title="@(item.Name)-联系人" data-content="@message">
-                        更多
-                    </a>
-                }
+              
 
 
             </td>
@@ -51,7 +38,7 @@
             <td></td>
             <td></td>
             <td>
-                <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#@(item.ID)-@(item.Name)">详情</button>
+                @*<button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#@(item.ID)-@(item.Name)">详情</button>
                 <div class="modal fade" id="@(item.ID)-@(item.Name)" tabindex="-1" role="dialog" aria-labelledby="mymodalLabel">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -79,33 +66,7 @@
                         {
                                 @Html.Partial("AddContact",item.ID)
 
-                            if (Dictionary.ContainsKey(item.ID))
-                            {
-                                var contacts = Dictionary[item.ID];
-                                <table>
-                                    <tr>
-                                        <th>姓名</th>
-                                        <th>性别</th>
-                                        <th>联系电话</th>
-                                        <th>QQ</th>
-                                        <th>邮箱</th>
-                                        <th>微信号</th>
-                                        <th>联系地址</th>
-                                    </tr>
-                                    @foreach (var cont in contacts)
-                                    {
-                                        <tr>
-                                            <td>@cont.Name</td>
-                                            <td>@cont.sex.GetDescription()</td>
-                                            <td>@cont.TelPhone</td>
-                                            <td>@cont.QQ</td>
-                                            <td>@cont.Email</td>
-                                            <td>@cont.WeChat</td>
-                                            <td>@cont.Address</td>
-                                        </tr>
-                                    }
-                                </table>
-                            }
+                           
 
 
 
@@ -121,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
             </td>
         </tr>
     }

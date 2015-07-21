@@ -15,7 +15,6 @@ namespace SupplyChainManagement.Controllers
         public ActionResult Index(Business business)
         {
             var list = Core.EnterpriseManager.Get(business);
-            ViewBag.Dictionary = Core.ContactManager.Get();
             ViewBag.Business = business;
             return View(list);
         }
@@ -28,6 +27,14 @@ namespace SupplyChainManagement.Controllers
                 var index = Core.EnterpriseManager.Add(enterprise);
             }
             return RedirectToAction("Index", new { business = enterprise.Business });
+        }
+
+        [ChildActionOnly]
+        public ActionResult Contacts(int ID)
+        {
+            ViewBag.List = Core.ContactManager.Get(ID);
+            ViewBag.ID = ID;
+            return PartialView("Contacts");
         }
 
     }

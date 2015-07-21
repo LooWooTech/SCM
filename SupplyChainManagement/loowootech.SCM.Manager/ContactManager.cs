@@ -16,6 +16,14 @@ namespace loowootech.SCM.Manager
             }
         }
 
+        public List<Contact> Get(int ID)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Contacts.Where(e => e.EID == ID).ToList();
+            }
+        }
+
         public int Add(Contact contact)
         {
             if (!Validate(contact))
@@ -34,7 +42,7 @@ namespace loowootech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                var entity = db.Contacts.FirstOrDefault(e => e.Name.ToUpper() == contact.Name.ToUpper()&&e.QQ.ToUpper()==contact.QQ.ToUpper());
+                var entity = db.Contacts.FirstOrDefault(e => e.Name.ToUpper() == contact.Name.ToUpper()&&e.sex==contact.sex);
                 return entity == null ? true : false;
             }
         }

@@ -185,6 +185,7 @@
     <Content Include="Views\Shared\AddEnterprise.cshtml" />
     <Content Include="Views\Shared\AddContact.cshtml" />
     <Content Include="Views\Enterprise\Index.cshtml" />
+    <Content Include="Views\Enterprise\Contacts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
