@@ -20,5 +20,15 @@ namespace SupplyChainManagement.Controllers
             return View(list);
         }
 
+        [HttpPost]
+        public ActionResult Add(Enterprise enterprise)
+        {
+            if (ModelState.IsValid)
+            {
+                var index = Core.EnterpriseManager.Add(enterprise);
+            }
+            return RedirectToAction("Index", new { business = enterprise.Business });
+        }
+
     }
 }

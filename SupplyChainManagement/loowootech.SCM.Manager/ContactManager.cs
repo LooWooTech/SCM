@@ -20,7 +20,7 @@ namespace loowootech.SCM.Manager
         {
             if (!Validate(contact))
             {
-                throw new ArgumentException("存在相同姓名的联系人");
+                throw new ArgumentException("存在相同信息的联系人");
             }
             using (var db = GetDataContext())
             {
@@ -34,7 +34,7 @@ namespace loowootech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                var entity = db.Contacts.FirstOrDefault(e => e.Name.ToUpper() == contact.Name.ToUpper());
+                var entity = db.Contacts.FirstOrDefault(e => e.Name.ToUpper() == contact.Name.ToUpper()&&e.QQ.ToUpper()==contact.QQ.ToUpper());
                 return entity == null ? true : false;
             }
         }
