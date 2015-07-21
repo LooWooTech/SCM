@@ -28,36 +28,15 @@
                            } 
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="TelPhone" class="control-label col-lg-3">联系电话</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="TelPhone" class="form-control" />
+                    @foreach (ContactWay way in Enum.GetValues(typeof(ContactWay)))
+                    {
+                        <div class="form-group">
+                            <label for="" class="control-label col-lg-3">@(way.GetDescription())</label>
+                            <div class="col-lg-6">
+                                <input type="text" name="@(way.GetDescription())" class="form-control" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="QQ" class="control-label col-lg-3">QQ</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="QQ" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Email" class="control-label col-lg-3">邮箱</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="Email" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="WeChat" class="control-label col-lg-3">微信号</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="WeChat" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Address" class="control-label col-lg-3">联系地址</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="Address" />
-                        </div>
-                    </div>
+                    }
                     <div class="form-group">
                         <input type="text" name="EID" style="display:none" value="@(Model)" />
                     </div>

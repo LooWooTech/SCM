@@ -32,7 +32,8 @@ namespace SupplyChainManagement.Controllers
         [ChildActionOnly]
         public ActionResult Contacts(int ID)
         {
-            ViewBag.List = Core.ContactManager.Get(ID);
+            //ViewBag.List = Core.ContactManager.Get(ID);
+            ViewBag.DICT = Core.ContactManager.GetAddressList(ID);
             ViewBag.ID = ID;
             return PartialView("Contacts");
         }

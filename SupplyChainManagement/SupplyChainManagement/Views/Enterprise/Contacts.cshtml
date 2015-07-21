@@ -1,14 +1,54 @@
-﻿@{
-    loowootech.SCM.Model.Contact list = ViewBag.List;
+﻿@using loowootech.SCM.Model
+@using loowootech.SCM.Common
+@{
+    Dictionary<loowootech.SCM.Model.Contact, Dictionary<loowootech.SCM.Model.ContactWay, List<loowootech.SCM.Model.AddressList>>> DICT = ViewBag.DICT;
     int ID = ViewBag.ID;
+    int serialNumber = 1;
 }
-<button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#@(ID)-Contacts">更多</button>
+<a  class="btn btn-xs btn-default" data-toggle="modal" data-target="#@(ID)-Contacts">更多</a>
 <div class="modal fade"id="@(ID)-Contacts" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"></h4>
+                <h4 class="modal-title">联系人列表</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("AddContact",ID)
+                <table class="table table-bordered">
+                    <tr>
+                        <th>序号</th>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        @foreach (ContactWay way in Enum.GetValues(typeof(ContactWay)))
+                        {
+                            <th>@(way.GetDescription())</th>
+                        }
+                    </tr>
+                    @foreach (var item in DICT.Keys)
+                    {
+                        var dict = DICT[item];
+                        <tr>
+                            <td>@(serialNumber++)</td>
+                            <td>@(item.Name)</td>
+                            <td>@(item.sex.GetDescription())</td>
+                            @foreach (var way in dict.Keys)
+                            {
+                                var list = dict[way];
+                                <td>
+                                    @foreach (var value in list)
+                                    {
+                                        @value<br />
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确定</button>
             </div>
         </div>
     </div>

@@ -9,7 +9,6 @@
     int serialNumber = 1;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @Html.Partial("AddEnterprise", business)
 <table class="table table-bordered">
     <tr>
@@ -30,7 +29,7 @@
             <td>@(item.Address)</td>
             <td>
                 @(item.Contact)
-              
+                @Html.Action("Contacts", new  { ID=item.ID})
 
 
             </td>

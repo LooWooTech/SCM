@@ -8,20 +8,28 @@ namespace loowootech.SCM.Manager
 {
     public class ContactManager:ManagerBase
     {
-        public Dictionary<int,List<Contact>> Get()
-        {
-            using (var db = GetDataContext())
-            {
-                return db.Contacts.GroupBy(e=>e.EID).ToDictionary(e=>e.Key,g=>g.Where(e=>e.EID==g.Key).ToList());
-            }
-        }
-
         public List<Contact> Get(int ID)
         {
             using (var db = GetDataContext())
             {
                 return db.Contacts.Where(e => e.EID == ID).ToList();
             }
+        }
+
+        public Dictionary<Contact,Dictionary<ContactWay,List<AddressList>>> GetAddressList(int ID)
+        {
+            Dictionary<Contact, Dictionary<ContactWay, List<AddressList>>> DICT = new Dictionary<Contact, Dictionary<ContactWay, List<AddressList>>>();
+            List<Contact> list = Get(ID);
+            foreach (var item in list)
+            {
+                Dictionary<ContactWay, List<AddressList>> value = new Dictionary<ContactWay, List<AddressList>>();
+                foreach (ContactWay way in Enum.GetValues(typeof(ContactWay)))
+                {
+                    value.Add(way, Core.AddressListManager.Search(item.ID, way));
+                }
+                DICT.Add(item, value);
+            }
+            return DICT;
         }
 
         public int Add(Contact contact)

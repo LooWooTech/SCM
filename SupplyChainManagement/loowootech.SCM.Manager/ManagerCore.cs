@@ -26,6 +26,12 @@ namespace loowootech.SCM.Manager
             get { return _contactManager == null ? _contactManager = new ContactManager() : _contactManager; }
         }
 
+        private AddressListManager _addresslistManager;
+        public AddressListManager AddressListManager
+        {
+            get { return _addresslistManager == null ? _addresslistManager = new AddressListManager() : _addresslistManager; }
+        }
+
         
     }
 }
