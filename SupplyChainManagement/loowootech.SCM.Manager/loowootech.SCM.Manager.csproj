@@ -59,8 +59,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\loowoo.SCM.Model\loowootech.SCM.Model.csproj">
-      <Project>{2f71b1ae-f101-4152-a2f1-db4bd018c2d4}</Project>
+    <ProjectReference Include="..\loowootech.SCM.Model\loowootech.SCM.Model.csproj">
+      <Project>{f4475b35-5ef6-4d0c-aa2d-c62e388bc17a}</Project>
       <Name>loowootech.SCM.Model</Name>
     </ProjectReference>
   </ItemGroup>

@@ -8,10 +8,6 @@ using System.Text;
 
 namespace loowootech.SCM.Model
 {
-    /// <summary>
-    /// 部件
-    /// </summary>
-    [Table("components")]
     public class Components
     {
         [Key]
@@ -36,7 +32,7 @@ namespace loowootech.SCM.Model
         /// <summary>
         /// 填单机类型
         /// </summary>
-        [Column(TypeName="int")]
+        [Column(TypeName = "int")]
         public UnitType Type { get; set; }
     }
 

@@ -25,7 +25,7 @@ namespace loowootech.SCM.Model
         /// <summary>
         /// 性别
         /// </summary>
-        [Column(TypeName="int")]
+        [Column(TypeName = "int")]
         [DisplayName("性别")]
         public Sex sex { get; set; }
         /// <summary>

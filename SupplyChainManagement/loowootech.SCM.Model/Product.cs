@@ -21,6 +21,5 @@ namespace loowootech.SCM.Model
         /// </summary>
         public string Number { get; set; }
         public double Price { get; set; }
-
     }
 }

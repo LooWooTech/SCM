@@ -195,10 +195,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\loowoo.SCM.Model\loowootech.SCM.Model.csproj">
-      <Project>{2f71b1ae-f101-4152-a2f1-db4bd018c2d4}</Project>
-      <Name>loowootech.SCM.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\loowootech.SCM.Common\loowootech.SCM.Common.csproj">
       <Project>{6dce073c-1e64-40fd-9ed0-02a8c1c0368c}</Project>
       <Name>loowootech.SCM.Common</Name>
@@ -206,6 +202,10 @@
     <ProjectReference Include="..\loowootech.SCM.Manager\loowootech.SCM.Manager.csproj">
       <Project>{1d4db224-0697-4769-86ca-f03138141c87}</Project>
       <Name>loowootech.SCM.Manager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\loowootech.SCM.Model\loowootech.SCM.Model.csproj">
+      <Project>{f4475b35-5ef6-4d0c-aa2d-c62e388bc17a}</Project>
+      <Name>loowootech.SCM.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

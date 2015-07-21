@@ -36,11 +36,10 @@ namespace loowootech.SCM.Model
         /// <summary>
         /// 账号类型
         /// </summary>
-        [Column(TypeName="int")]
+        [Column(TypeName = "int")]
         public Payment Pay { get; set; }
         public int SID { get; set; }
     }
-
     public enum Payment
     {
         [Description("支付宝")]

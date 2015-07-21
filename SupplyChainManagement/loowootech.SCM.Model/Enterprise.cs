@@ -37,9 +37,8 @@ namespace loowootech.SCM.Model
         /// </summary>
         [DisplayName("联系电话")]
         public string Number { get; set; }
-        [Column(TypeName="int")]
+        [Column(TypeName = "int")]
         public Business Business { get; set; }
-       
     }
 
     public enum Business
