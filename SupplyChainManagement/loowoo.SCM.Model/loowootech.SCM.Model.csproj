@@ -7,8 +7,8 @@
     <ProjectGuid>{2F71B1AE-F101-4152-A2F1-DB4BD018C2D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>loowoo.SCM.Model</RootNamespace>
-    <AssemblyName>loowoo.SCM.Model</AssemblyName>
+    <RootNamespace>loowootech.SCM.Model</RootNamespace>
+    <AssemblyName>loowootech.SCM.Model</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
