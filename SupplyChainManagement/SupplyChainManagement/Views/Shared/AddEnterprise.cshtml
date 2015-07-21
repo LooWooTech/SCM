@@ -1,0 +1,51 @@
+﻿@model loowootech.SCM.Model.Business
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddEnterprise">添加企业</button>
+<div class="modal fade" id="AddEnterprise" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加企业</h4>
+            </div>
+            <form method="post" action="/Supplier/Add" class="form-horizontal">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Name" class="control-label col-lg-3">企业名称</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="Name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address" class="control-label col-lg-3">企业地址</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="Address" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Contact" class="control-label col-lg-3">企业联系人</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="Contact" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Number" class="control-label col-lg-3">电话</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="Number" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="Business" value="@(Model)" style="display:none" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="submit" class="btn btn-primary">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

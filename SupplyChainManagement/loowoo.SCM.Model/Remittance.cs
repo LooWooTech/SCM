@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+
+namespace loowootech.SCM.Model
+{
+    /// <summary>
+    /// 汇款信息
+    /// </summary>
+    [Table("remittances")]
+    public class Remittance
+    {
+        public Remittance()
+        {
+            this.Time = DateTime.Now;
+        }
+        [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        /// <summary>
+        /// 金额
+        /// </summary>
+        public double Money { get; set; }
+        /// <summary>
+        /// 时间
+        /// </summary>
+        public DateTime Time { get; set; }
+        /// <summary>
+        /// 银行（支付宝）账号
+        /// </summary>
+        public string Account { get; set; }
+        /// <summary>
+        /// 账号类型
+        /// </summary>
+        [Column(TypeName="int")]
+        public Payment Pay { get; set; }
+        public int SID { get; set; }
+    }
+
+    public enum Payment
+    {
+        [Description("支付宝")]
+        Alipay,
+        [Description("银联")]
+        Unionpay,
+        [Description("微信支付")]
+        WeChat
+    }
+}

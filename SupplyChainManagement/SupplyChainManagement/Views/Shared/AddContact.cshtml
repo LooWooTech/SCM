@@ -1,0 +1,62 @@
+﻿@using loowootech.SCM.Model
+@using loowootech.SCM.Common
+<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#">添加联系人</button>
+<div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data--dissmiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加联系人</h4>
+            </div>
+            <form action="" class="form-horizontal" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Name" class="control-label col-lg-3">姓名</label>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" name="Name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Sex" class="control-label col-lg-3">性别</label>
+                        <div class="col-lg-6">
+                           @foreach (Sex sex in Enum.GetValues(typeof(Sex)))
+                           {
+                               <label class="radio-inline">
+                                   <input type="radio" name="sex" value="@sex" />@(sex.GetDescription())
+                               </label>
+                           } 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="TelPhone" class="control-label col-lg-3">联系电话</label>
+                        <div class="col-lg-6">
+                            <input type="text" name="TelPhone" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="QQ" class="control-label col-lg-3">QQ</label>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" name="QQ" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email" class="control-label col-lg-3">邮箱</label>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" name="Email" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="WeChat" class="control-label col-lg-3">微信号</label>
+                        <div class="col-lg-6">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

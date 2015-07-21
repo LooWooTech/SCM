@@ -1,0 +1,129 @@
+﻿@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel;
+@using loowootech.SCM.Common;
+@model IEnumerable<loowootech.SCM.Model.Enterprise>
+@{
+    ViewBag.Title = "供应商";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //List<loowootech.SCM.Model.Enterprise> List = ViewBag.list;
+    Dictionary<int, List<loowootech.SCM.Model.Contact>> Dictionary = ViewBag.Dictionary;
+    loowootech.SCM.Model.Business business = ViewBag.Business;
+    int serialNumber = 1;
+}
+
+@Html.Partial("AddEnterprise",business)
+<table class="table table-bordered">
+    <tr>
+        <th>序号</th>
+        <th>@Html.DisplayNameFor(model=>model.Name)</th>
+        <th>@Html.DisplayNameFor(model=>model.Address)</th>
+        <th>@Html.DisplayNameFor(model=>model.Contact)</th>
+        <th>@Html.DisplayNameFor(model=>model.Number)</th>
+        <th>汇款信息</th>
+        <th>主要供应设备型号</th>
+        <th>备注</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@(serialNumber++)</td>
+            <td>@(item.Name)</td>
+            <td>@(item.Address)</td>
+            <td>
+                @(item.Contact)
+                @if (Dictionary.ContainsKey(item.ID))
+                {
+                    var value=Dictionary[item.ID];
+                    var message=string.Empty;
+                    foreach (var str in value)
+                    {
+
+                        message += " " + str;
+                    }
+                    <a data-container="body" data-toggle="popover" data-placement="right" title="@(item.Name)-联系人" data-content="@message">
+                        更多
+                    </a>
+                }
+                
+                
+            </td>
+            <td>@(item.Number)</td>
+            <td></td>
+            <td></td>
+            <td>
+                <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#@(item.ID)-@(item.Name)">详情</button>
+                <div class="modal fade" id="@(item.ID)-@(item.Name)" tabindex="-1" role="dialog" aria-labelledby="mymodalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data--dissmiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">@(item.Name)-详情</h4>
+                            </div>
+                            <div class="modal-body">
+                                @{    
+                                    System.Reflection.PropertyInfo[] propList = typeof(loowootech.SCM.Model.Enterprise).GetProperties();
+                                    foreach (var attribute in propList)
+                                    {
+                                        if (attribute.Name.Equals("ID"))
+                                        {
+                                            continue;
+                                        }
+                                        var display=((DisplayNameAttribute[])attribute.GetCustomAttributes(typeof(DisplayNameAttribute),false)).FirstOrDefault();
+                                        if (display != null)
+                                        {
+                                            <h4 style="color:black">
+                                                @display.DisplayName
+                                            </h4>
+                                            <p>@attribute.GetValue(item,null)</p>
+                                            if (attribute.Name.Equals("Contact"))
+                                            {
+                                                
+                                                
+                                                if (Dictionary.ContainsKey(item.ID))
+                                                {
+                                                    var contacts=Dictionary[item.ID];
+                                                    <table>
+                                                        <tr>
+                                                            <th>姓名</th>
+                                                            <th>性别</th>
+                                                            <th>联系电话</th>
+                                                            <th>QQ</th>
+                                                            <th>邮箱</th>
+                                                            <th>微信号</th>
+                                                            <th>联系地址</th>
+                                                        </tr>
+                                                        @foreach (var cont in contacts)
+                                                        {
+                                                            <tr>
+                                                                <td>@cont.Name</td>
+                                                                <td>@cont.sex.GetDescription()</td>
+                                                                <td>@cont.TelPhone</td>
+                                                                <td>@cont.QQ</td>
+                                                                <td>@cont.Email</td>
+                                                                <td>@cont.WeChat</td>
+                                                                <td>@cont.Address</td>
+                                                            </tr>
+                                                        }
+                                                    </table>
+                                                }
+                                                
+                                    
+                                                    
+                                            }
+
+                                        }
+
+                                    }
+                            }
+</div>
+                            <div class="modal-footer">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+

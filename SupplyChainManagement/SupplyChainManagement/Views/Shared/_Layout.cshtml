@@ -1,0 +1,64 @@
+﻿@using loowootech.SCM.Model;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@(ViewBag.Title==null?"供应链管理系统":"供应链管理系统——"+ViewBag.Title)</title>
+    <link rel="stylesheet" href="/content/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="/content/bootswatch.min.css" media="screen">
+    <link rel="stylesheet" href="/content/main.min.css" media="screen">
+    
+    <script src="/scripts/jquery-1.9.1.min.js"></script>
+    <script src="/scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">供应链管理系统</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-reponsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="/Home/Index"><i class="glyphicon glyphicon-home"></i>&nbsp;首页</a></li>
+                    <li class=""><a href="/Enterprise/Index?Business=@Business.Supplier"><i class="glyphicon glyphicon-cog"></i>&nbsp;供应商</a></li>
+                    <li class=""><a href="#"><i class="glyphicon glyphicon-wrench"></i>&nbsp;部件型号</a></li>
+                    <li class=""><a href="#"><i class="glyphicon glyphicon-log-in"></i>&nbsp; 部件进货</a></li>
+                    <li class=""><a href="#"><i class="glyphicon glyphicon-plane"></i>&nbsp; 产品型号</a></li>
+                    <li class=""><a href="/Enterprise/Index?Business=@Business.Seller"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp; 经销商</a></li>
+                    <li class=""><a href="#"><i class="glyphicon glyphicon-gift"></i>&nbsp; 经销商订货</a></li>
+                    <li class=""><a href="#"><i class="glyphicon glyphicon-hdd">&nbsp;</i> 库存</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <br />
+        <div class="panel panel-default" id="main-panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">@(ViewBag.Title)</h3>
+            </div>
+            <div class="panel-body">
+                @RenderBody()
+            </div>
+        </div>
+        <footer style="clear: both; overflow: hidden;">
+            <div class="row">
+                <div class="col-lg-12">
+                    &copy;2015 版权所有 业务咨询电话：0571-88877635 技术支持电话：18605713881 政策咨询电话：0571-88877853 技术支持Q群：361300386
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        })
+    </script>
+</body>
+</html>

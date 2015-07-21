@@ -1,0 +1,26 @@
+﻿@{
+    Exception ex = ViewBag.Exception;
+    var isAjax = Request.Headers.AllKeys.Contains("_ajax");
+    if (isAjax)
+    {
+        Layout = null;
+        var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+        var data = new { result = false, message = ex.Message, stackTrace = ex.StackTrace };
+        Response.Write(serializer.Serialize(data));
+    }
+    else
+    {
+        ViewBag.Title = "程序异常";
+        <div>
+            @(ex.Message)
+        </div>
+    <div style="display:none">
+        @(ex.StackTrace))
+    </div>
+    <script>
+        $(function () {
+            $("#main-panel").removeClass("panel-default").addClass("panel-danger");
+        });
+    </script>
+    }
+}
