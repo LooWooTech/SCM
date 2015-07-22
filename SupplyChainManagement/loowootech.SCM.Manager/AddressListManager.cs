@@ -37,6 +37,38 @@ namespace loowootech.SCM.Manager
             return list;
         }
 
+
+        public bool Delete(int ID)
+        {
+            using (var db = GetDataContext())
+            {
+                var entity = db.AddressLists.Find(ID);
+                if (entity != null)
+                {
+                    db.AddressLists.Remove(entity);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void DeleteAll(int ID)
+        {
+            var list = Search(ID);
+            foreach (var item in list)
+            {
+                try
+                {
+                    Delete(item.ID);
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
         public int Add(AddressList addressList)
         {
             using (var db = GetDataContext())

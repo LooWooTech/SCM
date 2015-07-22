@@ -58,6 +58,18 @@ namespace loowootech.SCM.Manager
             }
         }
 
+        public void Delete(int ID)
+        {
+            Core.AddressListManager.DeleteAll(ID);
+            using (var db = GetDataContext())
+            {
+                var entity = db.Contacts.Find(ID);
+                if (entity == null) return;
+                db.Contacts.Remove(entity);
+                db.SaveChanges();
+            }
+        }
+
         private bool Validate(Contact contact)
         {
             using (var db = GetDataContext())

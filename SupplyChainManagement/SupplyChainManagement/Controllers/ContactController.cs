@@ -31,5 +31,28 @@ namespace SupplyChainManagement.Controllers
             return RedirectToAction("Index", "Enterprise", new { business = entity.Business });
         }
 
+
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        public ActionResult Delete(int ID)
+        {
+            var contact = Core.ContactManager.GetByID(ID);
+            if (contact == null)
+            {
+                throw new ArgumentException("未找到相关的联系人");
+            }
+            Core.ContactManager.Delete(ID);
+            var enterprise = Core.EnterpriseManager.Get(contact.EID);
+            if (enterprise == null)
+            {
+                throw new ArgumentException("未找到相关企业信息");
+            }
+
+            return RedirectToAction("Index", "Enterprise", new { business = enterprise.Business });
+        }
+
     }
 }

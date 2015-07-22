@@ -24,6 +24,7 @@
                         <th>姓名</th>
                         <th>性别</th>
                         <th>联系方式</th>
+                        <th>备注</th>
                     </tr>
                     @foreach (var item in DICT.Keys)
                     {
@@ -38,7 +39,10 @@
                                     <strong>@way.way.GetDescription(): </strong>@way.Value<br />
                                 }
                             </td>
-                            
+                            <td>
+                                <a href="/Contact/Delete?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>删除</a>
+                                <a href="/Contact/Edit" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                            </td>
                         </tr>
                     }
                 </table>
