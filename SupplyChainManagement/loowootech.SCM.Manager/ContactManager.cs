@@ -28,19 +28,19 @@ namespace loowootech.SCM.Manager
             return DICT;
         }
 
-        public List<string> GetNames(int ID)
+        public Dictionary<int,string> GetNames(int ID)
         {
             using (var db = GetDataContext())
             {
-                return db.Contacts.Where(e => e.EID == ID).Select(e => e.Name).ToList();
+                return db.Contacts.Where(e => e.EID == ID).ToDictionary(e => e.ID, e => e.Name);
             }
         }
 
-        public Contact Get(string Name)
+        public Contact GetByID(int ID)
         {
             using (var db = GetDataContext())
             {
-                return db.Contacts.FirstOrDefault(e => e.Name.ToUpper() == Name.ToUpper());
+                return db.Contacts.Find(ID);
             }
         }
 

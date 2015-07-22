@@ -37,31 +37,39 @@ namespace loowootech.SCM.Manager
             return list;
         }
 
-        public void Add(List<AddressList> list)
+        public int Add(AddressList addressList)
         {
             using (var db = GetDataContext())
             {
-                foreach (var item in list)
+                var entity = db.AddressLists.FirstOrDefault(e => e.CID == addressList.CID && e.way == addressList.way);
+                if (entity == null)
                 {
-                    var entity = db.AddressLists.FirstOrDefault(e => e.CID == item.CID && e.way == item.way);
-                    if (entity == null)
+                    db.AddressLists.Add(addressList);
+                    db.SaveChanges();
+                    return addressList.ID;
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(entity.Value))
                     {
-                        db.AddressLists.Add(item);
-                        
+                        entity.Value = addressList.Value;
                     }
                     else
                     {
-                        if (string.IsNullOrEmpty(entity.Value))
-                        {
-                            entity.Value = item.Value;
-                        }
-                        else
-                        {
-                            entity.Value += "；" + item.Value;
-                        }
+                        entity.Value += "；" + addressList.Value;
                     }
                     db.SaveChanges();
+                    return entity.ID;
                 }
+                
+            }
+        }
+
+        public void Add(List<AddressList> list)
+        {
+            foreach (var item in list)
+            {
+                Add(item);
             }
         }
     }

@@ -10,10 +10,26 @@ namespace SupplyChainManagement.Controllers
     public class AddressListController : ControllerBase
     {
         [HttpPost]
-        public ActionResult Add(string Name, ContactWay way, string value)
+        public ActionResult Add(int ID, ContactWay way, string value)
         {
-            var contact = Core.ContactManager.Get(Name);
-            return RedirectToAction("Index", "Enterprise");
+            if (ID > 0)
+            {
+                Contact cont = Core.ContactManager.GetByID(ID);
+                Enterprise enterprise = Core.EnterpriseManager.Get(cont.EID);
+                var Index = Core.AddressListManager.Add(new AddressList
+                {
+                    way = way,
+                    Value = value,
+                    CID = ID
+                });
+                return RedirectToAction("Index", "Enterprise", new { business = enterprise.Business });
+            }
+            else
+            {
+                throw new ArgumentException("添加联系方式的时候，没有选择联系人或者内部服务器错误，请核对当前联系方式对应的联系人");
+            }
+            
+            
         }
     }
 }

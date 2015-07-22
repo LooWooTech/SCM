@@ -1,16 +1,16 @@
 ﻿@using loowootech.SCM.Model
 @using loowootech.SCM.Common
 @{
-    List<string> list = ViewBag.List;
+    Dictionary<int, string> dict = ViewBag.List;
 }
 
-<form class="form-inline" action="" method="post" style="float:right">
+<form class="form-inline" action="/AddressList/Add" method="post" style="float:right">
     <div class="input-group">
         <div class="input-group-btn">
-            <select name="Name" class="form-control">
-                @foreach (var item in list)
+            <select name="ID" class="form-control">
+                @foreach (var item in dict.Keys)
                 {
-                    <option value="@item">@item</option>
+                    <option value="@item">@(dict[item])</option>
                 }
             </select>
             <select name="way" class="form-control">
