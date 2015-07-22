@@ -16,20 +16,32 @@ namespace loowootech.SCM.Manager
             }
         }
 
-        public Dictionary<Contact,Dictionary<ContactWay,List<AddressList>>> GetAddressList(int ID)
+        public Dictionary<Contact,List<AddressList>> GetAddressList(int ID)
         {
-            Dictionary<Contact, Dictionary<ContactWay, List<AddressList>>> DICT = new Dictionary<Contact, Dictionary<ContactWay, List<AddressList>>>();
+            Dictionary<Contact, List<AddressList>> DICT = new Dictionary<Contact, List<AddressList>>();
+            
             List<Contact> list = Get(ID);
             foreach (var item in list)
             {
-                Dictionary<ContactWay, List<AddressList>> value = new Dictionary<ContactWay, List<AddressList>>();
-                foreach (ContactWay way in Enum.GetValues(typeof(ContactWay)))
-                {
-                    value.Add(way, Core.AddressListManager.Search(item.ID, way));
-                }
-                DICT.Add(item, value);
+                DICT.Add(item, Core.AddressListManager.Search(item.ID));
             }
             return DICT;
+        }
+
+        public List<string> GetNames(int ID)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Contacts.Where(e => e.EID == ID).Select(e => e.Name).ToList();
+            }
+        }
+
+        public Contact Get(string Name)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Contacts.FirstOrDefault(e => e.Name.ToUpper() == Name.ToUpper());
+            }
         }
 
         public int Add(Contact contact)

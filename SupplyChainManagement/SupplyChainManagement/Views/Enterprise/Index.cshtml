@@ -9,7 +9,9 @@
     int serialNumber = 1;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Partial("AddEnterprise", business)
+@{
+    Html.RenderPartial("AddEnterprise", business);
+}
 <table class="table table-bordered">
     <tr>
         <th>序号</th>

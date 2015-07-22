@@ -16,6 +16,15 @@ namespace loowootech.SCM.Manager
             }
         }
 
+
+        public Enterprise Get(int ID)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Enterprises.Find(ID);
+            }
+        }
+
         public int Add(Enterprise enterprise)
         {
             if (!Validate(enterprise))

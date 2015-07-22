@@ -40,11 +40,9 @@
                     <div class="form-group">
                         <input type="text" name="EID" style="display:none" value="@(Model)" />
                     </div>
-                </div>
-                <div class="modal-footer">
                     <div class="form-group">
                         <div class="col-lg-6 col-lg-offset-3">
-                            <button type="button" class="btn btn-default"data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                             <button type="submit" class="btn btn-primary">确定</button>
                         </div>
                     </div>
@@ -54,3 +52,4 @@
         </div>
     </div>
 </div>
+@Html.Action("AddAddressList", new { ID=Model})

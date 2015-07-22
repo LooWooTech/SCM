@@ -1,7 +1,7 @@
 ﻿@using loowootech.SCM.Model
 @using loowootech.SCM.Common
 @{
-    Dictionary<loowootech.SCM.Model.Contact, Dictionary<loowootech.SCM.Model.ContactWay, List<loowootech.SCM.Model.AddressList>>> DICT = ViewBag.DICT;
+    Dictionary<loowootech.SCM.Model.Contact,List<loowootech.SCM.Model.AddressList>> DICT = ViewBag.DICT;
     int ID = ViewBag.ID;
     int serialNumber = 1;
 }
@@ -14,16 +14,16 @@
                 <h4 class="modal-title">联系人列表</h4>
             </div>
             <div class="modal-body">
-                @Html.Partial("AddContact",ID)
+                @{
+                    Html.RenderPartial("AddContact", ID);
+                }
+                
                 <table class="table table-bordered">
                     <tr>
                         <th>序号</th>
                         <th>姓名</th>
                         <th>性别</th>
-                        @foreach (ContactWay way in Enum.GetValues(typeof(ContactWay)))
-                        {
-                            <th>@(way.GetDescription())</th>
-                        }
+                        <th>联系方式</th>
                     </tr>
                     @foreach (var item in DICT.Keys)
                     {
@@ -32,16 +32,13 @@
                             <td>@(serialNumber++)</td>
                             <td>@(item.Name)</td>
                             <td>@(item.sex.GetDescription())</td>
-                            @foreach (var way in dict.Keys)
-                            {
-                                var list = dict[way];
-                                <td>
-                                    @foreach (var value in list)
-                                    {
-                                        @value<br />
-                                    }
-                                </td>
-                            }
+                            <td>
+                                @foreach (var way in dict)
+                                {
+                                    <strong>@way.way.GetDescription(): </strong>@way.Value<br />
+                                }
+                            </td>
+                            
                         </tr>
                     }
                 </table>

@@ -1,0 +1,28 @@
+﻿@using loowootech.SCM.Model
+@using loowootech.SCM.Common
+@{
+    List<string> list = ViewBag.List;
+}
+
+<form class="form-inline" action="" method="post" style="float:right">
+    <div class="input-group">
+        <div class="input-group-btn">
+            <select name="Name" class="form-control">
+                @foreach (var item in list)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+            <select name="way" class="form-control">
+                @foreach (ContactWay way in Enum.GetValues(typeof(ContactWay)))
+                {
+                    var value = (int)way;
+                    <option value="@value">@(way.GetDescription())</option>
+                }
+            </select>
+            <input type="text" name="value" class="form-control" />
+            <button type="submit" class="btn btn-sm btn-primary form-control">添加联系方式</button>
+        </div>
+        
+    </div>
+</form>

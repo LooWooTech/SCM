@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\loowootech.SCM.Common\loowootech.SCM.Common.csproj">
+      <Project>{6dce073c-1e64-40fd-9ed0-02a8c1c0368c}</Project>
+      <Name>loowootech.SCM.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\loowootech.SCM.Model\loowootech.SCM.Model.csproj">
       <Project>{f4475b35-5ef6-4d0c-aa2d-c62e388bc17a}</Project>
       <Name>loowootech.SCM.Model</Name>

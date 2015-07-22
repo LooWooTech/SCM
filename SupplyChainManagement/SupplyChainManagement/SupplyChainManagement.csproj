@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AddressListController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
@@ -186,6 +187,7 @@
     <Content Include="Views\Shared\AddContact.cshtml" />
     <Content Include="Views\Enterprise\Index.cshtml" />
     <Content Include="Views\Enterprise\Contacts.cshtml" />
+    <Content Include="Views\Shared\AddAddressList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
