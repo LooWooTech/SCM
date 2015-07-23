@@ -12,7 +12,19 @@ namespace SupplyChainManagement.Controllers
         //
         // GET: /Stock/
 
-        public ActionResult Index(int ID)
+        public ActionResult Index()
+        {
+            var list = Core.OrderManager.GetAll();
+            return View(list);
+        }
+
+
+        /// <summary>
+        /// 开始下单
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public ActionResult Place(int ID)
         {
             ViewBag.Enterprise = Core.EnterpriseManager.Get(ID);
             ViewBag.List = Core.ComponentsManager.Get();
@@ -42,6 +54,14 @@ namespace SupplyChainManagement.Controllers
             ViewBag.List = Core.QuotationManager.GetAll(ID);
             return View(order);
         }
+
+        [HttpPost]
+        public ActionResult Edit(string Express)
+        {
+
+            return View();
+        }
+        
 
         
 

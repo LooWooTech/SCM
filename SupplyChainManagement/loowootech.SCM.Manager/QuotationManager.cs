@@ -85,10 +85,35 @@ namespace loowootech.SCM.Manager
 
         public List<Quotation> GetAll(int OID)
         {
+            var listTemp = Get(OID);
+            List<Quotation> list = new List<Quotation>();
+            foreach (var item in listTemp)
+            {
+                list.Add(GetComponents(item));
+            }
+            return list;
+        }
+
+        public List<Quotation> Get(int OID)
+        {
             using (var db = GetDataContext())
             {
                 return db.Quotations.Where(e => e.OID == OID).ToList();
             }
+        }
+
+
+        public Quotation GetComponents(Quotation quotation)
+        {
+            using (var db = GetDataContext())
+            {
+                var components = db.Components.Find(quotation.CID);
+                if (components != null)
+                {
+                    quotation.Components = components;
+                }
+            }
+            return quotation; ;
         }
 
         public void  Add(Quotation quotation)

@@ -25,5 +25,39 @@ namespace loowootech.SCM.Manager
                 return db.Orders.Find(ID);
             }
         }
+
+        public List<Order> Get()
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Orders.OrderBy(e => e.Time).ToList();
+            }
+        }
+
+
+        public List<Order> GetAll()
+        {
+            var listTemp = Get();
+            List<Order> list = new List<Order>();
+            foreach (var item in listTemp)
+            {
+                list.Add(GetEnterprise(item));
+            }
+            return list;
+        }
+
+
+        public Order GetEnterprise(Order order)
+        {
+            using (var db = GetDataContext())
+            {
+                var entity = db.Enterprises.Find(order.EID);
+                if (entity != null)
+                {
+                    order.Enterprise = entity;
+                }
+            }
+            return order;
+        }
     }
 }

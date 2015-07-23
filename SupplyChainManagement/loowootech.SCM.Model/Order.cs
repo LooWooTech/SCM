@@ -33,6 +33,8 @@ namespace loowootech.SCM.Model
         /// 供应商
         /// </summary>
         public int EID { get; set; }
+        [NotMapped]
+        public Enterprise Enterprise { get; set; }
         
     }
 }

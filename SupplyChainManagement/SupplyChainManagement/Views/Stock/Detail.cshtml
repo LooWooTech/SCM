@@ -1,23 +1,26 @@
-﻿@model loowootech.SCM.Model.Order
+﻿@using loowootech.SCM.Common
+@model loowootech.SCM.Model.Order
+
 @{
     ViewBag.Title = "提交进货单成功";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int serialNumber = 1;
+    List<loowootech.SCM.Model.Quotation> list = ViewBag.List;
 }
 
-<div class="alert alert-warning alert-dismissable" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <form action="" method="post" class="form-inline" enctype="multipart/form-data">
-        <input type="file" class="form-control" name="file" />
-        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-cloud-upload"></i> 上传合同</button>
-    </form>
-</div>
 
 <div class="panel panel-primary">
     <div class="panel panel-heading">
         <h3 class="panel-title">完善订单信息</h3>
     </div>
     <div class="panel panel-body">
-        <form action="" class="form-horizontal" method="post">
+        <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file" class="control-label col-lg-3">合同文件</label>
+                <div class="col-lg-6">
+                    <input type="file" class="form-control" name="file" />
+                </div>
+            </div>
             <div class="form-group">
                 <label for="Express" class="control-label col-lg-3">快递单号</label>
                 <div class="col-lg-6">
@@ -32,4 +35,33 @@
             </div>
         </form>
     </div>
+</div>
+
+<div class="alert alert-success alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">部件进货清单</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <th>序号</th>
+                    <th>部件名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                </tr>
+                @foreach (var item in list)
+                {
+                    <tr>
+                        <td>@(serialNumber++)</td>
+                        <td>@(item.Components.Brand)@(item.Components.Type.GetDescription()),@(item.Components.Specification),@(item.Components.Number)</td>
+                        <td>@(item.Price)</td>
+                        <td>@(item.Number)</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    
 </div>

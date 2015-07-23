@@ -1,0 +1,63 @@
+﻿@using loowootech.SCM.Common
+@{
+    ViewBag.Title = "部件进货";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    loowootech.SCM.Model.Enterprise enterprise = ViewBag.Enterprise;
+    List<loowootech.SCM.Model.Components> list = ViewBag.List;
+}
+
+<div class="alert alert-info" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    你当前选择从供应商——<strong>@(enterprise.Name)</strong> 部件进货
+</div>
+
+
+<div class="panel panel-success">
+    <div class="panel panel-heading">
+        <h3 class="panel-title">进货清单</h3>
+    </div>
+    <div class="panel-body">
+        <form action="/Stock/Add" method="post" class="form-horizontal">
+            <div class="form-group">
+                <table class="table table-bordered">
+                    <tr>
+                        <th><a href="#" class="text-success" id="Add"><i class="glyphicon glyphicon-plus"></i></a></th>
+                        <th>部件</th>
+                        <th>价格（单价）</th>
+                        <th>数量</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <select name="CID" class="form-control">
+                                @foreach (var item in list)
+                                {
+                                    <option value="@(item.ID)">@(item.Brand)@(item.Type.GetDescription()),@(item.Specification),@(item.Number)</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" name="Price" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" name="Number" class="form-control" />
+                        </td>
+                    </tr>
+                </table>
+                <input type="text" name="EID" value="@(enterprise.ID)" style="display:none" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn  btn-primary" style="float:right;margin-right:20px">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#Add").click(function () {
+            var $tr = "<tr>"+$("table tr:last-child").html()+"</tr>";
+            $("table").append($tr);
+        });
+    })
+</script>
