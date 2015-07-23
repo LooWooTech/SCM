@@ -1,0 +1,35 @@
+﻿@model loowootech.SCM.Model.Order
+@{
+    ViewBag.Title = "提交进货单成功";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="alert alert-warning alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <form action="" method="post" class="form-inline" enctype="multipart/form-data">
+        <input type="file" class="form-control" name="file" />
+        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-cloud-upload"></i> 上传合同</button>
+    </form>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel panel-heading">
+        <h3 class="panel-title">完善订单信息</h3>
+    </div>
+    <div class="panel panel-body">
+        <form action="" class="form-horizontal" method="post">
+            <div class="form-group">
+                <label for="Express" class="control-label col-lg-3">快递单号</label>
+                <div class="col-lg-6">
+                    <input type="text" name="Express" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-log-out"></i> 跳过</button>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-log-in"></i> 确定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

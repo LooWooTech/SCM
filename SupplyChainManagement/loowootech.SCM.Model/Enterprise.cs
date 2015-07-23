@@ -27,16 +27,6 @@ namespace loowootech.SCM.Model
         /// </summary>
         [DisplayName("企业地址")]
         public string Address { get; set; }
-        /// <summary>
-        /// 企业联系人
-        /// </summary>
-        [DisplayName("企业联系人")]
-        public string Contact { get; set; }
-        /// <summary>
-        /// 电话（固话）
-        /// </summary>
-        [DisplayName("联系电话")]
-        public string Number { get; set; }
         [Column(TypeName = "int")]
         public Business Business { get; set; }
     }

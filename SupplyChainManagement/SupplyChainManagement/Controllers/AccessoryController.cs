@@ -22,6 +22,16 @@ namespace SupplyChainManagement.Controllers
         public ActionResult Add(Components components)
         {
             var Index = Core.ComponentsManager.Add(components);
+            if (Index == 0)
+            {
+                throw new ArgumentException("添加部件失败");
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(int ID)
+        {
+            Core.ComponentsManager.Delete(ID);
             return RedirectToAction("Index");
         }
 

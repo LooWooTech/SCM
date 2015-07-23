@@ -31,6 +31,17 @@ namespace loowootech.SCM.Manager
             }
         }
 
+        public void Delete(int ID)
+        {
+            using (var db = GetDataContext())
+            {
+                var entity = db.Components.Find(ID);
+                if (entity == null) return;
+                db.Components.Remove(entity);
+                db.SaveChanges();
+            }
+        }
+
 
         private bool Validate(Components componets)
         {

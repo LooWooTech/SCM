@@ -18,7 +18,7 @@
         <th>规格</th>
         <th>型号</th>
         <th>备注</th>
-        <th></th>
+        <th>操作</th>
     </tr>
 
     @foreach (var item in list)
@@ -30,7 +30,10 @@
             <td>@(item.Specification)</td>
             <td>@(item.Number)</td>
             <td>@(item.Memo)</td>
-            <td></td>
+            <td>
+                <a href="" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>删除</a>
+                <a href="" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+            </td>
         </tr>
     }
 </table>

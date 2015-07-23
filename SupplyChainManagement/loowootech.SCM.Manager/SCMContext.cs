@@ -20,5 +20,6 @@ namespace loowoo.SCM.Manager
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
         public DbSet<AddressList> AddressLists { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

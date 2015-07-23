@@ -32,6 +32,16 @@ namespace loowootech.SCM.Manager
             get { return _addresslistManager == null ? _addresslistManager = new AddressListManager() : _addresslistManager; }
         }
 
+        private QuotationManager _quotationManager;
+        public QuotationManager QuotationManager
+        {
+            get { return _quotationManager == null ? _quotationManager = new QuotationManager() : _quotationManager; }
+        }
+        private OrderManager _orderManager;
+        public OrderManager OrderManager
+        {
+            get { return _orderManager == null ? _orderManager = new OrderManager() : _orderManager; }
+        }
         
     }
 }

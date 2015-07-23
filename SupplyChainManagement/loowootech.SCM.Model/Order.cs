@@ -8,32 +8,31 @@ using System.Text;
 namespace loowootech.SCM.Model
 {
     /// <summary>
-    /// 价格记录（进货清单）
+    /// 部件进货订单
     /// </summary>
-    [Table("quotations")]
-    public class Quotation
+    [Table("orders")]
+    public class Order
     {
+        public Order()
+        {
+            this.Time = DateTime.Now;
+        }
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        public DateTime Time { get; set; }
         /// <summary>
-        /// 单价
+        /// 快递单
         /// </summary>
-        public double Price { get; set; }
+        public string Express { get; set; }
         /// <summary>
-        /// 数量
+        /// 合同
         /// </summary>
-        public int Number { get; set; }
+        public string Indenture { get; set; }
         /// <summary>
-        /// 指定的部件
+        /// 供应商
         /// </summary>
-        public int CID { get; set; }
-        /// <summary>
-        /// 订单号
-        /// </summary>
-        public int OID { get; set; }
-
-        [NotMapped]
-        public Components Components { get; set; }
+        public int EID { get; set; }
+        
     }
 }
