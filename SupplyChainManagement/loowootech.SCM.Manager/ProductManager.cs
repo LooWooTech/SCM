@@ -13,7 +13,19 @@ namespace loowootech.SCM.Manager
         {
             var listTemp = Get();
             List<Product> list = new List<Product>();
+            foreach (var item in listTemp)
+            {
+                list.Add(Core.ItemManager.GetList(item));
+            }
             return list;
+        }
+
+        public Product Get(int ID)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Products.Find(ID);
+            }
         }
 
         public List<Product> Get()
@@ -34,6 +46,11 @@ namespace loowootech.SCM.Manager
                 db.Products.Add(product);
                 db.SaveChanges();
             }
+            Core.RateManager.Add(new Rate
+            {
+                Price = product.Price,
+                SID = product.ID
+            });
             return product.ID;
         }
 
@@ -43,6 +60,30 @@ namespace loowootech.SCM.Manager
             {
                 var entity = db.Products.Where(e => e.Number.ToUpper() == product.Number.ToUpper()).FirstOrDefault();
                 return entity == null ? true : false;
+            }
+        }
+
+        public void Edit(Product product)
+        {
+            using (var db = GetDataContext())
+            {
+                var entity = db.Products.FirstOrDefault(e => e.Number.ToUpper() == product.Number.ToUpper());
+                if (entity != null)
+                {
+                    product.ID = entity.ID;
+                    db.Entry(entity).CurrentValues.SetValues(product);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public void Edit(Rate rate)
+        {
+            var product = Get(rate.SID);
+            if (product != null)
+            {
+                product.Price = rate.Price;
+                Edit(product);
             }
         }
     }

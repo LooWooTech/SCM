@@ -1,7 +1,9 @@
 ﻿using loowootech.SCM.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -35,6 +37,26 @@ namespace SupplyChainManagement.Controllers
                     throw new ArgumentException(ex.Message);
                 }
             }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Price(int PID)
+        {
+            ViewBag.PID = PID;
+            return View();
+        }
+
+        public string JavaScriptContext(int ID)
+        {
+            var list = Core.RateManager.Get(ID);
+            return Core.RateManager.GetJavaScriptContext(list,Server.MapPath("~/Charts/Price.js"));
+        }
+
+        [HttpPost]
+        public ActionResult AddRate(Rate rate)
+        {
+            Core.RateManager.Add(rate);
+            Core.ProductManager.Edit(rate);
             return RedirectToAction("Index");
         }
 

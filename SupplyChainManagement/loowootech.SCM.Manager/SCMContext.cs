@@ -22,5 +22,6 @@ namespace loowoo.SCM.Manager
         public DbSet<AddressList> AddressLists { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Rate> Rates { get; set; }
     }
 }

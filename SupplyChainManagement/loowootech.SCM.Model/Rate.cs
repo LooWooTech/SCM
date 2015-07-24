@@ -7,26 +7,18 @@ using System.Text;
 
 namespace loowootech.SCM.Model
 {
-    /// <summary>
-    /// 产品
-    /// </summary>
-    [Table("products")]
-    public class Product
+    [Table("rates")]
+    public class Rate
     {
+        public Rate()
+        {
+            this.Time = DateTime.Now;
+        }
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        /// <summary>
-        /// 型号
-        /// </summary>
-        public string Number { get; set; }
-        /// <summary>
-        /// 售价
-        /// </summary>
+        public DateTime Time { get; set; }
         public double Price { get; set; }
-        [NotMapped]
-        public List<Item> Items { get; set; }
-        
-        
+        public int SID { get; set; }
     }
 }

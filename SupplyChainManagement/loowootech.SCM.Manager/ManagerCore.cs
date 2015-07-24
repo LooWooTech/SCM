@@ -54,6 +54,12 @@ namespace loowootech.SCM.Manager
         {
             get { return _itemManager == null ? _itemManager = new ItemManager() : _itemManager; }
         }
+
+        private RateManager _rateManager;
+        public RateManager RateManager
+        {
+            get { return _rateManager == null ? _rateManager = new RateManager() : _rateManager; }
+        }
         
     }
 }

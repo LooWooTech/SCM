@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+    int PID = ViewBag.PID;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Price</title>
+    <script src="~/Scripts/Chart.js"></script>
+    <script type="text/javascript">
+        @{
+            Html.RenderAction("JavaScriptContext", new { ID=PID});
+        }
+    </script>
+    
+</head>
+<body>
+    <div>
+        <div>
+            <canvas id="canvas" height="630" width="820"></canvas>
+        </div>
+    </div>
+</body>
+</html>

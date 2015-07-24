@@ -1,6 +1,6 @@
 ﻿@using loowootech.SCM.Common
 @model IEnumerable<loowootech.SCM.Model.Components>
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddProduct">添加产品</button>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddProduct"><i class="glyphicon glyphicon-plus"></i> 添加产品</button>
 <div class="modal fade" id="AddProduct" tabindex="-1" role="document" aria-labelledby="myLargeModalLable">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -8,7 +8,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">添加产品</h4>
             </div>
-            <form class="form-horizontal" action="" method="post">
+            <form class="form-horizontal" action="/Manufacture/Add" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="Number" class="control-label col-lg-3">产品型号</label>
@@ -40,12 +40,12 @@
                                         <select name="CID" class="form-control">
                                             @foreach (var item in Model)
                                             {
-                                                <option value="">@(item.Brand)@(item.Type.GetDescription()),@(item.Specification),@(item.Number)</option>
+                                                <option value="@(item.ID)">@(item.Brand)@(item.Type.GetDescription()),@(item.Specification),@(item.Number)</option>
                                             }
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" name="Number" class="form-control" />
+                                        <input type="text" name="Amount" class="form-control" />
                                     </td>
                                 </tr>
                             </table>
@@ -55,8 +55,8 @@
                 <div class="modal-footer">
                     <dic class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <button type="button" class="btn btn-default">取消</button>
-                            <button type="submit" class="btn btn-primary">确定</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> 取消</button>
+                            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i> 确定</button>
                         </div>
                     </dic>
                 </div>

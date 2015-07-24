@@ -51,5 +51,14 @@ namespace loowootech.SCM.Manager
                 return entity == null ? true : false;
             }
         }
+
+        public Item GetComponents(Item item)
+        {
+            using (var db = GetDataContext())
+            {
+                item.Components = db.Components.Find(item.CID);
+            }
+            return item;
+        }
     }
 }

@@ -38,6 +38,10 @@
                 {
                     <a href="/Stock/Place?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-log-in"></i>进货</a>
                 }
+                else if (item.Business == Business.Seller)
+                {
+                    <a href="/Stock/Backlog?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-log-out">订货</i></a>   
+                }
             </td>
         </tr>
     }

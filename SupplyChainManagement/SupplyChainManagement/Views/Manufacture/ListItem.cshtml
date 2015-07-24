@@ -1,0 +1,37 @@
+﻿@using loowootech.SCM.Common
+@{
+    int serialNumber = 1;
+    List<loowootech.SCM.Model.Item> list = PageData["Items"];
+    int Index = PageData["Index"];
+}
+<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#View@(Index)"><i class="glyphicon glyphicon-th-list"></i> 部件清单</button>
+<div class="modal fade" id="View@(Index)" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">部件清单</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>序号</th>
+                        <th>部件名称</th>
+                        <th>数量</th>
+                    </tr>
+                    @foreach (var item in list)
+                    {
+                        <tr>
+                            <td>@(serialNumber++)</td>
+                            <td>@(item.Components.Brand)@(item.Components.Type.GetDescription()),@(item.Components.Specification),@(item.Components.Number)</td>
+                            <td>@(item.Number)</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-ok"></i> 确定</button>
+            </div>
+        </div>
+    </div>
+</div>

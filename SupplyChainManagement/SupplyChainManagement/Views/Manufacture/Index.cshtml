@@ -3,6 +3,7 @@
     ViewBag.Title = "产品列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<loowootech.SCM.Model.Components> list = ViewBag.CList;
+    int serizlNumber = 1;
 }
 
 @{
@@ -16,7 +17,25 @@
         <th>序号</th>
         <th>产品型号</th>
         <th>售价</th>
+        <th>部件</th>
     </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@(serizlNumber++)</td>
+            <td>@(item.Number)</td>
+            <td>
+                @Math.Round(item.Price,4)
+                @{
+                    Html.RenderPartial("Chart",item.ID);
+                }
+            </td>
+            <td>
+                @RenderPage("ListItem.cshtml", new { Items = item.Items, Index = item.ID })
+                <a href="#" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>删除</a>
+            </td>
+        </tr>
+    }
 </table>
 
 

@@ -20,7 +20,7 @@ namespace SupplyChainManagement.Controllers
 
 
         /// <summary>
-        /// 开始下单
+        /// 向供应商部件下单
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
@@ -69,7 +69,18 @@ namespace SupplyChainManagement.Controllers
             }
             return View();
         }
-        
+
+        /// <summary>
+        /// 经销商 订货
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public ActionResult Backlog(int ID)
+        {
+            ViewBag.Enterprise = Core.EnterpriseManager.Get(ID);
+            ViewBag.List = Core.ProductManager.Get();
+            return View();
+        }
 
         
 

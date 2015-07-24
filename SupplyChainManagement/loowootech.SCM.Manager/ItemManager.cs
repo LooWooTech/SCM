@@ -12,7 +12,7 @@ namespace loowootech.SCM.Manager
         public List<Item> Acquire(HttpContextBase context,int PID)
         {
             string[] SCID = context.Request.Form["CID"].Split(',');
-            string[] SNumber = context.Request.Form["Number"].Split(',');
+            string[] SNumber = context.Request.Form["Amount"].Split(',');
             if (SCID.Count() != SNumber.Count())
             {
                 throw new ArgumentException("服务器内部错误");
@@ -78,7 +78,13 @@ namespace loowootech.SCM.Manager
 
         public Product GetList(Product product)
         {
-
+            var listTemp = Get(product.ID);
+            List<Item> list = new List<Item>();
+            foreach (var item in listTemp)
+            {
+                list.Add(Core.ComponentsManager.GetComponents(item));
+            }
+            product.Items = list;
             return product;
         }
 
@@ -87,6 +93,14 @@ namespace loowootech.SCM.Manager
             foreach (var item in list)
             {
                 Add(item);
+            }
+        }
+
+        public List<Item> Get(int PID)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Items.Where(e => e.PID == PID).ToList();
             }
         }
     }
