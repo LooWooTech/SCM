@@ -56,9 +56,17 @@ namespace SupplyChainManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(string Express)
+        public ActionResult Edit(int ID,string Express)
         {
-
+            var order = Core.OrderManager.Acquire(HttpContext, ID, Express);
+            try
+            {
+                Core.OrderManager.Edit(order);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
             return View();
         }
         

@@ -1,8 +1,10 @@
-﻿using loowootech.SCM.Model;
+﻿using loowootech.SCM.Common;
+using loowootech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace loowootech.SCM.Manager
 {
@@ -58,6 +60,38 @@ namespace loowootech.SCM.Manager
                 }
             }
             return order;
+        }
+
+        public Order Acquire(HttpContextBase context,int ID,string Express)
+        {
+            var file = UploadHelper.GetPostedFile(context);
+            string FilePath = string.Empty;
+            if (file != null)
+            {
+                FilePath = UploadHelper.Upload(file);
+            }
+            Order order = Get(ID);
+            if (order == null)
+            {
+                throw new ArgumentException("未找到部件进货订单");
+            }
+            order.Express = Express;
+            order.Indenture = FilePath;
+            return order;
+        }
+
+
+        public void Edit(Order order)
+        {
+            using (var db = GetDataContext())
+            {
+                var entity = db.Orders.Find(order.ID);
+                if (entity != null)
+                {
+                    db.Entry(entity).CurrentValues.SetValues(order);
+                    db.SaveChanges();
+                }
+            }
         }
     }
 }

@@ -1,0 +1,74 @@
+﻿@using loowootech.SCM.Common
+@model IEnumerable<loowootech.SCM.Model.Components>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddProduct">添加产品</button>
+<div class="modal fade" id="AddProduct" tabindex="-1" role="document" aria-labelledby="myLargeModalLable">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加产品</h4>
+            </div>
+            <form class="form-horizontal" action="" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Number" class="control-label col-lg-3">产品型号</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="Number" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Price" class="control-label col-lg-3">售价</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="Price" class="form-control" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">组成清单</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered" id="table">
+                                <tr>
+                                    <th><a href="#" class="text-success" id="Add"><i class="glyphicon glyphicon-plus"></i></a></th>
+                                    <th>部件名称</th>
+                                    <th>数量</th>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <select name="CID" class="form-control">
+                                            @foreach (var item in Model)
+                                            {
+                                                <option value="">@(item.Brand)@(item.Type.GetDescription()),@(item.Specification),@(item.Number)</option>
+                                            }
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="Number" class="form-control" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <dic class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <button type="button" class="btn btn-default">取消</button>
+                            <button type="submit" class="btn btn-primary">确定</button>
+                        </div>
+                    </dic>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#Add").click(function () {
+            var $tr = "<tr>"+$("table tr:last-child").html()+"</tr>";
+            $("#table").append($tr);
+        });
+    })
+</script>

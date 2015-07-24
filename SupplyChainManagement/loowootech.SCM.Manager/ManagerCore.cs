@@ -42,6 +42,18 @@ namespace loowootech.SCM.Manager
         {
             get { return _orderManager == null ? _orderManager = new OrderManager() : _orderManager; }
         }
+
+        private ProductManager _productManager;
+        public ProductManager ProductManager
+        {
+            get { return _productManager == null ? _productManager = new ProductManager() : _productManager; }
+        }
+
+        private ItemManager _itemManager;
+        public ItemManager ItemManager
+        {
+            get { return _itemManager == null ? _itemManager = new ItemManager() : _itemManager; }
+        }
         
     }
 }

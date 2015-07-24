@@ -1,0 +1,23 @@
+﻿@model IEnumerable<loowootech.SCM.Model.Product>
+@{
+    ViewBag.Title = "产品列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<loowootech.SCM.Model.Components> list = ViewBag.CList;
+}
+
+@{
+    Html.RenderPartial("AddProduct",list);
+}
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>序号</th>
+        <th>产品型号</th>
+        <th>售价</th>
+    </tr>
+</table>
+
+
+
