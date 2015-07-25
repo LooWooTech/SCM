@@ -21,13 +21,13 @@
             <div class="form-group">
                 <table class="table table-bordered">
                     <tr>
-                        <th><a href="#" class="text-success" id="Add"><i class="glyphicon glyphicon-plus"></i></a></th>
+                        
                         <th>部件</th>
                         <th>价格（单价）</th>
                         <th>数量</th>
+                        <th><a href="#" class="text-success" id="Add"><i class="glyphicon glyphicon-plus"></i></a></th>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>
                             <select name="CID" class="form-control">
                                 @foreach (var item in list)
@@ -42,6 +42,7 @@
                         <td>
                             <input type="text" name="Number" class="form-control" />
                         </td>
+                        <td name="remove"></td>
                     </tr>
                 </table>
                 <input type="text" name="EID" value="@(enterprise.ID)" style="display:none" />
@@ -55,9 +56,13 @@
 
 <script>
     $(function () {
+
+        var i = 1;
+        var copy=$("table tr:last-child").html()
         $("#Add").click(function () {
-            var $tr = "<tr>"+$("table tr:last-child").html()+"</tr>";
+            var $tr = "<tr id='"+i+"'>"+copy+"</tr>";
             $("table").append($tr);
+            i++;
         });
     })
 </script>

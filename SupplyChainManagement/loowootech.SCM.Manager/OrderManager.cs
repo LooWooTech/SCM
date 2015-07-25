@@ -28,18 +28,18 @@ namespace loowootech.SCM.Manager
             }
         }
 
-        public List<Order> Get()
+        public List<Order> Get(OrderType Type)
         {
             using (var db = GetDataContext())
             {
-                return db.Orders.OrderBy(e => e.Time).ToList();
+                return db.Orders.Where(e=>e.Type==Type).OrderBy(e => e.Time).ToList();
             }
         }
 
 
-        public List<Order> GetAll()
+        public List<Order> GetAll(OrderType Type)
         {
-            var listTemp = Get();
+            var listTemp = Get(Type);
             List<Order> list = new List<Order>();
             foreach (var item in listTemp)
             {

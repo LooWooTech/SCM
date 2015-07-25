@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -33,8 +34,33 @@ namespace loowootech.SCM.Model
         /// 供应商
         /// </summary>
         public int EID { get; set; }
+        [Column(TypeName="int")]
+        public OrderType Type { get; set; }
+        [Column(TypeName="int")]
+        public State State { get; set; }
         [NotMapped]
         public Enterprise Enterprise { get; set; }
         
+    }
+
+
+    public enum State
+    {
+        [Description("订单生成")]
+        place,
+        [Description("发货")]
+        shipping,
+        [Description("完成")]
+        Done,
+        [Description("退货")]
+        turn
+    }
+
+    public enum OrderType
+    {
+        [Description("进货")]
+        bought,
+        [Description("出货")]
+        shipment
     }
 }

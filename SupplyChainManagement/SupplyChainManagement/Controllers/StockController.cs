@@ -12,9 +12,9 @@ namespace SupplyChainManagement.Controllers
         //
         // GET: /Stock/
 
-        public ActionResult Index()
+        public ActionResult Index(OrderType Type=OrderType.bought)
         {
-            var list = Core.OrderManager.GetAll();
+            var list = Core.OrderManager.GetAll(Type);
             return View(list);
         }
 

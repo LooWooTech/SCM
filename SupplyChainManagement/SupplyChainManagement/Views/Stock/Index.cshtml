@@ -1,4 +1,6 @@
-﻿@model IEnumerable<loowootech.SCM.Model.Order>
+﻿@using loowootech.SCM.Common
+@using loowootech.SCM.Model
+@model IEnumerable<loowootech.SCM.Model.Order>
 @{
     ViewBag.Title = "部件进货清单";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,6 +10,7 @@
 <table class="table table-bordered">
     <tr>
         <th>序号</th>
+        <th>订单状态</th>
         <th>供应商</th>
         <th>时间</th>
         <th>合同</th>
@@ -16,6 +19,24 @@
     {
         <tr>
             <td>@(serialNumber++)</td>
+            <td>
+                @switch (item.State)
+                {
+                    case State.Done:
+                        <i class="icon-large icon-ok-circle"></i>
+                        break;
+                    case State.place:
+                    <i class="icon-large icon-shopping-cart"></i>
+                        break;
+                    case State.shipping:
+                    <i class="icon-large icon-plane"></i>
+                        break;
+                        case State.turn:
+                        break;
+                    default: break;
+                }
+                @(item.State.GetDescription())    
+            </td>
             <td>@(item.Enterprise.Name)</td>
             <td>@(item.Time)</td>
             <td>@(item.Indenture)</td>

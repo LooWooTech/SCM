@@ -13,13 +13,14 @@
 <form class="form-horizontal" method="post" action="">
     <table class="table table-bordered">
         <tr>
-            <th><a href="#" class="text-success" id="Add"><i class="glyphicon glyphicon-plus"></i></a></th>
+            
             <th>产品型号</th>
             <th>数量</th>
             <th>成交单价</th>
+            <th><a href="#" class="text-success" id="Add"><i class="glyphicon glyphicon-plus"></i></a></th>
         </tr>
         <tr>
-            <td></td>
+            
             <td>
                 <select name="PID" class="form-control">
                     @foreach (var item in list)
@@ -34,6 +35,7 @@
             <td>
                 <input type="text" name="Price" class="form-control" />
             </td>
+            <td></td>
         </tr>
     </table>
     <button type="submit" class="btn btn-info" style="float:right;"><i class="glyphicon glyphicon-ok"></i>确定</button>

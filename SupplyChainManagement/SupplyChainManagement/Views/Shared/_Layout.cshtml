@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/content/bootstrap.css" media="screen">
     <link rel="stylesheet" href="/content/bootswatch.min.css" media="screen">
     <link rel="stylesheet" href="/content/main.min.css" media="screen">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css" />
     
     <script src="/scripts/jquery-1.9.1.min.js"></script>
     <script src="/scripts/bootstrap.min.js"></script>
@@ -31,7 +32,7 @@
                     <li class=""><a href="/Stock/Index"><i class="glyphicon glyphicon-log-in"></i>&nbsp; 部件进货</a></li>
                     <li class=""><a href="/Manufacture/Index"><i class="glyphicon glyphicon-plane"></i>&nbsp; 产品型号</a></li>
                     <li class=""><a href="/Enterprise/Index?Business=@Business.Seller"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp; 经销商</a></li>
-                    <li class=""><a href="#"><i class="glyphicon glyphicon-gift"></i>&nbsp; 经销商订货</a></li>
+                    <li class=""><a href="/Stock/Index?Type=@(OrderType.shipment)"><i class="glyphicon glyphicon-gift"></i>&nbsp; 经销商订货</a></li>
                     <li class=""><a href="#"><i class="glyphicon glyphicon-hdd">&nbsp;</i> 库存</a></li>
                 </ul>
             </div>

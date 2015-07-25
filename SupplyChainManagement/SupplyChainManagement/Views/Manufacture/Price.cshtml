@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
     int PID = ViewBag.PID;
+
 }
 
 <!DOCTYPE html>
@@ -12,10 +13,10 @@
     <script src="~/Scripts/Chart.js"></script>
     <script type="text/javascript">
         @{
-            Html.RenderAction("JavaScriptContext", new { ID=PID});
+            Html.RenderAction("JavaScriptContext", new { ID = PID });
         }
     </script>
-    
+
 </head>
 <body>
     <div>
