@@ -1,0 +1,70 @@
+﻿@model IEnumerable<loowootech.SCM.Model.Message>
+@{
+    ViewBag.Title = "反馈信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<loowootech.SCM.Model.Contact> list = ViewBag.List;
+    loowootech.SCM.Model.Enterprise enterprise = ViewBag.Enterprise;
+    List<loowootech.SCM.Model.Message> MList=ViewBag.MList;
+    int SerialNumber = 1;
+}
+
+
+<form class="form-horizontal" action="/Epistolize/Add" method="post">
+    <div class="form-group">
+        <label for="CID" class="control-label col-lg-3">联系人</label>
+        <div class="col-lg-8">
+            <select name="CID" class="form-control">
+                @foreach (var item in list)
+                {
+                    <option value="@(item.ID)">@(item.Name)</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Word" class="control-label col-lg-3">反馈信息</label>
+        <div class="col-lg-8">
+            <textarea name="Word" class=" form-control" style="height:200px;"></textarea>
+        </div>
+    </div>
+    <input type="text" name="EID" value="@(enterprise.ID)" style="display:none" />
+    <div class="form-group">
+        <div class="col-lg-8 col-lg-offset-3">
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i> 反馈</button>
+        </div>
+    </div>
+</form>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">反馈历史</h3>
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <table class="table table-bordered">
+                <tr>
+                    <th>序号</th>
+                    <th>联系人</th>
+                    <th>反馈信息</th>
+                    <th>反馈时间</th>
+                </tr>
+
+                @foreach (var item in MList)
+                {
+                    <tr>
+                        <td>@(SerialNumber++)</td>
+                        <td>@(item.Contact.Name)</td>
+                        <td>@Html.Raw(item.Word.Replace("\r\n","<br />"))</td>
+                        <td>@(item.Time)</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+

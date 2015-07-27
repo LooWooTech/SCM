@@ -19,7 +19,6 @@
         <th>@Html.DisplayNameFor(model => model.Address)</th>
         <th>联系人</th>
         <th>汇款信息</th>
-        <th>主要供应设备型号</th>
         <th>备注</th>
     </tr>
     @foreach (var item in Model)
@@ -32,16 +31,17 @@
                 @Html.Action("Contacts", new  { ID=item.ID})
             </td>
             <td></td>
-            <td></td>
             <td>
                 @if (item.Business == Business.Supplier)
                 {
                     <a href="/Stock/Place?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-log-in"></i>进货</a>
+                    <a href="" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-glass"></i>供应详情</a>
                 }
                 else if (item.Business == Business.Seller)
                 {
                     <a href="/Stock/Backlog?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-log-out">订货</i></a>   
                 }
+                <a href="/Epistolize/Index?ID=@(item.ID)" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-envelope"></i>反馈</a>
             </td>
         </tr>
     }

@@ -78,5 +78,11 @@ namespace loowootech.SCM.Manager
                 return entity == null ? true : false;
             }
         }
+
+        public Message GetContact(Message message)
+        {
+            message.Contact = GetByID(message.CID);
+            return message;
+        }
     }
 }

@@ -70,6 +70,21 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
+        public ActionResult Logistics(int ID)
+        {
+            var order = Core.OrderManager.Get(ID);
+            return View(order);
+        }
+
+        
+
+
+        public ActionResult Delete(int ID)
+        {
+
+            return RedirectToAction("Index");
+        }
+
         /// <summary>
         /// 经销商 订货
         /// </summary>

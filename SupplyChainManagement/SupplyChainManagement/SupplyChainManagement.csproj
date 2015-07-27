@@ -144,6 +144,7 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
+    <Compile Include="Controllers\EpistolizeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManufactureController.cs" />
     <Compile Include="Controllers\StockController.cs" />
@@ -213,6 +214,8 @@
     <Content Include="Views\Manufacture\Chart.cshtml" />
     <Content Include="Views\Stock\Backlog.cshtml" />
     <Content Include="Views\Manufacture\Price.cshtml" />
+    <Content Include="Views\Epistolize\Index.cshtml" />
+    <Content Include="Views\Stock\Logistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,36 +10,43 @@
 <table class="table table-bordered">
     <tr>
         <th>序号</th>
-        <th>订单状态</th>
+        
         <th>供应商</th>
         <th>时间</th>
         <th>合同</th>
+        <th>订单状态</th>
+        <th>备注</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>@(serialNumber++)</td>
-            <td>
-                @switch (item.State)
-                {
-                    case State.Done:
-                        <i class="icon-large icon-ok-circle"></i>
-                        break;
-                    case State.place:
-                    <i class="icon-large icon-shopping-cart"></i>
-                        break;
-                    case State.shipping:
-                    <i class="icon-large icon-plane"></i>
-                        break;
-                        case State.turn:
-                        break;
-                    default: break;
-                }
-                @(item.State.GetDescription())    
-            </td>
+            
             <td>@(item.Enterprise.Name)</td>
             <td>@(item.Time)</td>
             <td>@(item.Indenture)</td>
+                @switch (item.State)
+                {
+                    case State.Done:
+                        <td><i class="icon-large icon-ok-circle"></i>@(item.State.GetDescription())</td>
+                        break;
+                    case State.place:
+                        <td><i class="icon-large icon-shopping-cart"></i>@(item.State.GetDescription())</td>
+                        <td>
+                            <a href="/Stock/Detail?ID=@(item.ID)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-check"></i>确认发货</a>
+                            <a href="/Stock/Delte?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>取消订单</a>
+                        </td>
+                        break;
+                    case State.shipping:
+                        <td><i class="icon-large icon-plane"></i>@(item.State.GetDescription())</td>
+                        break;
+                    case State.turn:
+                        <td></td>
+                        break;
+                    default:
+                        <td></td>
+                        break;
+                }
         </tr>
     }
 </table>

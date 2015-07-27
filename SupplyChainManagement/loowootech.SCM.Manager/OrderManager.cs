@@ -77,6 +77,10 @@ namespace loowootech.SCM.Manager
             }
             order.Express = Express;
             order.Indenture = FilePath;
+            if (!string.IsNullOrEmpty(Express))
+            {
+                order.State = State.shipping;
+            }
             return order;
         }
 
@@ -92,6 +96,16 @@ namespace loowootech.SCM.Manager
                     db.SaveChanges();
                 }
             }
+        }
+
+        public void  Delete(int ID)
+        {
+            var order = Get(ID);
+            if (order == null || order.State != State.place)
+            {
+                throw new ArgumentException("当前要删除的订单无效或者无法删除状态");
+            }
+
         }
     }
 }

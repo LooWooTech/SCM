@@ -29,5 +29,8 @@ namespace loowootech.SCM.Model
         /// </summary>
         public DateTime Time { get; set; }
         public int EID { get; set; }
+        public int CID { get; set; }
+        [NotMapped]
+        public Contact Contact { get; set; }
     }
 }

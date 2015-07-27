@@ -60,6 +60,12 @@ namespace loowootech.SCM.Manager
         {
             get { return _rateManager == null ? _rateManager = new RateManager() : _rateManager; }
         }
+
+        private MessageManager _messageManager;
+        public MessageManager MessageManager
+        {
+            get { return _messageManager == null ? _messageManager = new MessageManager() : _messageManager; }
+        }
         
     }
 }

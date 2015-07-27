@@ -7,6 +7,9 @@ using System.Text;
 
 namespace loowootech.SCM.Model
 {
+    /// <summary>
+    /// 价格记录
+    /// </summary>
     [Table("rates")]
     public class Rate
     {
