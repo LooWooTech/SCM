@@ -20,6 +20,14 @@ namespace loowootech.SCM.Manager
             }
         }
 
+        public void Done(int ID)
+        {
+            var order = Get(ID);
+            order.State = State.Done;
+            Edit(order);
+        }
+
+
         public Order Get(int ID)
         {
             using (var db = GetDataContext())

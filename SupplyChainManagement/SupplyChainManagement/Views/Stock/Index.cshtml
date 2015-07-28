@@ -33,12 +33,15 @@
                     case State.place:
                         <td><i class="icon-large icon-shopping-cart"></i>@(item.State.GetDescription())</td>
                         <td>
-                            <a href="/Stock/Detail?ID=@(item.ID)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-check"></i>确认发货</a>
+                            <a href="/Stock/Detail?ID=@(item.ID)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-check"></i>填写物流单</a>
                             <a href="/Stock/Delte?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>取消订单</a>
                         </td>
                         break;
                     case State.shipping:
                         <td><i class="icon-large icon-plane"></i>@(item.State.GetDescription())</td>
+                        <td>
+                            <a href="/Stock/Logistics?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i>查看物流</a>                        
+                        </td>
                         break;
                     case State.turn:
                         <td></td>

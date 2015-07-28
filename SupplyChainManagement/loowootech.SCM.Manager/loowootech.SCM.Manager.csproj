@@ -51,6 +51,7 @@
     <Compile Include="ComponentsManager.cs" />
     <Compile Include="ContactManager.cs" />
     <Compile Include="EnterpriseManager.cs" />
+    <Compile Include="InventoryManager.cs" />
     <Compile Include="ItemManager.cs" />
     <Compile Include="ManagerBase.cs" />
     <Compile Include="ManagerCore.cs" />

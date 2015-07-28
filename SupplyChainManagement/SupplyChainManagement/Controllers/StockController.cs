@@ -67,16 +67,32 @@ namespace SupplyChainManagement.Controllers
             {
                 throw new ArgumentException(ex.Message);
             }
-            return View();
+            return RedirectToAction("Logistics", new { ID=ID});
         }
 
         public ActionResult Logistics(int ID)
         {
             var order = Core.OrderManager.Get(ID);
+            if (order == null)
+            {
+                throw new ArgumentException("未找到相关的订单详情");
+            }
+            ViewBag.List = Core.QuotationManager.GetAll(order.ID);
             return View(order);
         }
 
-        
+
+        [HttpPost]
+        public ActionResult CheckOut(int ID)
+        {
+            var listNames = Core.QuotationManager.GetByOID(ID).Select(e=>e.ID).ToList();
+            var dict = Core.QuotationManager.Acquire(HttpContext, listNames);
+            Core.QuotationManager.Update(dict);
+            var list = Core.QuotationManager.GetByOID(ID);
+            Core.InventoryManager.Add(list);
+            Core.OrderManager.Done(ID);
+            return RedirectToAction("Index");
+        }
 
 
         public ActionResult Delete(int ID)
@@ -84,6 +100,8 @@ namespace SupplyChainManagement.Controllers
 
             return RedirectToAction("Index");
         }
+        
+
 
         /// <summary>
         /// 经销商 订货

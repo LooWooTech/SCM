@@ -1,11 +1,41 @@
-﻿@model loowootech.SCM.Model.Order
+﻿@using loowootech.SCM.Common
+@model loowootech.SCM.Model.Order
 @{
     ViewBag.Title = "物流管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<loowootech.SCM.Model.Quotation> list = ViewBag.List;
 }
 
-<div class="alert ">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">物流信息</h4>
+    </div>
+    <div class="panel-body">
 
+    </div>
 </div>
 
-<a href="" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>确认收货</a>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h4 class="panel-title">部件确认清单</h4>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" method="post" action="">
+            @foreach (var item in list)
+            {
+                <div class="form-group">
+                    <label for="" class="control-label col-lg-4">@(item.Components.Brand)@(item.Components.Type.GetDescription()),@(item.Components.Specification),@(item.Components.Number)</label>
+                    <div class="col-lg-6">
+                        <input type="number" class="form-control" name="@(item.ID)" min="0" max="@(item.Number)" value="@(item.Number)" step="1"/>
+                    </div>
+                </div>
+            }
+            <input type="text" name="ID" value="@(Model.ID)" style="display:none;" />
+            <div class="form-group">
+                <div class="col-lg-6 col-lg-offset-4">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-ok"></i>确认收货</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

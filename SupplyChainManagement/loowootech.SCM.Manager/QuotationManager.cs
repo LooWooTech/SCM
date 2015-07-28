@@ -67,6 +67,93 @@ namespace loowootech.SCM.Manager
             return list;
         }
 
+        public Dictionary<int,int> Acquire(HttpContextBase context, List<int> Names)
+        {
+            Dictionary<int, int> values = new Dictionary<int, int>();
+            foreach (var item in Names)
+            {
+                if (context.Request.Form[item.ToString()] != null)
+                {
+                    string key = context.Request.Form[item.ToString()].ToString();
+                    int Number = 0;
+                    int.TryParse(key, out Number);
+                    if (!values.ContainsKey(item))
+                    {
+                        values.Add(item, Number);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("内部服务器错误");
+                }
+            }
+            return values;
+        }
+
+        public bool Check(Dictionary<int, int> DICT)
+        {
+            foreach (var item in DICT.Keys)
+            {
+                var entity = Get(item);
+                if (entity.Number < DICT[item])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public void Update(Dictionary<int, int> DICT)
+        {
+            if (!Check(DICT))
+            {
+                throw new ArgumentException("最终确认的部件清单数量超出下单的数量，请核对");
+            }
+            foreach (var item in DICT.Keys)
+            {
+                Update(item, DICT[item]);
+            }
+        }
+
+        public void  Update(int ID, int Number)
+        {
+            var quotation = Get(ID);
+            if (quotation.Number < Number)
+            {
+                return ;
+            }
+            quotation.Number = Number;
+            try
+            {
+                Update(quotation);
+            }
+            catch(Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+        }
+
+        public void Update(Quotation quotation)
+        {
+            using (var db = GetDataContext())
+            {
+                var entity = db.Quotations.Find(quotation.ID);
+                if (entity != null)
+                {
+                    db.Entry(entity).CurrentValues.SetValues(quotation);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public Quotation Get(int ID)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Quotations.Find(ID);
+            }
+        }
+
         public void AddAll(List<Quotation> List)
         {
             foreach (var item in List)
@@ -85,7 +172,7 @@ namespace loowootech.SCM.Manager
 
         public List<Quotation> GetAll(int OID)
         {
-            var listTemp = Get(OID);
+            var listTemp = GetByOID(OID);
             List<Quotation> list = new List<Quotation>();
             foreach (var item in listTemp)
             {
@@ -94,7 +181,7 @@ namespace loowootech.SCM.Manager
             return list;
         }
 
-        public List<Quotation> Get(int OID)
+        public List<Quotation> GetByOID(int OID)
         {
             using (var db = GetDataContext())
             {

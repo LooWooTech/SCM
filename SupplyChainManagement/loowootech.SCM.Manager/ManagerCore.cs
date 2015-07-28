@@ -66,6 +66,12 @@ namespace loowootech.SCM.Manager
         {
             get { return _messageManager == null ? _messageManager = new MessageManager() : _messageManager; }
         }
+
+        private InventoryManager _inventoryManager;
+        public InventoryManager InventoryManager
+        {
+            get { return _inventoryManager == null ? _inventoryManager = new InventoryManager() : _inventoryManager; }
+        }
         
     }
 }
