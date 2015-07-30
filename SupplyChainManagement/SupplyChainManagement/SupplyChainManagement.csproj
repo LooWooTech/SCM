@@ -147,6 +147,7 @@
     <Compile Include="Controllers\EpistolizeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManufactureController.cs" />
+    <Compile Include="Controllers\RemitController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -163,6 +164,7 @@
     <Content Include="Content\font-awesome-ie7.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\jquery.autocomplete.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="font\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
@@ -183,6 +185,7 @@
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery.autocomplete.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -216,6 +219,8 @@
     <Content Include="Views\Manufacture\Price.cshtml" />
     <Content Include="Views\Epistolize\Index.cshtml" />
     <Content Include="Views\Stock\Logistics.cshtml" />
+    <Content Include="Views\Stock\OrderList.cshtml" />
+    <Content Include="Views\Stock\AddRemittance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

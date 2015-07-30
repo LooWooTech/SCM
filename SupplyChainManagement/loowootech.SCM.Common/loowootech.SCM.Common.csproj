@@ -45,6 +45,12 @@
     <Compile Include="QuotationHelper.cs" />
     <Compile Include="UploadHelper.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\loowootech.SCM.Model\loowootech.SCM.Model.csproj">
+      <Project>{f4475b35-5ef6-4d0c-aa2d-c62e388bc17a}</Project>
+      <Name>loowootech.SCM.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

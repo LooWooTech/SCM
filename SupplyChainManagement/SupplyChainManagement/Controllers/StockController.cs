@@ -1,4 +1,5 @@
 ﻿using loowootech.SCM.Model;
+using loowootech.SCM.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,7 @@ namespace SupplyChainManagement.Controllers
         }
 
 
+
         public ActionResult Detail(int ID)
         {
             Order order = Core.OrderManager.Get(ID);
@@ -85,13 +87,32 @@ namespace SupplyChainManagement.Controllers
         [HttpPost]
         public ActionResult CheckOut(int ID)
         {
+            //获取当前订单中的部件ID
             var listNames = Core.QuotationManager.GetByOID(ID).Select(e=>e.ID).ToList();
+            //获取字典 key为部件ID  value为最终确认部件数量
             var dict = Core.QuotationManager.Acquire(HttpContext, listNames);
+            //假如存在部分损坏部件，那么就更新本地订单部件数量
             Core.QuotationManager.Update(dict);
             var list = Core.QuotationManager.GetByOID(ID);
+            //确认本地订单部件数量 将本地部件进入本地仓库
             Core.InventoryManager.Add(list);
+            //修改本地订单状态
             Core.OrderManager.Done(ID);
             return RedirectToAction("Index");
+        }
+
+        [ChildActionOnly]
+        public ActionResult OrderList(int ID)
+        {
+            var list = Core.QuotationManager.GetAll(ID);
+            ViewBag.Index = ID;
+            return PartialView("OrderList", list);
+        }
+
+        public ActionResult Gain()
+        {
+            var list = Core.ComponentsManager.Get().Select(e => e.Brand + "-" + e.Type.GetDescription() + "-" + e.Specification + "-" + e.Number).ToList();
+            return Json(list,JsonRequestBehavior.AllowGet);
         }
 
 

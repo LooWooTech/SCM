@@ -72,6 +72,12 @@ namespace loowootech.SCM.Manager
         {
             get { return _inventoryManager == null ? _inventoryManager = new InventoryManager() : _inventoryManager; }
         }
+
+        private RemittanceManager _remittanceManager;
+        public RemittanceManager RemittanceManager
+        {
+            get { return _remittanceManager == null ? _remittanceManager = new RemittanceManager() : _remittanceManager; }
+        }
         
     }
 }

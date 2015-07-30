@@ -1,4 +1,5 @@
 ﻿using loowootech.SCM.Model;
+using loowootech.SCM.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,28 @@ namespace loowootech.SCM.Manager
                 item.Components = db.Components.Find(item.CID);
             }
             return item;
+        }
+
+        public int GetKey(string Value)
+        {
+            string[] str = Value.Split('-');
+            if (str.Count() != 4)
+            {
+                return 0;
+            }
+            UnitType type = str[1].GetEnum();
+            string Brand = str[0];
+            string specification = str[2];
+            string Number = str[3];
+            using (var db = GetDataContext())
+            {
+                var entity = db.Components.FirstOrDefault(e => e.Brand == Brand && e.Specification == specification && e.Number == Number&&e.Type==type);
+                if (entity != null)
+                {
+                    return entity.ID;
+                }
+            }
+            return 0;
         }
     }
 }

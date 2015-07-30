@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuotationManager.cs" />
     <Compile Include="RateManager.cs" />
+    <Compile Include="RemittanceManager.cs" />
     <Compile Include="SCMContext.cs" />
   </ItemGroup>
   <ItemGroup>

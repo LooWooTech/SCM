@@ -40,6 +40,8 @@ namespace loowootech.SCM.Model
         public State State { get; set; }
         [NotMapped]
         public Enterprise Enterprise { get; set; }
+        [NotMapped]
+        public Remittance Remittance { get; set; }
         
     }
 
@@ -53,7 +55,9 @@ namespace loowootech.SCM.Model
         [Description("完成")]
         Done,
         [Description("退货")]
-        turn
+        turn,
+        [Description("已汇款")]
+        payment
     }
 
     public enum OrderType

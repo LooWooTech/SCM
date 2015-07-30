@@ -34,10 +34,18 @@ namespace loowootech.SCM.Model
         /// </summary>
         public string Account { get; set; }
         /// <summary>
+        /// 开户行
+        /// </summary>
+        public string Bank { get; set; }
+        /// <summary>
         /// 账号类型
         /// </summary>
         [Column(TypeName = "int")]
         public Payment Pay { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Memo { get; set; }
         public int SID { get; set; }
     }
     public enum Payment
