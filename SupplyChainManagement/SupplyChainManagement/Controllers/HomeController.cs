@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SupplyChainManagement.Controllers
+namespace LoowooTech.SCM.Web.Controllers
 {
     public class HomeController : ControllerBase
     {

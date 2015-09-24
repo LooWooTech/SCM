@@ -1,11 +1,11 @@
-﻿using loowootech.SCM.Model;
+﻿using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace loowootech.SCM.Manager
+namespace LoowooTech.SCM.Manager
 {
     public class QuotationManager:ManagerBase
     {

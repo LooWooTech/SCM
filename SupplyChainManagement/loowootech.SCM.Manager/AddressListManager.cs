@@ -1,12 +1,12 @@
-﻿using loowootech.SCM.Model;
-using loowootech.SCM.Common;
+﻿using LoowooTech.SCM.Model;
+using LoowooTech.SCM.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace loowootech.SCM.Manager
+namespace LoowooTech.SCM.Manager
 {
     public class AddressListManager:ManagerBase
     {

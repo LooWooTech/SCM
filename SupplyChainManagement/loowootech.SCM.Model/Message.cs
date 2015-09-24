@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace loowootech.SCM.Model
+namespace LoowooTech.SCM.Model
 {
     /// <summary>
     /// 与供应商 销售商互动信息

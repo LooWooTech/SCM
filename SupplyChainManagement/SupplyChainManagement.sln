@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupplyChainManagement", "SupplyChainManagement\SupplyChainManagement.csproj", "{D58009C7-4320-4DD7-9399-7FACD82787A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.SCM.Web", "SupplyChainManagement\LoowooTech.SCM.Web.csproj", "{D58009C7-4320-4DD7-9399-7FACD82787A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "loowootech.SCM.Manager", "loowootech.SCM.Manager\loowootech.SCM.Manager.csproj", "{1D4DB224-0697-4769-86CA-F03138141C87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.SCM.Manager", "loowootech.SCM.Manager\LoowooTech.SCM.Manager.csproj", "{1D4DB224-0697-4769-86CA-F03138141C87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "loowootech.SCM.Common", "loowootech.SCM.Common\loowootech.SCM.Common.csproj", "{6DCE073C-1E64-40FD-9ED0-02A8C1C0368C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.SCM.Common", "loowootech.SCM.Common\LoowooTech.SCM.Common.csproj", "{6DCE073C-1E64-40FD-9ED0-02A8C1C0368C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "loowootech.SCM.Model", "loowootech.SCM.Model\loowootech.SCM.Model.csproj", "{F4475B35-5EF6-4D0C-AA2D-C62E388BC17A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.SCM.Model", "loowootech.SCM.Model\LoowooTech.SCM.Model.csproj", "{F4475B35-5EF6-4D0C-AA2D-C62E388BC17A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,12 +1,12 @@
-﻿using loowootech.SCM.Model;
-using loowootech.SCM.Common;
+﻿using LoowooTech.SCM.Model;
+using LoowooTech.SCM.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SupplyChainManagement.Controllers
+namespace LoowooTech.SCM.Web.Controllers
 {
     public class StockController : ControllerBase
     {

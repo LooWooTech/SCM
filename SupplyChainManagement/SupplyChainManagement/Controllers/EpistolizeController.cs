@@ -1,11 +1,11 @@
-﻿using loowootech.SCM.Model;
+﻿using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SupplyChainManagement.Controllers
+namespace LoowooTech.SCM.Web.Controllers
 {
     public class EpistolizeController : ControllerBase
     {

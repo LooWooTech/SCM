@@ -1,10 +1,10 @@
-﻿using loowoo.SCM.Manager;
+﻿using LoowooTech.SCM.Manager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace loowootech.SCM.Manager
+namespace LoowooTech.SCM.Manager
 {
     public class ManagerBase
     {

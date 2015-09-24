@@ -1,12 +1,12 @@
 ﻿
-using loowootech.SCM.Model;
+using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 
-namespace loowoo.SCM.Manager
+namespace LoowooTech.SCM.Manager
 {
     public class SCMContext : DbContext
     {

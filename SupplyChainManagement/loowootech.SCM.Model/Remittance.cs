@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace loowootech.SCM.Model
+namespace LoowooTech.SCM.Model
 {
     /// <summary>
     /// 汇款信息

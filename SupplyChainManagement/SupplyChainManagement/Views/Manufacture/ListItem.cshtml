@@ -1,7 +1,7 @@
-﻿@using loowootech.SCM.Common
+﻿@using LoowooTech.SCM.Common
 @{
     int serialNumber = 1;
-    List<loowootech.SCM.Model.Item> list = PageData["Items"];
+    List<LoowooTech.SCM.Model.Item> list = PageData["Items"];
     int Index = PageData["Index"];
 }
 <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#View@(Index)"><i class="glyphicon glyphicon-th-list"></i> 部件清单</button>

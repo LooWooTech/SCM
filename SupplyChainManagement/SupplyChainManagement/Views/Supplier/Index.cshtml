@@ -1,13 +1,13 @@
 ﻿@using System.ComponentModel.DataAnnotations;
 @using System.ComponentModel;
-@using loowootech.SCM.Common;
-@model IEnumerable<loowootech.SCM.Model.Enterprise>
+@using LoowooTech.SCM.Common;
+@model IEnumerable<LoowooTech.SCM.Model.Enterprise>
 @{
     ViewBag.Title = "供应商";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    //List<loowootech.SCM.Model.Enterprise> List = ViewBag.list;
-    Dictionary<int, List<loowootech.SCM.Model.Contact>> Dictionary = ViewBag.Dictionary;
-    loowootech.SCM.Model.Business business = ViewBag.Business;
+    //List<LoowooTech.SCM.Model.Enterprise> List = ViewBag.list;
+    Dictionary<int, List<LoowooTech.SCM.Model.Contact>> Dictionary = ViewBag.Dictionary;
+    LoowooTech.SCM.Model.Business business = ViewBag.Business;
     int serialNumber = 1;
 }
 
@@ -61,7 +61,7 @@
                             </div>
                             <div class="modal-body">
                                 @{    
-                                    System.Reflection.PropertyInfo[] propList = typeof(loowootech.SCM.Model.Enterprise).GetProperties();
+                                    System.Reflection.PropertyInfo[] propList = typeof(LoowooTech.SCM.Model.Enterprise).GetProperties();
                                     foreach (var attribute in propList)
                                     {
                                         if (attribute.Name.Equals("ID"))

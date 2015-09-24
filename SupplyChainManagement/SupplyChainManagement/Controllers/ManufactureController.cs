@@ -1,4 +1,4 @@
-﻿using loowootech.SCM.Model;
+﻿using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SupplyChainManagement.Controllers
+namespace LoowooTech.SCM.Web.Controllers
 {
     public class ManufactureController : ControllerBase
     {

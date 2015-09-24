@@ -1,11 +1,11 @@
-﻿using loowootech.SCM.Model;
-using loowootech.SCM.Common;
+﻿using LoowooTech.SCM.Model;
+using LoowooTech.SCM.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace loowootech.SCM.Manager
+namespace LoowooTech.SCM.Manager
 {
     public class ComponentsManager:ManagerBase
     {

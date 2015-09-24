@@ -1,11 +1,11 @@
-﻿using loowootech.SCM.Model;
+﻿using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace loowootech.SCM.Common
+namespace LoowooTech.SCM.Common
 {
     public static class EnumHelper
     {

@@ -1,12 +1,12 @@
-﻿using loowootech.SCM.Common;
-using loowootech.SCM.Model;
+﻿using LoowooTech.SCM.Common;
+using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace loowootech.SCM.Manager
+namespace LoowooTech.SCM.Manager
 {
     public class OrderManager:ManagerBase
     {
