@@ -9,40 +9,34 @@ namespace LoowooTech.SCM.Web.Controllers
 {
     public class EnterpriseController : ControllerBase
     {
-        //
-        // GET: /Enterprise/
-
-        public ActionResult Index(Business business)
+        public ActionResult Index(Business business, string name, int page = 1, int rows = 20)
         {
-            var list = Core.EnterpriseManager.Get(business);
+            var list = Core.EnterpriseManager.GetList(business);
             ViewBag.Business = business;
             return View(list);
         }
 
+        public ActionResult Edit(int id = 0, Business business = Business.Supplier)
+        {
+            ViewBag.Model = Core.EnterpriseManager.GetModel(id) ?? new Enterprise { Business = business };
+            return View();
+        }
+
         [HttpPost]
-        public ActionResult Add(Enterprise enterprise)
+        public ActionResult Save(Enterprise enterprise)
         {
             if (ModelState.IsValid)
             {
-                var index = Core.EnterpriseManager.Add(enterprise);
+                var index = Core.EnterpriseManager.Save(enterprise);
             }
             return RedirectToAction("Index", new { business = enterprise.Business });
         }
 
-        [ChildActionOnly]
-        public ActionResult Contacts(int ID)
+        public ActionResult Details(int id)
         {
-            ViewBag.DICT = Core.ContactManager.GetAddressList(ID);
-            ViewBag.ID = ID;
-            return PartialView("Contacts");
+            ViewBag.Model = Core.EnterpriseManager.GetModel(id);
+            ViewBag.Contacts = Core.ContactManager.GetList(id);
+            return View();
         }
-
-        [ChildActionOnly]
-        public ActionResult AddAddressList(int ID)
-        {
-            ViewBag.List = Core.ContactManager.GetNames(ID);
-            return PartialView("AddAddressList");
-        }
-
     }
 }

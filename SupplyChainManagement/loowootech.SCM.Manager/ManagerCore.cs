@@ -7,7 +7,8 @@ namespace LoowooTech.SCM.Manager
 {
     public class ManagerCore
     {
-        public static ManagerCore Instance = new ManagerCore();
+        private ManagerCore() { }
+        public static readonly ManagerCore Instance = new ManagerCore();
         private EnterpriseManager _enterpriseManager;
         public EnterpriseManager EnterpriseManager
         {

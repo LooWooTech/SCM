@@ -27,7 +27,7 @@ namespace LoowooTech.SCM.Web.Controllers
         /// <returns></returns>
         public ActionResult Place(int ID)
         {
-            ViewBag.Enterprise = Core.EnterpriseManager.Get(ID);
+            ViewBag.Enterprise = Core.EnterpriseManager.GetModel(ID);
             ViewBag.List = Core.ComponentsManager.Get();
             return View();
         }
@@ -131,7 +131,7 @@ namespace LoowooTech.SCM.Web.Controllers
         /// <returns></returns>
         public ActionResult Backlog(int ID)
         {
-            ViewBag.Enterprise = Core.EnterpriseManager.Get(ID);
+            ViewBag.Enterprise = Core.EnterpriseManager.GetModel(ID);
             ViewBag.List = Core.ProductManager.Get();
             return View();
         }

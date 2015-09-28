@@ -6,9 +6,9 @@ using System.Text;
 
 namespace LoowooTech.SCM.Manager
 {
-    public class EnterpriseManager:ManagerBase
+    public class EnterpriseManager : ManagerBase
     {
-        public List<Enterprise> Get(Business business)
+        public List<Enterprise> GetList(Business business)
         {
             using (var db = GetDataContext())
             {
@@ -17,34 +17,22 @@ namespace LoowooTech.SCM.Manager
         }
 
 
-        public Enterprise Get(int ID)
+        public Enterprise GetModel(int id)
         {
+            if (id == 0) return null;
             using (var db = GetDataContext())
             {
-                return db.Enterprises.Find(ID);
+                return db.Enterprises.Find(id);
             }
         }
 
-        public int Add(Enterprise enterprise)
+        public int Save(Enterprise enterprise)
         {
-            if (!Validate(enterprise))
-            {
-                throw new ArgumentException("存在相同的企业名称！");
-            }
             using (var db = GetDataContext())
             {
                 db.Enterprises.Add(enterprise);
                 db.SaveChanges();
                 return enterprise.ID;
-            }
-        }
-
-        private bool  Validate(Enterprise enterprise)
-        {
-            using (var db = GetDataContext())
-            {
-                var entity = db.Enterprises.FirstOrDefault(e => e.Name.ToUpper() == enterprise.Name.ToUpper());
-                return entity == null ? true : false;
             }
         }
     }

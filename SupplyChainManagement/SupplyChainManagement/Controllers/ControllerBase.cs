@@ -10,7 +10,7 @@ namespace LoowooTech.SCM.Web.Controllers
 {
     public class ControllerBase : AsyncController   
     {
-        protected ManagerCore Core = new ManagerCore();
+        protected readonly ManagerCore Core = ManagerCore.Instance;
         private const string JsonContentType = "text/html";
 
         protected ActionResult GetActionResult(object data)

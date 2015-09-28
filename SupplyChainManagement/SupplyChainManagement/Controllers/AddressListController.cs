@@ -15,7 +15,7 @@ namespace LoowooTech.SCM.Web.Controllers
             if (ID > 0)
             {
                 Contact cont = Core.ContactManager.GetByID(ID);
-                Enterprise enterprise = Core.EnterpriseManager.Get(cont.EID);
+                Enterprise enterprise = Core.EnterpriseManager.GetList(cont.EID);
                 var Index = Core.AddressListManager.Add(new AddressList
                 {
                     way = way,

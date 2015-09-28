@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "企业资料";
+
+    Enterprise model = ViewBag.Model;
+    List<Contact> contacts = ViewBag.Contacts;
+}
+
+<h4>基本资料</h4>
+<table class="table table-bordered">
+    <tr>
+        <th>名称：</th>
+        <td>@(model.Name)</td>
+    </tr>
+    <tr>
+        <th>类别：</th>
+        <td>@(model.Business.GetDescription())</td>
+    </tr>
+    <tr>
+        <th>地址：</th>
+        <td>@(model.Address)</td>
+    </tr>
+</table>
+
+<h4>联系方式 <a href="/contact/edit?enterpriseId=@(model.ID)" class="btn btn-primary btn-sm">添加</a></h4> 
+<table class="table table-bordered">
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>手机</th>
+        <th>QQ/微信</th>
+        <th>地址</th>
+        <th>备注</th>
+        <th>管理</th>
+    </tr>
+    @foreach (var item in contacts)
+    { 
+        <tr>
+            <td>@(item.Name)</td>
+            <td>@(item.Gender.GetDescription())</td>
+            <td>@(item.Mobile)</td>
+            <td>@(item.QQ)</td>
+            <td>@(item.Address)</td>
+            <td>@(item.Note)</td>
+            <td>
+                <a href="/contact/edit?id=@(item.ID)" class="btn btn-default btn-sm">修改</a>
+                <a href="/contact/delete?id=@(item.ID)" class="btn btn-danger btn-sm">删除</a>
+            </td>
+        </tr>
+    }
+</table>
+<h4>汇款信息 <a href="/contact/edit?enterpriseId=@(model.ID)" class="btn btn-primary btn-sm">添加</a></h4>
+<table class="table table-bordered">
+    <tr>
+        <th></th>
+    </tr>
+</table>

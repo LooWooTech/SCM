@@ -7,8 +7,8 @@
     <ProjectGuid>{F4475B35-5EF6-4D0C-AA2D-C62E388BC17A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>loowootech.SCM.Model</RootNamespace>
-    <AssemblyName>loowootech.SCM.Model</AssemblyName>
+    <RootNamespace>LoowooTech.SCM.Model</RootNamespace>
+    <AssemblyName>LoowooTech.SCM.Model</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -64,10 +64,12 @@
     <Compile Include="Components.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Enterprise.cs" />
+    <Compile Include="EnterpriseParameter.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="PageFilter.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quotation.cs" />

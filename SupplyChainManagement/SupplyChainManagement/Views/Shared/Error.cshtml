@@ -1,12 +1,10 @@
 ﻿@{
     Exception ex = ViewBag.Exception;
-    var isAjax = Request.Headers.AllKeys.Contains("_ajax");
-    if (isAjax)
+    if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
     {
         Layout = null;
-        var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
         var data = new { result = false, message = ex.Message, stackTrace = ex.StackTrace };
-        Response.Write(serializer.Serialize(data));
+        Response.Write(Newtonsoft.Json.JsonConvert.SerializeObject(data));
     }
     else
     {
@@ -14,13 +12,13 @@
         <div>
             @(ex.Message)
         </div>
-    <div style="display:none">
-        @(ex.StackTrace))
-    </div>
-    <script>
-        $(function () {
-            $("#main-panel").removeClass("panel-default").addClass("panel-danger");
-        });
-    </script>
+        <!--
+        @(ex.StackTrace)
+        -->
+        <script>
+            $(function () {
+                $("#main-panel").removeClass("panel-default").addClass("panel-danger");
+            });
+        </script>
     }
 }

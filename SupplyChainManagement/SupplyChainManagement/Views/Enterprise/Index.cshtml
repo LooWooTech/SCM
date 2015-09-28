@@ -1,20 +1,27 @@
-﻿@using LoowooTech.SCM.Common
-@using LoowooTech.SCM.Model
-@using System.ComponentModel
+﻿@using System.ComponentModel
 @using System.ComponentModel.DataAnnotations
 @model IEnumerable<Enterprise>
 @{
-    Business business=ViewBag.Business;
+    Business business = ViewBag.Business;
     ViewBag.Title = business.GetDescription();
-    int serialNumber = 1;
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{
-    Html.RenderPartial("AddEnterprise", business);
-}
+
+<form class="form-inline">
+    <div class="input-group">
+        <span class="input-group-addon">查询企业</span>
+        <input type="text" class="form-control" name="name" placeholder="企业名称" value="@(Request.QueryString["name"])">
+        <input type="hidden" name="business" value="@(business)" />
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>查询</button>
+            <a class="btn btn-success" href="/enterprise/edit?business=@(business)">
+                <i class="glyphicon glyphicon-plus"></i>添加企业
+            </a>
+        </div>
+    </div>
+</form>
+
 <table class="table table-bordered">
     <tr>
-        <th>序号</th>
         <th>@Html.DisplayNameFor(model => model.Name)</th>
         <th>@Html.DisplayNameFor(model => model.Address)</th>
         <th>联系人</th>
@@ -24,11 +31,10 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@(serialNumber++)</td>
-            <td>@(item.Name)</td>
+            <td><a href="/enterprise/details?id=@(item.ID)">@(item.Name)</a></td>
             <td>@(item.Address)</td>
             <td>
-                @Html.Action("Contacts", new  { ID=item.ID})
+
             </td>
             <td></td>
             <td>

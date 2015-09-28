@@ -17,6 +17,8 @@ namespace LoowooTech.SCM.Model
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+
+        public int EnterpriseId { get; set; }
         /// <summary>
         /// 姓名
         /// </summary>
@@ -27,18 +29,28 @@ namespace LoowooTech.SCM.Model
         /// </summary>
         [Column(TypeName = "int")]
         [DisplayName("性别")]
-        public Sex sex { get; set; }
-        public int EID { get; set; }
+        public Gender Gender { get; set; }
+
+        public string Mobile { get; set; }
+
+        public string QQ { get; set; }
+
+        public string Address { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Note { get; set; }
+
     }
 
-    public enum Sex
+    public enum Gender
     {
         [Description("其他")]
         Others,
         [Description("男")]
-        male,
+        Male,
         [Description("女")]
-        female
+        Female
     }
 
     

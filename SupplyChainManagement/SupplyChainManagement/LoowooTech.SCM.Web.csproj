@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SupplyChainManagement</RootNamespace>
-    <AssemblyName>SupplyChainManagement</AssemblyName>
+    <RootNamespace>LoowooTech.SCM.Web</RootNamespace>
+    <AssemblyName>LoowooTech.SCM.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -95,7 +95,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccessoryController.cs" />
-    <Compile Include="Controllers\AddressListController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
@@ -122,14 +121,9 @@
     <Content Include="Content\jquery.autocomplete.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="font\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="font\fontawesome-webfont.eot" />
-    <Content Include="font\fontawesome-webfont.ttf" />
-    <Content Include="font\fontawesome-webfont.woff" />
-    <Content Include="font\FontAwesome.otf" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Chart.js" />
@@ -142,8 +136,10 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Content\main.css" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery.autocomplete.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -161,7 +157,6 @@
     <Content Include="Views\Shared\AddEnterprise.cshtml" />
     <Content Include="Views\Shared\AddContact.cshtml" />
     <Content Include="Views\Enterprise\Index.cshtml" />
-    <Content Include="Views\Enterprise\Contacts.cshtml" />
     <Content Include="Views\Shared\AddAddressList.cshtml" />
     <Content Include="Views\Accessory\Index.cshtml" />
     <Content Include="Views\Accessory\AddComponent.cshtml" />
@@ -179,10 +174,12 @@
     <Content Include="Views\Stock\OrderList.cshtml" />
     <Content Include="Views\Stock\AddRemittance.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Enterprise\Edit.cshtml" />
+    <Content Include="Views\Shared\_pagination.cshtml" />
+    <Content Include="Views\Enterprise\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Indentures\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\loowootech.SCM.Common\LoowooTech.SCM.Common.csproj">

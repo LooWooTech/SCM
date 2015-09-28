@@ -8,51 +8,31 @@ namespace LoowooTech.SCM.Manager
 {
     public class ContactManager:ManagerBase
     {
-        public List<Contact> Get(int ID)
+        public Contact GetModel(int id)
         {
             using (var db = GetDataContext())
             {
-                return db.Contacts.Where(e => e.EID == ID).ToList();
+                return db.Contacts.FirstOrDefault(e => e.ID == id);
             }
         }
 
-        public Dictionary<Contact,List<AddressList>> GetAddressList(int ID)
-        {
-            Dictionary<Contact, List<AddressList>> DICT = new Dictionary<Contact, List<AddressList>>();
-            
-            List<Contact> list = Get(ID);
-            foreach (var item in list)
-            {
-                DICT.Add(item, Core.AddressListManager.Search(item.ID));
-            }
-            return DICT;
-        }
 
-        public Dictionary<int,string> GetNames(int ID)
+        public int Save(Contact contact)
         {
             using (var db = GetDataContext())
             {
-                return db.Contacts.Where(e => e.EID == ID).ToDictionary(e => e.ID, e => e.Name);
-            }
-        }
-
-        public Contact GetByID(int ID)
-        {
-            using (var db = GetDataContext())
-            {
-                return db.Contacts.Find(ID);
-            }
-        }
-
-        public int Add(Contact contact)
-        {
-            if (!Validate(contact))
-            {
-                throw new ArgumentException("存在相同信息的联系人");
-            }
-            using (var db = GetDataContext())
-            {
-                db.Contacts.Add(contact);
+                if (contact.ID > 0)
+                {
+                    var entity = db.Contacts.FirstOrDefault(e => e.ID == contact.ID);
+                    if (entity != null)
+                    {
+                        db.Entry(entity).CurrentValues.SetValues(contact);
+                    }
+                }
+                else
+                {
+                    db.Contacts.Add(contact);
+                }
                 db.SaveChanges();
                 return contact.ID;
             }
@@ -60,7 +40,6 @@ namespace LoowooTech.SCM.Manager
 
         public void Delete(int ID)
         {
-            Core.AddressListManager.DeleteAll(ID);
             using (var db = GetDataContext())
             {
                 var entity = db.Contacts.Find(ID);
@@ -70,19 +49,19 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        private bool Validate(Contact contact)
-        {
-            using (var db = GetDataContext())
-            {
-                var entity = db.Contacts.FirstOrDefault(e => e.Name.ToUpper() == contact.Name.ToUpper()&&e.sex==contact.sex);
-                return entity == null ? true : false;
-            }
-        }
 
         public Message GetContact(Message message)
         {
-            message.Contact = GetByID(message.CID);
+            message.Contact = GetModel(message.CID);
             return message;
+        }
+
+        public List<Contact> GetList(int enterpriseId)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Contacts.Where(e => e.EnterpriseId == enterpriseId).ToList();
+            }
         }
     }
 }

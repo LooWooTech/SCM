@@ -1,0 +1,33 @@
+﻿@{
+    if (Model == null)
+    {
+        return;
+    }
+    var page = Model as PageFilter;
+    if (page.PageSize == 0)
+    {
+        page.PageSize = 10;
+    }
+
+    var pageCount = page.RecordCount / page.PageSize;
+    
+    if(pageCount<2)
+    {
+        return;
+    }
+    
+}
+
+<ul class="pagination">
+    <li><a href="?page=1">首页</a></li>
+    @if (page.PageIndex > 1)
+    { 
+        <li><a href="?page=@(page.PageIndex - 1)">上一页</a></li>
+    }
+    @if (page.PageIndex < pageCount - 1)
+    { 
+        <li><a href="?page=@(page.PageIndex + 1)">下一页</a></li>
+    }
+    <li><a href="?page=@(pageCount)">尾页</a></li>
+    @(page.PageIndex)/@(pageCount)
+</ul>

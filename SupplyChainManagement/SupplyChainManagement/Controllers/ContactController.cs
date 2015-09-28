@@ -9,49 +9,39 @@ namespace LoowooTech.SCM.Web.Controllers
 {
     public class ContactController : ControllerBase
     {
-        
-        [HttpPost]
-        public ActionResult Add(Contact contact)
+        public ActionResult Edit(int id=0)
         {
-            if (ModelState.IsValid)
-            {
-                var Index = Core.ContactManager.Add(contact);
-                if (Index > 0)
-                {
-                    var list = Core.AddressListManager.Acquire(HttpContext, Index);
-                    Core.AddressListManager.Add(list);
-                }
-            }
-            var entity = Core.EnterpriseManager.Get(contact.EID);
-            if (entity == null)
-            {
-                throw new ArgumentException("未找到企业信息");
-            }
-
-            return RedirectToAction("Index", "Enterprise", new { business = entity.Business });
-        }
-
-
-        public ActionResult Edit()
-        {
+            ViewBag.Model = Core.ContactManager.GetModel(id) ?? new Contact();
             return View();
         }
-
-        public ActionResult Delete(int ID)
+        
+        [HttpPost]
+        public ActionResult Save(Contact contact)
         {
-            var contact = Core.ContactManager.GetByID(ID);
-            if (contact == null)
+            if (string.IsNullOrEmpty(contact.Name))
             {
-                throw new ArgumentException("未找到相关的联系人");
+                throw new ArgumentException("姓名没有填写");
             }
-            Core.ContactManager.Delete(ID);
-            var enterprise = Core.EnterpriseManager.Get(contact.EID);
-            if (enterprise == null)
-            {
-                throw new ArgumentException("未找到相关企业信息");
+            
+            if (string.IsNullOrEmpty(contact.Mobile))
+            { 
+                throw new ArgumentException("联系电话没有填写");
             }
 
-            return RedirectToAction("Index", "Enterprise", new { business = enterprise.Business });
+            Core.ContactManager.Save(contact);
+
+            return JsonSuccess();
+        }
+
+
+        public ActionResult Delete(int id)
+        {
+            if (id == 0)
+            {
+                throw new ArgumentException("id参数错误");
+            }
+            Core.ContactManager.Delete(id);
+            return JsonSuccess();
         }
 
     }

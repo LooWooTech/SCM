@@ -14,12 +14,12 @@ namespace LoowooTech.SCM.Web.Controllers
 
         public ActionResult Index(int ID)
         {
-            var enterprise = Core.EnterpriseManager.Get(ID);
+            var enterprise = Core.EnterpriseManager.GetModel(ID);
             if (enterprise == null)
             {
                 throw new ArgumentException("未找到相关企业信息");
             }
-            ViewBag.List = Core.ContactManager.Get(enterprise.ID);
+            ViewBag.List = Core.ContactManager.GetModel(enterprise.ID);
             ViewBag.Enterprise = enterprise;
             ViewBag.MList = Core.MessageManager.GetAll(ID);
             return View();

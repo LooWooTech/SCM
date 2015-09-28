@@ -27,6 +27,7 @@ namespace LoowooTech.SCM.Model
         /// </summary>
         [DisplayName("企业地址")]
         public string Address { get; set; }
+
         [Column(TypeName = "int")]
         public Business Business { get; set; }
     }
