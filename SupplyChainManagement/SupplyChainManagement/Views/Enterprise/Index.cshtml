@@ -1,9 +1,7 @@
-﻿@using System.ComponentModel
-@using System.ComponentModel.DataAnnotations
-@model IEnumerable<Enterprise>
-@{
+﻿@{
     Business business = ViewBag.Business;
     ViewBag.Title = business.GetDescription();
+    List<Enterprise> list = ViewBag.List;
 }
 
 <form class="form-inline">
@@ -22,13 +20,13 @@
 
 <table class="table table-bordered">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.Name)</th>
-        <th>@Html.DisplayNameFor(model => model.Address)</th>
+        <th>企业名称</th>
+        <th>地址</th>
         <th>联系人</th>
         <th>汇款信息</th>
-        <th>备注</th>
+        <th>管理</th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in list)
     {
         <tr>
             <td><a href="/enterprise/details?id=@(item.ID)">@(item.Name)</a></td>
@@ -52,3 +50,4 @@
         </tr>
     }
 </table>
+@Html.Partial("_pagination", ViewBag.Page as object)

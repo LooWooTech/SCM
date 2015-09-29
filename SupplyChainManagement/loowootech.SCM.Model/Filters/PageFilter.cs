@@ -16,6 +16,12 @@ namespace LoowooTech.SCM.Model
             PageSize = DefaultPageSize;
         }
 
+        public PageFilter(int page, int rows)
+        {
+            this.PageIndex = page;
+            this.PageSize = rows;
+        }
+
         private int _index;
         public int PageIndex
         {

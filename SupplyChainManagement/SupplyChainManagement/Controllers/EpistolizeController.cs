@@ -29,7 +29,7 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult Add(Message message)
         {
             var index = Core.MessageManager.Add(message);
-            return RedirectToAction("Index", new { ID = message.EID });
+            return RedirectToAction("Index", new { ID = message.EnterpriseId });
         }
     }
 }

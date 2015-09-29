@@ -28,8 +28,10 @@ namespace LoowooTech.SCM.Model
         /// 某年某月某日
         /// </summary>
         public DateTime Time { get; set; }
-        public int EID { get; set; }
-        public int CID { get; set; }
+
+        public int EnterpriseId { get; set; }
+
+        public int ContactId { get; set; }
         [NotMapped]
         public Contact Contact { get; set; }
     }

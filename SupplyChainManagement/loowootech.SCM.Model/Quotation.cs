@@ -34,6 +34,6 @@ namespace LoowooTech.SCM.Model
         public int OID { get; set; }
 
         [NotMapped]
-        public Components Components { get; set; }
+        public Component Components { get; set; }
     }
 }

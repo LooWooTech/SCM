@@ -16,7 +16,7 @@ namespace LoowooTech.SCM.Manager
         public DbSet<Enterprise> Enterprises { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Remittance> Remittances { get; set; }
-        public DbSet<Components> Components { get; set; }
+        public DbSet<Component> Components { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
         public DbSet<AddressList> AddressLists { get; set; }

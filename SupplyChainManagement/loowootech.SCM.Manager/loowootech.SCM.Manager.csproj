@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressListManager.cs" />
-    <Compile Include="ComponentsManager.cs" />
+    <Compile Include="ComponentManager.cs" />
     <Compile Include="ContactManager.cs" />
     <Compile Include="EnterpriseManager.cs" />
     <Compile Include="InventoryManager.cs" />

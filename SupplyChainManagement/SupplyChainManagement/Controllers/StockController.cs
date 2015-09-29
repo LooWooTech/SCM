@@ -28,7 +28,7 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult Place(int ID)
         {
             ViewBag.Enterprise = Core.EnterpriseManager.GetModel(ID);
-            ViewBag.List = Core.ComponentsManager.Get();
+            ViewBag.List = Core.ComponentManager.GetList(null);//todo
             return View();
         }
 
@@ -111,7 +111,7 @@ namespace LoowooTech.SCM.Web.Controllers
 
         public ActionResult Gain()
         {
-            var list = Core.ComponentsManager.Get().Select(e => e.Brand + "-" + e.Type.GetDescription() + "-" + e.Specification + "-" + e.Number).ToList();
+            var list = Core.ComponentManager.GetList(null).Select(e => e.Brand + "-" + e.Type.GetDescription() + "-" + e.Specification + "-" + e.Number).ToList();
             return Json(list,JsonRequestBehavior.AllowGet);
         }
 

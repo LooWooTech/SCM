@@ -35,6 +35,8 @@ namespace LoowooTech.SCM.Model
 
         public string QQ { get; set; }
 
+        public string Email { get; set; }
+
         public string Address { get; set; }
         /// <summary>
         /// 备注

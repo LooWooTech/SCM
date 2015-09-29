@@ -17,7 +17,7 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult Index()
         {
             var list = Core.ProductManager.GetAll();
-            ViewBag.CList = Core.ComponentsManager.Get();
+            ViewBag.CList = Core.ComponentManager.GetList(null);//toodo
             return View(list);
         }
 

@@ -6,11 +6,12 @@ using System.Text;
 
 namespace loowootech.SCM.Model
 {
-    public class EnterpriseParameter
+    public class EnterpriseFilter
     {
         public string Name { get; set; }
 
         public Business Business { get; set; }
 
+        public PageFilter Page { get; set; }
     }
 }

@@ -82,7 +82,7 @@ namespace LoowooTech.SCM.Manager
             List<Item> list = new List<Item>();
             foreach (var item in listTemp)
             {
-                list.Add(Core.ComponentsManager.GetComponents(item));
+                list.Add(Core.ComponentManager.GetComponents(item));
             }
             product.Items = list;
             return product;

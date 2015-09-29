@@ -26,7 +26,7 @@ namespace LoowooTech.SCM.Model
         /// </summary>
         public int CID { get; set; }
         [NotMapped]
-        public Components Components { get; set; }
+        public Component Components { get; set; }
         [NotMapped]
         public Product Product { get; set; }
     }

@@ -8,7 +8,8 @@ using System.Text;
 
 namespace LoowooTech.SCM.Model
 {
-    public class Components
+    [Table("Components")]
+    public class Component
     {
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]

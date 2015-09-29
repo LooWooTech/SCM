@@ -61,17 +61,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressList.cs" />
-    <Compile Include="Components.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Enterprise.cs" />
-    <Compile Include="EnterpriseParameter.cs" />
+    <Compile Include="Filters\ComponentFilter.cs" />
+    <Compile Include="Filters\EnterpriseFilter.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Order.cs" />
-    <Compile Include="PageFilter.cs" />
+    <Compile Include="Filters\PageFilter.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryExtensions.cs" />
     <Compile Include="Quotation.cs" />
     <Compile Include="Rate.cs" />
     <Compile Include="Remittance.cs" />

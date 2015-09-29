@@ -26,7 +26,7 @@ namespace LoowooTech.SCM.Manager
                 {
                     throw new ArgumentException("无法获取部件的值");
                 }
-                CID[i] = Core.ComponentsManager.GetKey(SCID[i]);
+                CID[i] = Core.ComponentManager.GetKey(SCID[i]);
             }
             double[] Price = new double[Count];
             for (var i = 0; i < Count; i++)

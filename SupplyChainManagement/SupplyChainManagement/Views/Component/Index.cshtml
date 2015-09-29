@@ -1,0 +1,53 @@
+﻿@using LoowooTech.SCM.Common
+@{
+    ViewBag.Title = "部件型号";
+    List<Component> list = ViewBag.List;
+}
+
+<form class="form-inline">
+    <div class="input-group col-lg-5">
+        <span class="input-group-addon">查询部件</span>
+        <input type="text" class="form-control" name="name" placeholder="部件名称" value="@(Request.QueryString["name"])">
+        <div class="input-group-btn">
+            <select class="form-control" name="type">
+                <option>选择类别</option>
+                @foreach (UnitType type in Enum.GetValues(typeof(UnitType)))
+                {
+                    var value = (int)type;
+                    <option value="@(value)" @(type.ToString() == Request.QueryString["type"] ? "selected" : null)>@(type.GetDescription())</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>查询</button>
+            <a class="btn btn-success" href="edit" data-toggle="modal" data-target="#modal">
+                <i class="glyphicon glyphicon-plus"></i>添加部件
+            </a>
+        </div>
+    </div>
+</form>
+
+<table class="table table-bordered">
+    <tr>
+        <th>部件类型</th>
+        <th>品牌</th>
+        <th>规格</th>
+        <th>型号</th>
+        <th>备注</th>
+        <th>操作</th>
+    </tr>
+
+    @foreach (var item in list)
+    {
+        <tr>
+            <td>@(item.Type.GetDescription())</td>
+            <td>@(item.Brand)</td>
+            <td>@(item.Specification)</td>
+            <td>@(item.Number)</td>
+            <td>@(item.Memo)</td>
+            <td style="width:80px;">
+                <a href="edit?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal" title="编辑"><i class="fa fa-edit"></i></a>
+                <a href="delete?id=@(item.ID)" class="btn btn-danger btn-xs btn-delete" title="删除"><i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+@Html.Partial("_pagination", ViewBag.Page as object)

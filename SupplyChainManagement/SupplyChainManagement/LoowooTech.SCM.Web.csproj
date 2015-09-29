@@ -94,7 +94,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AccessoryController.cs" />
+    <Compile Include="Controllers\ComponentController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
@@ -154,8 +154,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\Enterprise\Index.cshtml" />
-    <Content Include="Views\Accessory\Index.cshtml" />
-    <Content Include="Views\Accessory\AddComponent.cshtml" />
+    <Content Include="Views\Component\Index.cshtml" />
+    <Content Include="Views\Component\Edit.cshtml" />
     <Content Include="Views\Stock\Detail.cshtml" />
     <Content Include="Views\Stock\Place.cshtml" />
     <Content Include="Views\Stock\Index.cshtml" />

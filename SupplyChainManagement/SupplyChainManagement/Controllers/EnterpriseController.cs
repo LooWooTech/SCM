@@ -1,4 +1,5 @@
-﻿using LoowooTech.SCM.Model;
+﻿using loowootech.SCM.Model;
+using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,16 @@ namespace LoowooTech.SCM.Web.Controllers
     {
         public ActionResult Index(Business business, string name, int page = 1, int rows = 20)
         {
-            var list = Core.EnterpriseManager.GetList(business);
+            var filter = new EnterpriseFilter
+            {
+                Business = business,
+                Name = name,
+                Page = new PageFilter(page, rows)
+            };
+            ViewBag.Page = filter.Page;
+            ViewBag.List = Core.EnterpriseManager.GetList(filter);
             ViewBag.Business = business;
-            return View(list);
+            return View();
         }
 
         public ActionResult Edit(int id = 0, Business business = Business.Supplier)

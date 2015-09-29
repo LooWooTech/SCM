@@ -15,10 +15,10 @@ namespace LoowooTech.SCM.Manager
             get { return _enterpriseManager == null ? _enterpriseManager = new EnterpriseManager() : _enterpriseManager; }
         }
 
-        private ComponentsManager _componentsManager;
-        public ComponentsManager ComponentsManager
+        private ComponentManager _componentManager;
+        public ComponentManager ComponentManager
         {
-            get { return _componentsManager == null ? _componentsManager = new ComponentsManager() : _componentsManager; }
+            get { return _componentManager == null ? _componentManager = new ComponentManager() : _componentManager; }
         }
 
         private ContactManager _contactManager;

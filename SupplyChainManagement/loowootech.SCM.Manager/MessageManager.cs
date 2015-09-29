@@ -12,7 +12,7 @@ namespace LoowooTech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                return db.Messages.Where(e => e.EID == ID).ToList();
+                return db.Messages.Where(e => e.EnterpriseId == ID).ToList();
             }
         }
 

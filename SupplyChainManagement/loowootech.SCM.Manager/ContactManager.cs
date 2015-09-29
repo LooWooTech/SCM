@@ -52,7 +52,7 @@ namespace LoowooTech.SCM.Manager
 
         public Message GetContact(Message message)
         {
-            message.Contact = GetModel(message.CID);
+            message.Contact = GetModel(message.ContactId);
             return message;
         }
 

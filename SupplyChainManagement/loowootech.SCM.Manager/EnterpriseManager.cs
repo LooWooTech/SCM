@@ -1,4 +1,5 @@
-﻿using LoowooTech.SCM.Model;
+﻿using loowootech.SCM.Model;
+using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,18 @@ namespace LoowooTech.SCM.Manager
 {
     public class EnterpriseManager : ManagerBase
     {
-        public List<Enterprise> GetList(Business business)
+        public List<Enterprise> GetList(EnterpriseFilter filter)
         {
             using (var db = GetDataContext())
             {
-                return db.Enterprises.Where(e => e.Business == business).ToList();
+                var query = db.Enterprises.Where(e => e.Business == filter.Business);
+                if (!string.IsNullOrEmpty(filter.Name))
+                {
+                    query = query.Where(e => e.Name.Contains(filter.Name));
+                }
+                return query.OrderByDescending(e => e.ID).SetPage(filter.Page).ToList();
             }
         }
-
 
         public Enterprise GetModel(int id)
         {
