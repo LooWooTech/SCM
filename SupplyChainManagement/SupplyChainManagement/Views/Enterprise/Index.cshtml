@@ -11,7 +11,7 @@
         <input type="hidden" name="business" value="@(business)" />
         <div class="input-group-btn">
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>查询</button>
-            <a class="btn btn-success" href="/enterprise/edit?business=@(business)">
+            <a class="btn btn-success" href="/enterprise/edit?business=@(business)" data-toggle="modal" data-target="#modal">
                 <i class="glyphicon glyphicon-plus"></i>添加企业
             </a>
         </div>
@@ -21,32 +21,30 @@
 <table class="table table-bordered">
     <tr>
         <th>企业名称</th>
-        <th>地址</th>
+        <th>所在省市</th>
         <th>联系人</th>
-        <th>汇款信息</th>
-        <th>管理</th>
+        <th>联系电话</th>
+        <th style="width:120px;">管理</th>
     </tr>
     @foreach (var item in list)
     {
         <tr>
             <td><a href="/enterprise/details?id=@(item.ID)">@(item.Name)</a></td>
-            <td>@(item.Address)</td>
-            <td>
-
-            </td>
-            <td></td>
+            <td>@(item.Province) - @(item.City)</td>
+            <td>@(item.Contact)</td>
+            <td>@(item.Tel)</td>
             <td>
                 @if (item.Business == Business.Supplier)
                 {
-                    <a href="/Stock/Place?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-log-in"></i>进货</a>
-                    <a href="" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-glass"></i>供应详情</a>
+                    <a href="/Stock/Place?ID=@(item.ID)" class="btn btn-success btn-xs" title="进货"><i class="glyphicon glyphicon-log-in"></i></a>
                 }
                 else if (item.Business == Business.Seller)
                 {
-                    <a href="/Stock/Backlog?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-log-out">订货</i></a>   
+                    <a href="/Stock/Backlog?ID=@(item.ID)" class="btn btn-success btn-xs" title="订货"><i class="glyphicon glyphicon-log-out"></i></a>
                 }
-                <a href="/Epistolize/Index?ID=@(item.ID)" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-envelope"></i>反馈</a>
-            </td>
+                <a href="/enterprise/edit?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal" title="修改"><i class="fa fa-edit"></i></a>
+                <a href="/enterprise/delete?id=@(item.ID)" class="btn btn-danger btn-xs btn-delete" title="删除"><i class="fa fa-remove"></i></a>
+           </td>
         </tr>
     }
 </table>

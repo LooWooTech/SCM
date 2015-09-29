@@ -98,6 +98,10 @@ namespace LoowooTech.SCM.Manager
             using (var db = GetDataContext())
             {
                 var query = db.Components.AsQueryable();
+                if (filter == null)
+                {
+                    return query.ToList();
+                }
                 if (!string.IsNullOrEmpty(filter.Number))
                 {
                     query = query.Where(e => e.Number.Contains(filter.Number));

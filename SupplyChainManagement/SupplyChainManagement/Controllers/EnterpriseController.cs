@@ -31,13 +31,26 @@ namespace LoowooTech.SCM.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(Enterprise enterprise)
+        public ActionResult Save(Enterprise model)
         {
-            if (ModelState.IsValid)
+            if (string.IsNullOrEmpty(model.Name))
             {
-                var index = Core.EnterpriseManager.Save(enterprise);
+                throw new ArgumentException("企业名称没有填写");
             }
-            return RedirectToAction("Index", new { business = enterprise.Business });
+
+            Core.EnterpriseManager.Save(model);
+            return JsonSuccess();
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var model = Core.EnterpriseManager.GetModel(id);
+            if (model == null)
+            {
+                throw new ArgumentException("id参数错误");
+            }
+            Core.EnterpriseManager.Delete(id);
+            return RedirectToAction("Index", new { model.Business });
         }
 
         public ActionResult Details(int id)

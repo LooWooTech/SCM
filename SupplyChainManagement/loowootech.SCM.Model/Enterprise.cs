@@ -22,6 +22,10 @@ namespace LoowooTech.SCM.Model
         /// </summary>
         [DisplayName("企业名称")]
         public string Name { get; set; }
+
+        public string Province { get; set; }
+
+        public string City { get; set; }
         /// <summary>
         /// 企业地址
         /// </summary>
@@ -30,6 +34,12 @@ namespace LoowooTech.SCM.Model
 
         [Column(TypeName = "int")]
         public Business Business { get; set; }
+
+        public string Contact { get; set; }
+
+        public string Tel { get; set; }
+
+        public bool Deleted { get; set; }
     }
 
     public enum Business

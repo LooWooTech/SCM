@@ -1,8 +1,7 @@
-﻿@model IEnumerable<LoowooTech.SCM.Model.Product>
+﻿@model IEnumerable<Product>
 @{
     ViewBag.Title = "产品列表";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    List<LoowooTech.SCM.Model.Components> list = ViewBag.CList;
+    List<Component> list = ViewBag.CList;
     int serizlNumber = 1;
 }
 
