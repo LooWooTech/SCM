@@ -171,7 +171,7 @@
     <Content Include="Views\Stock\AddRemittance.cshtml" />
     <Content Include="Views\Enterprise\Edit.cshtml" />
     <Content Include="Views\Shared\_pagination.cshtml" />
-    <Content Include="Views\Enterprise\Details.cshtml" />
+    <Content Include="Views\Enterprise\Detail.cshtml" />
     <Content Include="Views\Contact\Edit.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>

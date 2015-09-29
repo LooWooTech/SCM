@@ -1,9 +1,7 @@
-﻿@using LoowooTech.SCM.Common
-@model LoowooTech.SCM.Model.Order
+﻿@model Order
 @{
     ViewBag.Title = "物流管理";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    List<LoowooTech.SCM.Model.Quotation> list = ViewBag.List;
+    List<Quotation> list = ViewBag.List;
 }
 
 <div class="panel panel-default">
@@ -24,13 +22,13 @@
             @foreach (var item in list)
             {
                 <div class="form-group">
-                    <label for="" class="control-label col-lg-4">@(item.Components.Brand)@(item.Components.Type.GetDescription()),@(item.Components.Specification),@(item.Components.Number)</label>
+                    <label for="" class="control-label col-lg-4">@(item.Component)</label>
                     <div class="col-lg-6">
                         <input type="number" class="form-control" name="@(item.ID)" min="0" max="@(item.Number)" value="@(item.Number)" step="1"/>
                     </div>
                 </div>
             }
-            <input type="text" name="ID" value="@(Model.ID)" style="display:none;" />
+            <input type="hidden" name="ID" value="@(Model.ID)" />
             <div class="form-group">
                 <div class="col-lg-6 col-lg-offset-4">
                     <button type="submit" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-ok"></i>确认收货</button>

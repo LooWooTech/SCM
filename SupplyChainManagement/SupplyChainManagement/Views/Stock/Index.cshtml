@@ -6,7 +6,6 @@
 
 <table class="table table-bordered">
     <tr>
-        <th>序号</th>
         <th>供应商</th>
         <th>时间</th>
         <th>汇款信息</th>
@@ -46,23 +45,23 @@
                         }
                     </td>
                         break;
-                case State.place:
+                case State.Place:
                 <td><i class="icon-large icon-shopping-cart"></i>@(item.State.GetDescription())</td>
                 <td>
                     <a href="/Stock/Detail?ID=@(item.ID)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-check"></i>查看订单</a>
                     <a href="/Stock/Delte?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>取消订单</a>
                 </td>
                         break;
-                case State.shipping:
+                case State.Shipping:
                 <td><i class="icon-large icon-plane"></i>@(item.State.GetDescription())</td>
                 <td>
                     <a href="/Stock/Logistics?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i>查看物流</a>
                 </td>
                         break;
-                case State.turn:
+                case State.Turn:
                 <td></td>
                         break;
-                case State.payment:
+                case State.Payment:
                 <td></td>
                         break;
                 default:

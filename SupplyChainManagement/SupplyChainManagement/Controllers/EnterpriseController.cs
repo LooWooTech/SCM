@@ -53,7 +53,7 @@ namespace LoowooTech.SCM.Web.Controllers
             return RedirectToAction("Index", new { model.Business });
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Detail(int id)
         {
             ViewBag.Model = Core.EnterpriseManager.GetModel(id);
             ViewBag.Contacts = Core.ContactManager.GetList(id);

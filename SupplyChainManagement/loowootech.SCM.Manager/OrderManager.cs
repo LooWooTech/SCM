@@ -22,19 +22,20 @@ namespace LoowooTech.SCM.Manager
 
         public void Done(int ID)
         {
-            var order = Get(ID);
+            var order = GetModel(ID);
             order.State = State.Done;
-            Edit(order);
+            Update(order);
         }
 
 
-        public Order Get(int ID)
+        public Order GetModel(int id)
         {
             using (var db = GetDataContext())
             {
-                return db.Orders.Find(ID);
+                return db.Orders.Find(id);
             }
         }
+
 
         public List<Order> Get(OrderType Type)
         {
@@ -79,7 +80,7 @@ namespace LoowooTech.SCM.Manager
             {
                 FilePath = UploadHelper.Upload(file);
             }
-            Order order = Get(ID);
+            Order order = GetModel(ID);
             if (order == null)
             {
                 throw new ArgumentException("未找到部件进货订单");
@@ -88,13 +89,13 @@ namespace LoowooTech.SCM.Manager
             order.Indenture = FilePath;
             if (!string.IsNullOrEmpty(Express))
             {
-                order.State = State.shipping;
+                order.State = State.Shipping;
             }
             return order;
         }
 
 
-        public void Edit(Order order)
+        public void Update(Order order)
         {
             using (var db = GetDataContext())
             {
@@ -109,8 +110,8 @@ namespace LoowooTech.SCM.Manager
 
         public void  Delete(int ID)
         {
-            var order = Get(ID);
-            if (order == null || order.State != State.place)
+            var order = GetModel(ID);
+            if (order == null || order.State != State.Place)
             {
                 throw new ArgumentException("当前要删除的订单无效或者无法删除状态");
             }

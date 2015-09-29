@@ -54,22 +54,22 @@ namespace LoowooTech.SCM.Model
     public enum State
     {
         [Description("订单生成")]
-        place,
+        Place,
         [Description("发货")]
-        shipping,
+        Shipping,
         [Description("完成")]
         Done,
         [Description("退货")]
-        turn,
+        Turn,
         [Description("已汇款")]
-        payment
+        Payment
     }
 
     public enum OrderType
     {
         [Description("进货")]
-        bought,
+        Bought,
         [Description("出货")]
-        shipment
+        Shipment
     }
 }

@@ -13,7 +13,7 @@ namespace LoowooTech.SCM.Web.Controllers
         //
         // GET: /Stock/
 
-        public ActionResult Index(OrderType Type=OrderType.bought)
+        public ActionResult Index(OrderType Type = OrderType.Bought)
         {
             var list = Core.OrderManager.GetAll(Type);
             return View(list);
@@ -52,34 +52,37 @@ namespace LoowooTech.SCM.Web.Controllers
 
         public ActionResult Detail(int ID)
         {
-            Order order = Core.OrderManager.Get(ID);
-            ViewBag.List = Core.QuotationManager.GetAll(ID);
+            Order order = Core.OrderManager.GetModel(ID);
+            ViewBag.List = Core.QuotationManager.GetList(ID);
             return View(order);
         }
 
         [HttpPost]
-        public ActionResult Edit(int ID,string Express)
+        public ActionResult Update(int id, HttpPostedFileBase file, string express)
         {
-            var order = Core.OrderManager.Acquire(HttpContext, ID, Express);
-            try
+            var model = Core.OrderManager.GetModel(id);
+            if (file != null)
             {
-                Core.OrderManager.Edit(order);
+                model.Indenture = file.Upload();
             }
-            catch (Exception ex)
+            model.Express = express;
+            if (!string.IsNullOrEmpty(model.Express))
             {
-                throw new ArgumentException(ex.Message);
+                model.State = State.Shipping;
             }
-            return RedirectToAction("Logistics", new { ID=ID});
+            Core.OrderManager.Update(model);
+
+            return RedirectToAction("Logistics", new { id });
         }
 
-        public ActionResult Logistics(int ID)
+        public ActionResult Logistics(int id)
         {
-            var order = Core.OrderManager.Get(ID);
+            var order = Core.OrderManager.GetModel(id);
             if (order == null)
             {
                 throw new ArgumentException("未找到相关的订单详情");
             }
-            ViewBag.List = Core.QuotationManager.GetAll(order.ID);
+            ViewBag.List = Core.QuotationManager.GetList(order.ID);
             return View(order);
         }
 
@@ -88,7 +91,7 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult CheckOut(int ID)
         {
             //获取当前订单中的部件ID
-            var listNames = Core.QuotationManager.GetByOID(ID).Select(e=>e.ID).ToList();
+            var listNames = Core.QuotationManager.GetByOID(ID).Select(e => e.ID).ToList();
             //获取字典 key为部件ID  value为最终确认部件数量
             var dict = Core.QuotationManager.Acquire(HttpContext, listNames);
             //假如存在部分损坏部件，那么就更新本地订单部件数量
@@ -104,7 +107,7 @@ namespace LoowooTech.SCM.Web.Controllers
         [ChildActionOnly]
         public ActionResult OrderList(int ID)
         {
-            var list = Core.QuotationManager.GetAll(ID);
+            var list = Core.QuotationManager.GetList(ID);
             ViewBag.Index = ID;
             return PartialView("OrderList", list);
         }
@@ -112,7 +115,7 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult Gain()
         {
             var list = Core.ComponentManager.GetList(null).Select(e => e.Brand + "-" + e.Type.GetDescription() + "-" + e.Specification + "-" + e.Number).ToList();
-            return Json(list,JsonRequestBehavior.AllowGet);
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -121,7 +124,7 @@ namespace LoowooTech.SCM.Web.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
 
 
         /// <summary>
@@ -136,7 +139,7 @@ namespace LoowooTech.SCM.Web.Controllers
             return View();
         }
 
-        
+
 
     }
 }

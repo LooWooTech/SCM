@@ -158,15 +158,12 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public List<Quotation> GetAll(int OID)
+        public List<Quotation> GetList(int orderId)
         {
-            var listTemp = GetByOID(OID);
-            List<Quotation> list = new List<Quotation>();
-            foreach (var item in listTemp)
+            using (var db = GetDataContext())
             {
-                list.Add(GetComponents(item));
+                return db.Quotations.Where(e => e.OrderId == orderId).ToList();
             }
-            return list;
         }
 
         public List<Quotation> GetByOID(int OID)
@@ -175,20 +172,6 @@ namespace LoowooTech.SCM.Manager
             {
                 return db.Quotations.Where(e => e.OrderId == OID).ToList();
             }
-        }
-
-
-        public Quotation GetComponents(Quotation quotation)
-        {
-            using (var db = GetDataContext())
-            {
-                var components = db.Components.Find(quotation.ComponentId);
-                if (components != null)
-                {
-                    quotation.Components = components;
-                }
-            }
-            return quotation; ;
         }
 
         public void Add(Quotation quotation)
