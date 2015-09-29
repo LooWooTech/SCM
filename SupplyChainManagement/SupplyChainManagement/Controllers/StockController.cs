@@ -28,24 +28,24 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult Place(int ID)
         {
             ViewBag.Enterprise = Core.EnterpriseManager.GetModel(ID);
-            ViewBag.List = Core.ComponentManager.GetList(null);//todo
+            ViewBag.Components = Core.ComponentManager.GetList(null);
             return View();
         }
 
         [HttpPost]
-        public ActionResult Add(int EID)
+        public ActionResult Add(int enterpriseId)
         {
-            var index = Core.OrderManager.Add(new Order { EID = EID });
-            if (index > 0)
+            var orderId = Core.OrderManager.Add(new Order { EnterpriseId = enterpriseId });
+            if (orderId > 0)
             {
-                var list = Core.QuotationManager.Acquire(HttpContext, index);
+                var list = Core.QuotationManager.Acquire(HttpContext, orderId);
                 if (list != null)
                 {
                     Core.QuotationManager.AddAll(list);
                 }
             }
 
-            return RedirectToAction("Detail", new { ID = index });
+            return RedirectToAction("Detail", new { ID = orderId });
         }
 
 

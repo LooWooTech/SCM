@@ -1,7 +1,5 @@
-﻿@using LoowooTech.SCM.Common
-@model IEnumerable<LoowooTech.SCM.Model.Quotation>
+﻿@model IEnumerable<Quotation>
 @{
-    int serialNumber = 1;
     int Index = ViewBag.Index;
 }
 <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#List@(Index)"><i class="glyphicon glyphicon-glass"></i>订单详情</button>
@@ -15,7 +13,6 @@
             <div class="modal-body">
                 <table class="table table-bordered">
                     <tr>
-                        <th>序号</th>
                         <th>部件名称</th>
                         <th>单价</th>
                         <th>数量</th>
@@ -23,8 +20,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@(serialNumber++)</td>
-                            <td>@(item.Components.Brand) @(item.Components.Type.GetDescription()),@(item.Components.Specification),@(item.Components.Number)</td>
+                            <td>@(item.Component)</td>
                             <td>@(item.Price)</td>
                             <td>@(item.Number)</td>
                         </tr>

@@ -1,11 +1,8 @@
-﻿@using LoowooTech.SCM.Common
-@model LoowooTech.SCM.Model.Order
+﻿@model Order
 
 @{
     ViewBag.Title = "提交进货单成功";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    int serialNumber = 1;
-    List<LoowooTech.SCM.Model.Quotation> list = ViewBag.List;
+    List<Quotation> list = ViewBag.List;
 }
 
 
@@ -59,8 +56,7 @@
                 @foreach (var item in list)
                 {
                     <tr>
-                        <td>@(serialNumber++)</td>
-                        <td>@(item.Components.Brand)@(item.Components.Type.GetDescription()),@(item.Components.Specification),@(item.Components.Number)</td>
+                        <td>@(item.Component)</td>
                         <td>@(item.Price)</td>
                         <td>@(item.Number)</td>
                     </tr>

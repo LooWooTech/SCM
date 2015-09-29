@@ -1,16 +1,12 @@
-﻿@using LoowooTech.SCM.Common
-@using LoowooTech.SCM.Model
-@model IEnumerable<LoowooTech.SCM.Model.Order>
+﻿@using LoowooTech.SCM.Model
+@model IEnumerable<Order>
 @{
     ViewBag.Title = "部件进货清单";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    int serialNumber = 1;
 }
 
 <table class="table table-bordered">
     <tr>
         <th>序号</th>
-        
         <th>供应商</th>
         <th>时间</th>
         <th>汇款信息</th>
@@ -20,10 +16,8 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@(serialNumber++)</td>
-            
             <td>@(item.Enterprise.Name)</td>
-            <td>@(item.Time)</td>
+            <td>@(item.CreateTime)</td>
             <td>
                 @if (item.Remittance == null)
                 {
@@ -34,49 +28,47 @@
                     <a href="" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-credit-card"></i>查看汇款记录</a>
                 }
             </td>
-                @switch (item.State)
-                {
-                    case State.Done:
-                        <td><i class="icon-large icon-ok-circle"></i>@(item.State.GetDescription())</td>
-                        <td>
-                            @{
-                        Html.RenderAction("OrderList", new { ID=item.ID});
-                            }
-                            @if (item.Remittance != null)
-                            {
+            @switch (item.State)
+            {
+                case State.Done:
+                    <td><i class="icon-large icon-ok-circle"></i>@(item.State.GetDescription())</td>
+                    <td>
+                        @{
+                    Html.RenderAction("OrderList", new { ID = item.ID });
+                        }
+                        @if (item.Remittance != null)
+                        {
 
-                            }
-                            else
-                            {
-                                
-                            }
-                        </td>
-                        break;
-                    case State.place:
-                        <td><i class="icon-large icon-shopping-cart"></i>@(item.State.GetDescription())</td>
-                        <td>
-                            <a href="/Stock/Detail?ID=@(item.ID)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-check"></i>查看订单</a>
-                            <a href="/Stock/Delte?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>取消订单</a>
-                        </td>
-                        break;
-                    case State.shipping:
-                        <td><i class="icon-large icon-plane"></i>@(item.State.GetDescription())</td>
-                        <td>
-                            <a href="/Stock/Logistics?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i>查看物流</a>                        
-                        </td>
-                        break;
-                    case State.turn:
-                        <td></td>
-                        break;
-                        case State.payment:
-                        <td>
+                        }
+                        else
+                        {
 
-                        </td>
+                        }
+                    </td>
                         break;
-                    default:
-                        <td></td>
+                case State.place:
+                <td><i class="icon-large icon-shopping-cart"></i>@(item.State.GetDescription())</td>
+                <td>
+                    <a href="/Stock/Detail?ID=@(item.ID)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-check"></i>查看订单</a>
+                    <a href="/Stock/Delte?ID=@(item.ID)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>取消订单</a>
+                </td>
                         break;
-                }
+                case State.shipping:
+                <td><i class="icon-large icon-plane"></i>@(item.State.GetDescription())</td>
+                <td>
+                    <a href="/Stock/Logistics?ID=@(item.ID)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i>查看物流</a>
+                </td>
+                        break;
+                case State.turn:
+                <td></td>
+                        break;
+                case State.payment:
+                <td></td>
+                        break;
+                default:
+                <td></td>
+                        break;
+            }
         </tr>
     }
 </table>

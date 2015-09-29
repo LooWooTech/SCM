@@ -27,11 +27,13 @@ namespace LoowooTech.SCM.Model
         /// <summary>
         /// 指定的部件
         /// </summary>
-        public int CID { get; set; }
+        public int ComponentId { get; set; }
         /// <summary>
         /// 订单号
         /// </summary>
-        public int OID { get; set; }
+        public int OrderId { get; set; }
+
+        public string Component { get; set; }
 
         [NotMapped]
         public Component Components { get; set; }

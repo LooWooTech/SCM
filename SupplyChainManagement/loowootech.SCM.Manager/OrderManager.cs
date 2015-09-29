@@ -40,7 +40,7 @@ namespace LoowooTech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                return db.Orders.Where(e=>e.Type==Type).OrderBy(e => e.Time).ToList();
+                return db.Orders.Where(e=>e.Type==Type).OrderBy(e => e.CreateTime).ToList();
             }
         }
 
@@ -62,7 +62,7 @@ namespace LoowooTech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                var entity = db.Enterprises.Find(order.EID);
+                var entity = db.Enterprises.Find(order.EnterpriseId);
                 if (entity != null)
                 {
                     order.Enterprise = entity;

@@ -20,7 +20,7 @@ namespace LoowooTech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                var entity = db.Inventorys.FirstOrDefault(e => e.CID == quotation.CID);
+                var entity = db.Inventorys.FirstOrDefault(e => e.CID == quotation.ComponentId);
                 if (entity != null)
                 {
                     entity.Number += quotation.Number;
@@ -28,7 +28,7 @@ namespace LoowooTech.SCM.Manager
                 else
                 {
                     db.Inventorys.Add(new Inventory { 
-                        CID=quotation.CID,
+                        CID=quotation.ComponentId,
                         Number=quotation.Number
                     });
                 }

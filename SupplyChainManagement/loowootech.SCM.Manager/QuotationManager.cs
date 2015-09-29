@@ -7,65 +7,55 @@ using System.Web;
 
 namespace LoowooTech.SCM.Manager
 {
-    public class QuotationManager:ManagerBase
+    public class QuotationManager : ManagerBase
     {
-        public List<Quotation> Acquire(HttpContextBase context,int OID)
+        public List<Quotation> Acquire(HttpContextBase context, int OID)
         {
-            string[] SCID = context.Request.Form["CID"].Split(',');
-            string[] SPrice = context.Request.Form["Price"].Split(',');
-            string[] SNumber = context.Request.Form["Number"].Split(',');
-            if (SCID.Count() != SPrice.Count() || SPrice.Count() != SNumber.Count())
+            var ids = context.Request.Form["ComponentId"].Split(',');
+            var names = context.Request.Form["Component"].Split(',');
+            var prices = context.Request.Form["Price"].Split(',');
+            var numbers = context.Request.Form["Number"].Split(',');
+            var count = ids.Length;
+            if (names.Length != count || prices.Length != count || numbers.Length != count)
             {
                 throw new ArgumentException("获取对应的值数量不对");
             }
-            int Count = SCID.Count();
-            int[] CID = new int[Count];
-            for (var i = 0; i < Count; i++)
+
+            var result = new List<Quotation>();
+            for (var i = 0; i < count; i++)
             {
-                if (string.IsNullOrEmpty(SCID[i]))
+                var id = 0;
+                int.TryParse(ids[i], out id);
+                if (id == 0)
                 {
-                    throw new ArgumentException("无法获取部件的值");
+                    throw new ArgumentException("没有选择正确的部件");
                 }
-                CID[i] = Core.ComponentManager.GetKey(SCID[i]);
-            }
-            double[] Price = new double[Count];
-            for (var i = 0; i < Count; i++)
-            {
-                if (string.IsNullOrEmpty(SPrice[i]))
+
+                double price = 0;
+                if (!double.TryParse(prices[i], out price))
                 {
-                    throw new ArgumentException("未填写单价");
-                    
+                    throw new ArgumentException("单价填写不正确");
                 }
-                double keyPrice = 0.0;
-                double.TryParse(SPrice[i], out keyPrice);
-                Price[i] = keyPrice;
-            }
-            int[] Number = new int[Count];
-            for (var i = 0; i < Count; i++)
-            {
-                if (string.IsNullOrEmpty(SNumber[i]))
+
+                var number = 0;
+                int.TryParse(numbers[i], out number);
+                if (number == 0)
                 {
-                    throw new ArgumentException("未填写数量");
+                    throw new ArgumentException("数量填写不正确");
                 }
-                int keyNumber = 0;
-                int.TryParse(SNumber[i], out keyNumber);
-                Number[i] = keyNumber;
-            }
-            List<Quotation> list = new List<Quotation>();
-            for (var i = 0; i < Count; i++)
-            {
-                list.Add(new Quotation
+
+                result.Add(new Quotation
                 {
-                    Price = Price[i],
-                    Number = Number[i],
-                    CID = CID[i],
-                    OID=OID
+                    ComponentId = id,
+                    Price = price,
+                    Number = number,
+                    OrderId = OID,
                 });
-            }   
-            return list;
+            }
+            return result;
         }
 
-        public Dictionary<int,int> Acquire(HttpContextBase context, List<int> Names)
+        public Dictionary<int, int> Acquire(HttpContextBase context, List<int> Names)
         {
             Dictionary<int, int> values = new Dictionary<int, int>();
             foreach (var item in Names)
@@ -113,19 +103,19 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public void  Update(int ID, int Number)
+        public void Update(int ID, int Number)
         {
             var quotation = Get(ID);
             if (quotation.Number < Number)
             {
-                return ;
+                return;
             }
             quotation.Number = Number;
             try
             {
                 Update(quotation);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ArgumentException(ex.Message);
             }
@@ -164,7 +154,7 @@ namespace LoowooTech.SCM.Manager
                 {
 
                 }
-                
+
             }
         }
 
@@ -183,7 +173,7 @@ namespace LoowooTech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                return db.Quotations.Where(e => e.OID == OID).ToList();
+                return db.Quotations.Where(e => e.OrderId == OID).ToList();
             }
         }
 
@@ -192,7 +182,7 @@ namespace LoowooTech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                var components = db.Components.Find(quotation.CID);
+                var components = db.Components.Find(quotation.ComponentId);
                 if (components != null)
                 {
                     quotation.Components = components;
@@ -201,7 +191,7 @@ namespace LoowooTech.SCM.Manager
             return quotation; ;
         }
 
-        public void  Add(Quotation quotation)
+        public void Add(Quotation quotation)
         {
             using (var db = GetDataContext())
             {

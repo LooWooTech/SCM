@@ -16,12 +16,13 @@ namespace LoowooTech.SCM.Model
     {
         public Order()
         {
-            this.Time = DateTime.Now;
+            this.CreateTime = DateTime.Now;
         }
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public DateTime Time { get; set; }
+
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// 快递单
         /// </summary>
@@ -33,13 +34,17 @@ namespace LoowooTech.SCM.Model
         /// <summary>
         /// 供应商
         /// </summary>
-        public int EID { get; set; }
+        public int EnterpriseId { get; set; }
+
         [Column(TypeName="int")]
         public OrderType Type { get; set; }
+
         [Column(TypeName="int")]
         public State State { get; set; }
+
         [NotMapped]
         public Enterprise Enterprise { get; set; }
+
         [NotMapped]
         public Remittance Remittance { get; set; }
         
