@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+    Contact model = ViewBag.Model;
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">@(model.ID == 0 ? "添加" : "修改")联系人</h3>
+    </div>
+    <div class="panel-body">
+        <form id="form-contact" action="/Contact/save" method="post" class="form-horizontal">
+            <input type="hidden" name="ID" value="@(model.ID)" />
+            <input type="hidden" name="EnterpriseId" value="@(model.EnterpriseId)" />
+            <div class="form-group">
+                <label for="Name" class="control-label col-lg-3">姓名</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="Name" value="@(model.Name)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Sex" class="control-label col-lg-3">性别</label>
+                <div class="col-lg-6">
+                    @foreach (Gender gender in Enum.GetValues(typeof(Gender)))
+                    {
+                    <label class="radio-inline">
+                        <input type="radio" name="Gender" value="@gender" @(model.Gender == gender ? "checked" : null) />@(gender.GetDescription())
+                    </label>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label col-lg-3">地址</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="Address" value="@(model.Address)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label col-lg-3">手机</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="Mobile" value="@(model.Mobile)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label col-lg-3">QQ/微信</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="QQ" value="@(model.QQ)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label col-lg-3">备注</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="Note" value="@(model.Note)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i> 确定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#form-contact").submit(function () {
+            $(this).post("/enterprise/details?id=@(model.EnterpriseId)");
+            return false;
+        });
+    });
+</script>

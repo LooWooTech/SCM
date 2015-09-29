@@ -5,15 +5,16 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@(ViewBag.Title + " - 供应链管理系统")</title>
-    <link rel="stylesheet" href="/content/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="/content/bootswatch.min.css" media="screen">
-    <link rel="stylesheet" href="/content/main.css" media="screen">
+    <link rel="stylesheet" href="~/content/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="~/content/bootswatch.min.css" media="screen">
+    <link rel="stylesheet" href="~/content/main.css" media="screen">
     <link rel="stylesheet" href="~/Content/font-awesome.min.css" />
     <link rel="stylesheet" href="~/Content/jquery.autocomplete.css" />
 
     <script src="~/scripts/jquery-1.9.1.js"></script>
-    <script src="/scripts/bootstrap.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.autocomplete.js"></script>
+    <script src="~/scripts/common.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -52,16 +53,20 @@
             </div>
         </footer>
     </div>
+    <div id="modal" class="modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
     <script>
         $(function () {
-            $('[data-toggle="popover"]').popover();
-            $(".btn-danger").click(function () {
-                if (confirm("确定要删除吗？")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            })
+            $('#modal').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+            $(".btn-delete").click(function () {
+                return confirm("你确认要删除这条信息吗？");
+            });
         })
     </script>
 </body>

@@ -8,7 +8,7 @@
 <h4>基本资料</h4>
 <table class="table table-bordered">
     <tr>
-        <th>名称：</th>
+        <th class="col-lg-1">名称：</th>
         <td>@(model.Name)</td>
     </tr>
     <tr>
@@ -21,8 +21,8 @@
     </tr>
 </table>
 
-<h4>联系方式 <a href="/contact/edit?enterpriseId=@(model.ID)" class="btn btn-primary btn-sm">添加</a></h4> 
-<table class="table table-bordered">
+<h4>联系方式 <a href="/contact/edit?enterpriseId=@(model.ID)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i>添加</a></h4>
+<table class="table table-bordered" id="list-contact">
     <tr>
         <th>姓名</th>
         <th>性别</th>
@@ -30,10 +30,10 @@
         <th>QQ/微信</th>
         <th>地址</th>
         <th>备注</th>
-        <th>管理</th>
+        <th style="width:80px;">管理</th>
     </tr>
     @foreach (var item in contacts)
-    { 
+    {
         <tr>
             <td>@(item.Name)</td>
             <td>@(item.Gender.GetDescription())</td>
@@ -42,13 +42,13 @@
             <td>@(item.Address)</td>
             <td>@(item.Note)</td>
             <td>
-                <a href="/contact/edit?id=@(item.ID)" class="btn btn-default btn-sm">修改</a>
-                <a href="/contact/delete?id=@(item.ID)" class="btn btn-danger btn-sm">删除</a>
+                <a href="/contact/edit?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal" title="编辑联系人"><i class="fa fa-edit"></i></a>
+                <a href="/contact/delete?id=@(item.ID)" class="btn btn-danger btn-xs btn-delete" title="删除联系人"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
     }
 </table>
-<h4>汇款信息 <a href="/contact/edit?enterpriseId=@(model.ID)" class="btn btn-primary btn-sm">添加</a></h4>
+<h4>汇款信息 <a href="/contact/edit?enterpriseId=@(model.ID)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i>添加</a></h4>
 <table class="table table-bordered">
     <tr>
         <th></th>

@@ -9,12 +9,16 @@ namespace LoowooTech.SCM.Web.Controllers
 {
     public class ContactController : ControllerBase
     {
-        public ActionResult Edit(int id=0)
+        public ActionResult Edit(int id = 0, int enterpriseId = 0)
         {
-            ViewBag.Model = Core.ContactManager.GetModel(id) ?? new Contact();
+            if (id == 0 && enterpriseId == 0)
+            {
+                throw new ArgumentException("参数异常");
+            }
+            ViewBag.Model = Core.ContactManager.GetModel(id) ?? new Contact { EnterpriseId = enterpriseId };
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Save(Contact contact)
         {
@@ -22,14 +26,13 @@ namespace LoowooTech.SCM.Web.Controllers
             {
                 throw new ArgumentException("姓名没有填写");
             }
-            
+
             if (string.IsNullOrEmpty(contact.Mobile))
-            { 
+            {
                 throw new ArgumentException("联系电话没有填写");
             }
 
             Core.ContactManager.Save(contact);
-
             return JsonSuccess();
         }
 
@@ -40,8 +43,13 @@ namespace LoowooTech.SCM.Web.Controllers
             {
                 throw new ArgumentException("id参数错误");
             }
+            var model = Core.ContactManager.GetModel(id);
+            if (model == null)
+            {
+                throw new ArgumentException("id参数错误");
+            }
             Core.ContactManager.Delete(id);
-            return JsonSuccess();
+            return RedirectToAction("Details", "Enterprise", new { id = model.EnterpriseId });
         }
 
     }

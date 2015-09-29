@@ -14,3 +14,5 @@ legend { margin-top: 20px; margin-bottom: 10px; clear: both; border-bottom: 1px 
 .ie-warning { line-height: 30px; background-color: #FAF8D2; font-weight: bold; text-align: center; position: fixed; top: 50px; left: 0; right: 0; z-index: 99999; }
 
 i::after { content:"\20" ;margin-right:5px;  }
+#modal { margin-top:60px;}
+.modal-content .panel-default {margin-bottom:0px; }
