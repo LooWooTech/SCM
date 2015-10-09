@@ -1,5 +1,4 @@
-﻿using LoowooTech.SCM.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,18 +16,18 @@ namespace LoowooTech.SCM.Common
             return attribute == null ? value.ToString() : attribute.Description;
         }
 
-        public static UnitType GetEnum(this string value)
-        {
-            UnitType type=UnitType.CPU;
-            foreach (UnitType item in Enum.GetValues(typeof(UnitType)))
-            {
-                if (item.GetDescription() == value)
-                {
-                    type = item;
-                    break;
-                }
-            }
-            return type;
-        }
+        //public static UnitType GetEnum(this string value)
+        //{
+        //    UnitType type=UnitType.CPU;
+        //    foreach (UnitType item in Enum.GetValues(typeof(UnitType)))
+        //    {
+        //        if (item.GetDescription() == value)
+        //        {
+        //            type = item;
+        //            break;
+        //        }
+        //    }
+        //    return type;
+        //}
     }
 }

@@ -36,7 +36,7 @@
             <td>
                 @if (item.Business == Business.Supplier)
                 {
-                    <a href="/Stock/Place?ID=@(item.ID)" class="btn btn-success btn-xs" title="进货"><i class="glyphicon glyphicon-log-in"></i></a>
+                    <a href="/Order/?enterpriseId=@(item.ID)" class="btn btn-success btn-xs" title="进货"><i class="glyphicon glyphicon-log-in"></i></a>
                 }
                 else if (item.Business == Business.Seller)
                 {

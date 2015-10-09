@@ -24,9 +24,15 @@ namespace LoowooTech.SCM.Model
 
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// 快递单
+        /// 快递ID
         /// </summary>
-        public string Express { get; set; }
+        [Column(TypeName = "int")]
+        public Express Express { get; set; }
+
+        /// <summary>
+        /// 快递单号
+        /// </summary>
+        public string ExpressNo { get; set; }
         /// <summary>
         /// 合同
         /// </summary>
@@ -36,10 +42,10 @@ namespace LoowooTech.SCM.Model
         /// </summary>
         public int EnterpriseId { get; set; }
 
-        [Column(TypeName="int")]
+        [Column(TypeName = "int")]
         public OrderType Type { get; set; }
 
-        [Column(TypeName="int")]
+        [Column(TypeName = "int")]
         public State State { get; set; }
 
         [NotMapped]
@@ -47,13 +53,20 @@ namespace LoowooTech.SCM.Model
 
         [NotMapped]
         public Remittance Remittance { get; set; }
-        
+
     }
 
+    public enum Express
+    {
+        EMS = 1,
+        顺丰, 申通, 圆通, 韵达, 中通, 汇通, 天天, 宅急送
+    }
 
     public enum State
     {
-        [Description("订单生成")]
+        [Description("联系卖家")]
+        Contact,
+        [Description("配货")]
         Place,
         [Description("发货")]
         Shipping,

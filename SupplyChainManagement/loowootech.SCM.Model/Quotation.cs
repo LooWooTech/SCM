@@ -33,6 +33,7 @@ namespace LoowooTech.SCM.Model
         /// </summary>
         public int OrderId { get; set; }
 
-        public string Component { get; set; }
+        [NotMapped]
+        public Component Component { get; set; }
     }
 }

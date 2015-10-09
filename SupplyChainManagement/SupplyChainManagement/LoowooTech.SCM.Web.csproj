@@ -101,6 +101,7 @@
     <Compile Include="Controllers\EpistolizeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManufactureController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RemitController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Global.asax.cs">
@@ -174,6 +175,14 @@
     <Content Include="Views\Enterprise\Detail.cshtml" />
     <Content Include="Views\Contact\Edit.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Stock\Contact.cshtml" />
+    <Content Include="Views\Order\Contact.cshtml" />
+    <Content Include="Views\Order\Place.cshtml" />
+    <Content Include="Views\Order\Shipping.cshtml" />
+    <Content Include="Views\Order\Turn.cshtml" />
+    <Content Include="Views\Order\Done.cshtml" />
+    <Content Include="Views\Order\Payment.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Indentures\" />

@@ -11,6 +11,10 @@
         ViewBag.Title = "程序异常";
         <div>
             @(ex.Message)
+            @if (Request.UrlReferrer != null)
+            {
+                <a href="@(Request.UrlReferrer.ToString())" class="btn btn-default">返回</a>
+            }
         </div>
         <!--
         @(ex.StackTrace)

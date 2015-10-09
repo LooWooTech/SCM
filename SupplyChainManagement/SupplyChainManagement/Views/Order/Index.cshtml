@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "进货订单管理";
+    List<Order> list = ViewBag.List;
+    Enterprise enterprise = ViewBag.Enterprise;
+}
+@if (enterprise != null)
+{
+    <h3>@(enterprise.Name) - 进货订单</h3>
+}
+<table class="table table-bordered">
+    <tr>
+        @if (enterprise == null)
+        {
+            <th>供应商</th>
+        }
+        <th>时间</th>
+        <th>快递单</th>
+        <th>订单状态</th>
+        <th>管理</th>
+    </tr>
+    @foreach (var item in list)
+    {
+        <tr>
+            @if (enterprise == null)
+            {
+                <td>@(item.Enterprise.Name)</td>
+            }
+            <td>@(item.CreateTime)</td>
+            <td>@(item.Express == 0 ? "" : (item.Express.ToString() + " 运单号:" + item.ExpressNo))</td>
+            <td>@(item.State.GetDescription())</td>
+            <td>
+                @switch (item.State)
+                {
+                    case State.Turn:
+                        <a href="/order/detail?id=@(item.ID)" class="btn btn-success btn-xs">查看</a>
+                        break;
+                    default:
+                        <a href="/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs">编辑订单</a>
+                        break;
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.Partial("_pagination", ViewBag.Page as object)

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using LoowooTech.SCM.Common;
 
 namespace LoowooTech.SCM.Model
 {
@@ -35,6 +36,17 @@ namespace LoowooTech.SCM.Model
         /// </summary>
         [Column(TypeName = "int")]
         public UnitType Type { get; set; }
+
+        [NotMapped]
+        public string DisplayName
+        {
+            get
+            {
+                return string.Join("-", new[] { Brand, Type.GetDescription(), Specification, Number });
+            }
+        }
+
+        public bool Deleted { get; set; }
     }
 
     public enum UnitType

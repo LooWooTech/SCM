@@ -66,6 +66,7 @@
     <Compile Include="Enterprise.cs" />
     <Compile Include="Filters\ComponentFilter.cs" />
     <Compile Include="Filters\EnterpriseFilter.cs" />
+    <Compile Include="Filters\OrderFilter.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Message.cs" />
@@ -81,6 +82,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\loowootech.SCM.Common\LoowooTech.SCM.Common.csproj">
+      <Project>{6dce073c-1e64-40fd-9ed0-02a8c1c0368c}</Project>
+      <Name>LoowooTech.SCM.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

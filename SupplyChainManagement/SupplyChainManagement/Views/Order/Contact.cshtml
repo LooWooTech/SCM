@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "联系记录-部件进货";
+    Enterprise enterprise = ViewBag.Enterprise;
+    Message model = ViewBag.Message ?? new Message { EnterpriseId = enterprise.ID };
+    List<Contact> contacts = ViewBag.Contacts;
+}
+<div class="alert alert-info" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    你当前选择从供应商——<strong>@(enterprise.Name)</strong> 部件进货
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title"><i class="fa fa-user"></i>联系记录</h4>
+    </div>
+    <div class="panel-body">
+        <form id="form-contact" method="post" action="/order/submitcontact" class="form-horizontal">
+            <input type="hidden" name="OrderId" value="@(model.OrderId)" />
+            <input type="hidden" name="EnterpriseId" value="@(model.EnterpriseId)" />
+            <div class="form-group">
+                <label class="control-label col-lg-3">选择联系人</label>
+                <div class="col-lg-6">
+                    <select name="ContactId" class="form-control">
+                        @foreach (var item in contacts)
+                        {
+                            <option value="@(item.ID)" @(item.ID == model.ContactId ? "selected" : null)>@(item.Name)</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-3">联系时间</label>
+                <div class="col-lg-6">
+                    <input type="text" name="ContactTime" class="form-control" value="@(model.ContactTime.ToString())" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-3">内容备注</label>
+                <div class="col-lg-6">
+                    <textarea rows="3" name="Note" class="form-control">@(model.Note)</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <input type="hidden" name="submit" id="txtSubmit" />
+                    <button type="submit" class="btn btn-primary" id="btn-add"><i class="fa fa-save"></i>保存</button>
+                    <button type="submit" class="btn btn-success" id="btn-submit"><i class="fa fa-list"></i>配置进货单</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#btn-add").click(function () {
+            $("#txtSubmit").val(false);
+        });
+
+        $("#btn-submit").click(function () {
+            $("#txtSubmit").val(true);
+        });
+    });
+</script>

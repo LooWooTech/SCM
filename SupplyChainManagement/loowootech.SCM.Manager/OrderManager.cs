@@ -30,6 +30,7 @@ namespace LoowooTech.SCM.Manager
 
         public Order GetModel(int id)
         {
+            if (id == 0) return null;
             using (var db = GetDataContext())
             {
                 return db.Orders.Find(id);
@@ -85,7 +86,7 @@ namespace LoowooTech.SCM.Manager
             {
                 throw new ArgumentException("未找到部件进货订单");
             }
-            order.Express = Express;
+            order.ExpressNo = Express;
             order.Indenture = FilePath;
             if (!string.IsNullOrEmpty(Express))
             {
@@ -116,6 +117,45 @@ namespace LoowooTech.SCM.Manager
                 throw new ArgumentException("当前要删除的订单无效或者无法删除状态");
             }
 
+        }
+
+        public List<Order> GetList(OrderFilter filter)
+        {
+            using (var db = GetDataContext())
+            {
+                var query = db.Orders.AsQueryable();
+                if (filter.EnterpriseId > 0)
+                {
+                    query = query.Where(e => e.EnterpriseId == filter.EnterpriseId);
+                }
+                if (filter.Type.HasValue)
+                {
+                    query = query.Where(e => e.Type == filter.Type.Value);
+                }
+                if (filter.State.HasValue)
+                {
+                    query = query.Where(e => e.State == filter.State.Value);
+                }
+
+                var list = query.OrderByDescending(e => e.CreateTime).SetPage(filter.Page).ToList();
+                if (filter.EnterpriseId == 0)
+                {
+                    var enterprises = Core.EnterpriseManager.GetList(new EnterpriseFilter { Ids = list.Select(e => e.EnterpriseId).ToArray() });
+                    foreach (var item in list)
+                    {
+                        item.Enterprise = enterprises.FirstOrDefault(e => e.ID == item.EnterpriseId);
+                    }
+                }
+                else
+                {
+                    var enterprise = Core.EnterpriseManager.GetModel(filter.EnterpriseId);
+                    foreach (var item in list)
+                    {
+                        item.Enterprise = enterprise;
+                    }
+                }
+                return list;
+            }
         }
     }
 }

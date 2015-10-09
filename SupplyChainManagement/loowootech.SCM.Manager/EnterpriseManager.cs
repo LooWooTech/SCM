@@ -1,5 +1,4 @@
-﻿using loowootech.SCM.Model;
-using LoowooTech.SCM.Model;
+﻿using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +12,21 @@ namespace LoowooTech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                var query = db.Enterprises.Where(e => e.Deleted == false && e.Business == filter.Business);
+                var query = db.Enterprises.Where(e => !e.Deleted);
+                if (filter == null)
+                {
+                    return query.ToList();
+                }
+
+                if (filter.Ids != null && filter.Ids.Length > 0)
+                {
+                    query = query.Where(e => filter.Ids.Contains(e.ID));
+                }
+
+                if (filter.Business.HasValue)
+                {
+                    query = query.Where(e => e.Business == filter.Business.Value);
+                }
                 if (!string.IsNullOrEmpty(filter.Name))
                 {
                     query = query.Where(e => e.Name.Contains(filter.Name));

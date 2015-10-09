@@ -1,9 +1,8 @@
 ﻿@{
     ViewBag.Title = "部件进货";
-    Enterprise enterprise = ViewBag.Enterprise;
-    List<Contact> contacts = ViewBag.Contacts;
-
+    Order model = ViewBag.Model;
     List<Component> components = ViewBag.Components;
+    List<Quotation> list = ViewBag.Quotations;
     var autocompletedData = components.Select(e => new
     {
         label = e.DisplayName,
@@ -11,40 +10,6 @@
     });
     var dataJson = Newtonsoft.Json.JsonConvert.SerializeObject(autocompletedData);
 }
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title"><i class="fa fa-user"></i>供应商</h4>
-    </div>
-    <div class="panel-body">
-        <h4>你当前选择从供应商——<strong>@(enterprise.Name)</strong> 部件进货</h4>
-        <form id="form-contact" class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-lg-3">选择联系人</label>
-                <div class="col-lg-6">
-                    <select>
-                        @foreach (var item in contacts)
-                        {
-                            <option value="@(item.ID)">@(item.Name)</option>
-                        }
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-3">联系时间</label>
-                <div class="col-lg-6">
-                    <input type="text" name="ContactTime" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-lg-3">内容备注</label>
-                <div class="col-lg-6">
-                    <textarea rows="3" name="Word"></textarea>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 <div class="panel panel-info">
     <div class="panel-heading">
         <h4 class="panel-title"><i class="glyphicon glyphicon-shopping-cart"></i>进货车</h4>
@@ -80,37 +45,63 @@
 
     </div>
 </div>
-<div class="panel panel-success">
-    <div class="panel panel-heading">
-        <h3 class="panel-title">进货清单</h3>
-    </div>
-    <div class="panel-body">
-        <form id="form-list" action="/Stock/Add" method="post" class="form-horizontal">
-            <div class="form-group">
-                <table class="table table-bordered">
-                    <thead>
+<form id="form-place" action="/Order/SubmitPlace" method="post" class="form-horizontal">
+    <input type="hidden" name="Id" value="@(model.ID)" />
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">进货清单</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>部件</th>
+                        <th style="width:100px;">单价</th>
+                        <th style="width:100px;">数量</th>
+                        <th style="width:80px;">移除</th>
+                    </tr>
+                </thead>
+                <tbody id="table-list">
+                    @*@foreach (var item in list)
+                    {
                         <tr>
-                            <th>部件</th>
-                            <th style="width:100px;">单价</th>
-                            <th style="width:100px;">数量</th>
-                            <th style="width:80px;">移除</th>
+                            <td>
+                                <input type="hidden" name="ComponentId" value="@(item.ID)" />
+                                <input type="text" name="Component" class="form-control" value="@(item.Component.DisplayName)" />
+                            </td>
+                            <td>
+                                <input type="text" name="Price" class="form-control" value="@(item.Price)" />
+                            </td>
+                            <td>
+                                <input type="text" name="Number" class="form-control" value="@(item.Number)" />
+                            </td>
+                            <td>
+                                <a href="javascript:;" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-remove"></i></a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody id="table-list"></tbody>
-                </table>
-                <input type="text" name="enterpriseId" value="@(enterprise.ID)" style="display:none" />
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn  btn-primary" style="float:right;margin-right:20px"><i class="glyphicon glyphicon-floppy-open"></i> 提交订单</button>
-            </div>
-        </form>
+                    }*@
+                </tbody>
+            </table>
+            <input type="hidden" name="submit" id="hid-submit" value="false" />
+            <button type="submit" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i>保存</button>
+            <button type="submit" class="btn btn-success" id="btn-submit"><i class="glyphicon glyphicon-floppy-open"></i> 提交订单</button>
+        </div>
     </div>
-</div>
-
+</form>
 <script>
     $(function () {
         $("#form-add").submit(function(){
             var data  = $("#form-add").serializeObject();
+            AddRow(data);
+            return false;
+        });
+        @foreach (var item in list)
+        { 
+            <text>
+            addRow(@(Newtonsoft.Json.JsonConvert.SerializeObject(item)))
+        </text>
+        }
+        function AddRow(data){
             var $str = "<tr><td>"+
                 "<input type='hidden' name='ComponentId' value='"+data.ComponentId+"' />"+
                 "<input type='text' name='Component' class='form-control' value='" + data.Component + "' /></td>"+
@@ -123,8 +114,7 @@
                 var tr = $(this).parents("tr");
                 tr.remove();
             });
-            return false;
-        });
+        }
 
         $("#txtComponent").AutoComplete({
             data: @Html.Raw(dataJson),
@@ -135,6 +125,13 @@
                 $("#txtComponentId").val(data.value);
             },
             'onerror': function (msg) { alert(msg); },
+        });
+
+        $("#btn-save").click(function(){
+            $("#hid-submit").val(false);
+        });
+        $("#btn-submit").click(function(){
+            $("#hid-submit").val(true);
         });
     })
 </script>

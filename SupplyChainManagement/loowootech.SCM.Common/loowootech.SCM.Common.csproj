@@ -50,12 +50,6 @@
     <Compile Include="UploadHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\loowootech.SCM.Model\LoowooTech.SCM.Model.csproj">
-      <Project>{f4475b35-5ef6-4d0c-aa2d-c62e388bc17a}</Project>
-      <Name>LoowooTech.SCM.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

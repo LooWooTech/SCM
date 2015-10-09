@@ -8,18 +8,18 @@ namespace LoowooTech.SCM.Manager
 {
     public class MessageManager:ManagerBase
     {
-        public List<Message> Get(int ID)
+        public List<Message> GetEnterpriseMessages(int enterpriseId)
         {
             using (var db = GetDataContext())
             {
-                return db.Messages.Where(e => e.EnterpriseId == ID).ToList();
+                return db.Messages.Where(e => e.EnterpriseId == enterpriseId).ToList();
             }
         }
 
 
         public List<Message> GetAll(int ID)
         {
-            var listTemp = Get(ID);
+            var listTemp = GetEnterpriseMessages(ID);
             List<Message> list = new List<Message>();
             foreach (var item in listTemp)
             {
@@ -35,6 +35,34 @@ namespace LoowooTech.SCM.Manager
                 db.Messages.Add(message);
                 db.SaveChanges();
                 return message.ID;
+            }
+        }
+
+        public Message GetModelByOrderId(int orderId)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.Messages.FirstOrDefault(e => e.OrderId == orderId);
+            }
+        }
+
+        public void Save(Message model)
+        {
+            using (var db = GetDataContext())
+            {
+                if (model.ID > 0)
+                {
+                    var entity = db.Messages.FirstOrDefault(e => e.ID == model.ID);
+                    if (entity != null)
+                    {
+                        db.Entry(entity).CurrentValues.SetValues(model);
+                    }
+                }
+                else
+                {
+                    db.Messages.Add(model);
+                }
+                db.SaveChanges();
             }
         }
     }

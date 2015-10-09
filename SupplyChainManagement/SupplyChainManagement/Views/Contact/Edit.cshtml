@@ -68,7 +68,7 @@
 <script>
     $(function () {
         $("#form-contact").submit(function () {
-            $(this).post("/enterprise/details?id=@(model.EnterpriseId)");
+            $(this).post("/enterprise/detail?id=@(model.EnterpriseId)");
             return false;
         });
     });

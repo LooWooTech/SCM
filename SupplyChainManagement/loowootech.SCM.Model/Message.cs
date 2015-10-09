@@ -15,7 +15,7 @@ namespace LoowooTech.SCM.Model
     {
         public Message()
         {
-            this.Time = DateTime.Now;
+            this.ContactTime = DateTime.Now;
         }
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
@@ -23,16 +23,18 @@ namespace LoowooTech.SCM.Model
         /// <summary>
         /// 文字
         /// </summary>
-        public string Word { get; set; }
+        public string Note { get; set; }
         /// <summary>
         /// 某年某月某日
         /// </summary>
-        public DateTime Time { get; set; }
+        public DateTime ContactTime { get; set; }
 
         public int EnterpriseId { get; set; }
 
         public int ContactId { get; set; }
         [NotMapped]
         public Contact Contact { get; set; }
+
+        public int OrderId { get; set; }
     }
 }

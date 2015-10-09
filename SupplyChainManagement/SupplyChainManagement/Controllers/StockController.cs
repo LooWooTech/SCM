@@ -19,15 +19,30 @@ namespace LoowooTech.SCM.Web.Controllers
             return View(list);
         }
 
+        public ActionResult Profile(int id)
+        {
+            var order = Core.OrderManager.GetModel(id);
+            var orderList = Core.QuotationManager.GetList(order.ID);
+
+            return View();
+        }
+
+        public ActionResult Contact(int id)
+        {
+            ViewBag.Enterprise = Core.EnterpriseManager.GetModel(id);
+            ViewBag.Contacts = Core.ContactManager.GetList(id);
+            return View();
+        }
 
         /// <summary>
         /// 向供应商部件下单
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Place(int ID)
+        public ActionResult Place(int id)
         {
-            ViewBag.Enterprise = Core.EnterpriseManager.GetModel(ID);
+            ViewBag.Enterprise = Core.EnterpriseManager.GetModel(id);
+            ViewBag.Contacts = Core.ContactManager.GetList(id);
             ViewBag.Components = Core.ComponentManager.GetList(null);
             return View();
         }
@@ -65,8 +80,8 @@ namespace LoowooTech.SCM.Web.Controllers
             {
                 model.Indenture = file.Upload();
             }
-            model.Express = express;
-            if (!string.IsNullOrEmpty(model.Express))
+            model.ExpressNo = express;
+            if (!string.IsNullOrEmpty(model.ExpressNo))
             {
                 model.State = State.Shipping;
             }

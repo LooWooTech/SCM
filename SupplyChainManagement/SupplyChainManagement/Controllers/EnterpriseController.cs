@@ -1,5 +1,4 @@
-﻿using loowootech.SCM.Model;
-using LoowooTech.SCM.Model;
+﻿using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
