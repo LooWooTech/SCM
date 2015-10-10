@@ -18,11 +18,13 @@ namespace LoowooTech.SCM.Manager
         public DbSet<Remittance> Remittances { get; set; }
         public DbSet<Component> Components { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Quotation> Quotations { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<AddressList> AddressLists { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Rate> Rates { get; set; }
         public DbSet<Inventory> Inventorys { get; set; }
+        public DbSet<Express> Expresses { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
     }
 }

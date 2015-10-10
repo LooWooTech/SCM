@@ -1,1 +1,50 @@
-﻿
+﻿@{
+    ViewBag.Title = "进货配送";
+    Order model = ViewBag.Model;
+    List<Express> list = ViewBag.List;
+}
+<form id="form-shipping" action="/order/submitshipping" class="form-horizontal" method="post">
+    <fieldset>
+        <input type="hidden" name="ID" value="@(model.ID)" />
+        <div class="form-group">
+            <label class="control-label col-lg-1">快递公司</label>
+            <div class="col-lg-2">
+                <select class="form-control" name="Express">
+                    @foreach (var item in list)
+                    {
+                        <option value="@(item.ID)" @(model.Express == item.ID ? "selected" : null)>@(item.Name)</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-1">快递单号</label>
+            <div class="col-lg-4">
+                <input type="text" name="ExpressNO" value="@(model.ExpressNo)" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-1">快递动态</label>
+            <div class="col-lg-8">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-1">
+                <input type="hidden" name="submit" id="hid-submit" value="false" />
+                <button type="submit" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i>保存</button>
+                <button type="submit" class="btn btn-success" id="btn-submit"><i class="glyphicon glyphicon-floppy-open"></i> 提交订单</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<script>
+    $(function () {
+        $("#btn-save").click(function () {
+            $("#hid-submit").val(false);
+        });
+        $("#btn-submit").click(function () {
+            $("#hid-submit").val(true);
+        });
+    });
+</script>

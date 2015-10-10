@@ -1,1 +1,61 @@
-﻿
+﻿@{
+    Order order = ViewBag.Order;
+    Remittance model = ViewBag.Model;
+}
+<form method="post" action="" class="form-horizontal">
+    <input type="hidden" name="OrderId" value="@(model.OrderId)" />
+    <div class="form-group">
+        <label for="Pay" class="control-label col-lg-3">支付方式</label>
+        <div class="col-lg-8">
+            @foreach (Payment pay in Enum.GetValues(typeof(Payment)))
+            {
+                var value = (int)pay;
+                <label class="radio-inline">
+                    <input type="radio" name="Pay" value="@(value)" @(model.Pay == pay ? "selected" : null)>@(pay.GetDescription())
+                </label>
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Account" class="control-label col-lg-3">账户</label>
+        <div class="col-lg-8">
+            <input type="text" name="Account" class="form-control" value="@(model.Account)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Bank" class="control-label col-lg-3">开户行</label>
+        <div class="col-lg-8">
+            <input type="text" name="Bank" class="form-control" value="@(model.Bank)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Money" class="control-label col-lg-3">金额</label>
+        <div class="col-lg-8">
+            <input type="number" class="form-control" name="Money" value="@(model.Money)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Memo" class="control-label col-lg-3">备注</label>
+        <div class="col-lg-8">
+            <textarea class="form-control" name="Note">@(model.Note)</textarea>
+        </div>
+    </div>
+    <input type="hidden" name="submit" id="hid-submit" value="false" />
+    <button type="submit" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i>保存</button>
+    <button type="submit" class="btn btn-success" id="btn-submit"><i class="glyphicon glyphicon-floppy-open"></i> 提交订单</button>
+</form>
+<script>
+    $(function () {
+        $("#btn-save").click(function () {
+            $("#hid-submit").val(false);
+        });
+
+        $("#btn-submit").click(function () {
+            if (confirm("提交后不可再修改此汇款信息，确认提交？")) {
+                $("#hid-submit").val(true);
+            } else {
+                return false;
+            }
+        });
+    });
+</script>

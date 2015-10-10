@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "收货入库";
+    Order model = ViewBag.Model;
+    List<OrderItem> list = ViewBag.List;
+}
+<form class="form-horizontal" method="post" action="/order/submitreceive">
+    <input type="hidden" name="OrderId" value="@(model.ID)" />
+    <table id="list" class="table table-bordered">
+        <thead>
+            <tr>
+
+                <th>产品型号</th>
+                <th>订购单价</th>
+                <th>订购数量</th>
+                <th>成交单价</th>
+                <th>成交数量</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in list)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="ItemID" value="@(item.ID)" />
+                        @(item.Component.DisplayName)
+                    </td>
+                    <td>@(Math.Round(item.Price, 4))</td>
+                    <td>@(item.Number)</td>
+                    <td>
+                        <input type="text" name="DealPrice" value="@(Math.Round(item.DealPrice, 4))" />
+                    </td>
+                    <td>
+                        <input type="text" name="DealNumber" value="@(item.DealNumber)" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input type="hidden" name="submit" id="hid-submit" value="false" />
+    <button type="submit" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i>保存</button>
+    <button type="submit" class="btn btn-success" id="btn-submit"><i class="glyphicon glyphicon-floppy-open"></i> 提交订单</button>
+</form>
+<script>
+    $(function () {
+        $("#btn-save").click(function () {
+            $("#hid-submit").val(false);
+        });
+        $("#btn-submit").click(function () {
+            $("#hid-submit").val(true);
+        });
+    });
+</script>

@@ -26,17 +26,16 @@ namespace LoowooTech.SCM.Model
         /// <summary>
         /// 快递ID
         /// </summary>
-        [Column(TypeName = "int")]
-        public Express Express { get; set; }
+        public int Express { get; set; }
 
         /// <summary>
         /// 快递单号
         /// </summary>
         public string ExpressNo { get; set; }
         /// <summary>
-        /// 合同
+        /// 是否有合同文件
         /// </summary>
-        public string Indenture { get; set; }
+        public bool Indenture { get; set; }
         /// <summary>
         /// 供应商
         /// </summary>
@@ -56,12 +55,6 @@ namespace LoowooTech.SCM.Model
 
     }
 
-    public enum Express
-    {
-        EMS = 1,
-        顺丰, 申通, 圆通, 韵达, 中通, 汇通, 天天, 宅急送
-    }
-
     public enum State
     {
         [Description("联系卖家")]
@@ -72,10 +65,12 @@ namespace LoowooTech.SCM.Model
         Shipping,
         [Description("完成")]
         Done,
-        [Description("退货")]
-        Turn,
-        [Description("已汇款")]
-        Payment
+        [Description("收货入库")]
+        Receive,
+        [Description("汇款")]
+        Payment,
+        [Description("填写合同")]
+        Contract
     }
 
     public enum OrderType

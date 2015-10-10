@@ -16,7 +16,7 @@ namespace LoowooTech.SCM.Model
     {
         public Remittance()
         {
-            this.Time = DateTime.Now;
+            this.CreateTime = DateTime.Now;
         }
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
@@ -28,7 +28,7 @@ namespace LoowooTech.SCM.Model
         /// <summary>
         /// 时间
         /// </summary>
-        public DateTime Time { get; set; }
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// 银行（支付宝）账号
         /// </summary>
@@ -45,8 +45,9 @@ namespace LoowooTech.SCM.Model
         /// <summary>
         /// 备注
         /// </summary>
-        public string Memo { get; set; }
-        public int SID { get; set; }
+        public string Note { get; set; }
+        
+        public int OrderId { get; set; }
     }
     public enum Payment
     {

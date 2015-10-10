@@ -10,8 +10,8 @@ namespace LoowooTech.SCM.Model
     /// <summary>
     /// 价格记录（进货清单）
     /// </summary>
-    [Table("quotations")]
-    public class Quotation
+    [Table("order_items")]
+    public class OrderItem
     {
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
@@ -32,6 +32,14 @@ namespace LoowooTech.SCM.Model
         /// 订单号
         /// </summary>
         public int OrderId { get; set; }
+        /// <summary>
+        /// 收货数量
+        /// </summary>
+        public int DealNumber { get; set; }
+        /// <summary>
+        /// 收货价格
+        /// </summary>
+        public double DealPrice { get; set; }
 
         [NotMapped]
         public Component Component { get; set; }

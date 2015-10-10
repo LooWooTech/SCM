@@ -22,7 +22,7 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult Profile(int id)
         {
             var order = Core.OrderManager.GetModel(id);
-            var orderList = Core.QuotationManager.GetList(order.ID);
+            var orderList = Core.OrderItemManager.GetList(order.ID);
 
             return View();
         }
@@ -53,10 +53,10 @@ namespace LoowooTech.SCM.Web.Controllers
             var orderId = Core.OrderManager.Add(new Order { EnterpriseId = enterpriseId });
             if (orderId > 0)
             {
-                var list = Core.QuotationManager.Acquire(HttpContext, orderId);
+                var list = Core.OrderItemManager.Acquire(HttpContext, orderId);
                 if (list != null)
                 {
-                    Core.QuotationManager.AddAll(list);
+                    Core.OrderItemManager.AddAll(list);
                 }
             }
 
@@ -68,7 +68,7 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult Detail(int ID)
         {
             Order order = Core.OrderManager.GetModel(ID);
-            ViewBag.List = Core.QuotationManager.GetList(ID);
+            ViewBag.List = Core.OrderItemManager.GetList(ID);
             return View(order);
         }
 
@@ -78,7 +78,7 @@ namespace LoowooTech.SCM.Web.Controllers
             var model = Core.OrderManager.GetModel(id);
             if (file != null)
             {
-                model.Indenture = file.Upload();
+                //model.Indenture = file.Upload();
             }
             model.ExpressNo = express;
             if (!string.IsNullOrEmpty(model.ExpressNo))
@@ -97,7 +97,7 @@ namespace LoowooTech.SCM.Web.Controllers
             {
                 throw new ArgumentException("未找到相关的订单详情");
             }
-            ViewBag.List = Core.QuotationManager.GetList(order.ID);
+            ViewBag.List = Core.OrderItemManager.GetList(order.ID);
             return View(order);
         }
 
@@ -106,12 +106,12 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult CheckOut(int ID)
         {
             //获取当前订单中的部件ID
-            var listNames = Core.QuotationManager.GetByOID(ID).Select(e => e.ID).ToList();
+            var listNames = Core.OrderItemManager.GetByOID(ID).Select(e => e.ID).ToList();
             //获取字典 key为部件ID  value为最终确认部件数量
-            var dict = Core.QuotationManager.Acquire(HttpContext, listNames);
+            var dict = Core.OrderItemManager.Acquire(HttpContext, listNames);
             //假如存在部分损坏部件，那么就更新本地订单部件数量
-            Core.QuotationManager.Update(dict);
-            var list = Core.QuotationManager.GetByOID(ID);
+            Core.OrderItemManager.Update(dict);
+            var list = Core.OrderItemManager.GetByOID(ID);
             //确认本地订单部件数量 将本地部件进入本地仓库
             Core.InventoryManager.Add(list);
             //修改本地订单状态
@@ -122,7 +122,7 @@ namespace LoowooTech.SCM.Web.Controllers
         [ChildActionOnly]
         public ActionResult OrderList(int ID)
         {
-            var list = Core.QuotationManager.GetList(ID);
+            var list = Core.OrderItemManager.GetList(ID);
             ViewBag.Index = ID;
             return PartialView("OrderList", list);
         }

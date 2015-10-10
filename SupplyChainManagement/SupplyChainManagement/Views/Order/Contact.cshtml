@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <div class="col-lg-6 col-lg-offset-3">
-                    <input type="hidden" name="submit" id="txtSubmit" />
+                    <input type="hidden" name="submit" id="hid-submit" value="false" />
                     <button type="submit" class="btn btn-primary" id="btn-add"><i class="fa fa-save"></i>保存</button>
                     <button type="submit" class="btn btn-success" id="btn-submit"><i class="fa fa-list"></i>配置进货单</button>
                 </div>
@@ -52,11 +52,11 @@
 <script>
     $(function () {
         $("#btn-add").click(function () {
-            $("#txtSubmit").val(false);
+            $("#hid-submit").val(false);
         });
 
         $("#btn-submit").click(function () {
-            $("#txtSubmit").val(true);
+            $("#hid-submit").val(true);
         });
     });
 </script>

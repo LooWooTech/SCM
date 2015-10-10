@@ -1,4 +1,5 @@
-﻿using LoowooTech.SCM.Model;
+﻿using LoowooTech.SCM.Common;
+using LoowooTech.SCM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace LoowooTech.SCM.Web.Controllers
             return View();
         }
 
-        public ActionResult SubmitContact(bool submit, Message model)
+        public ActionResult SubmitContact(Message model, bool submit = false)
         {
             if (model.ContactId == 0)
             {
@@ -85,21 +86,26 @@ namespace LoowooTech.SCM.Web.Controllers
 
             Core.MessageManager.Save(model);
 
-            return RedirectToAction("Place", new { id = model.OrderId });
+            return RedirectToAction(submit ? "Place" : "Contact", new { id = model.OrderId });
 
         }
 
-        public ActionResult Place(int id)
+        private Order GetOrder(int id)
         {
             var model = Core.OrderManager.GetModel(id);
             if (model == null)
             {
                 throw new ArgumentException("参数不正确，没找到订单");
             }
+            return model;
+        }
 
+        public ActionResult Place(int id)
+        {
+            var model = GetOrder(id);
             ViewBag.Model = model;
             ViewBag.Components = Core.ComponentManager.GetList(null);
-            ViewBag.Quotations = Core.QuotationManager.GetList(model.ID);
+            ViewBag.List = Core.OrderItemManager.GetList(model.ID);
             return View();
         }
 
@@ -118,10 +124,10 @@ namespace LoowooTech.SCM.Web.Controllers
                 }
             }
 
-            var list = new List<Quotation>();
+            var list = new List<OrderItem>();
             for (var i = 0; i < componentId.Length; i++)
             {
-                list.Add(new Quotation
+                list.Add(new OrderItem
                 {
                     ComponentId = componentId[i],
                     Price = price[i],
@@ -130,33 +136,141 @@ namespace LoowooTech.SCM.Web.Controllers
                 });
             }
 
-            var model = Core.OrderManager.GetModel(id);
-            if (model == null)
+            var model = GetOrder(id);
+            model.State = submit ? State.Contract : State.Place;
+            Core.OrderItemManager.Save(model.ID, list);
+            Core.OrderManager.Update(model);
+
+            return RedirectToAction(submit ? "Contract" : "Place", new { id });
+        }
+
+        public ActionResult Contract(int id)
+        {
+            var model = GetOrder(id);
+            ViewBag.Model = model;
+            ViewBag.List = Core.ContractManager.GetList(model.ID);
+            return View();
+        }
+
+        private string GetUploadPath(HttpPostedFileBase file)
+        {
+            var uploadPath = AppSettings.Current["UploadPath"];
+            if (!System.IO.Directory.Exists(uploadPath))
             {
-                throw new ArgumentException("没有找到对应的订单");
+                System.IO.Directory.CreateDirectory(uploadPath);
+            }
+            var savePath = System.IO.Path.Combine(uploadPath, file.FileName);
+            file.SaveAs(savePath);
+
+            return savePath;
+        }
+
+        public ActionResult SubmitContract(int id, bool submit = false)
+        {
+            var model = GetOrder(id);
+            model.State = submit ? State.Shipping : State.Contract;
+            var list = new List<Contract>();
+            if (Request.Files.Count > 0)
+            {
+                foreach (HttpPostedFileBase file in Request.Files)
+                {
+                    if (file.ContentLength > 0)
+                    {
+                        var filePath = GetUploadPath(file);
+                        list.Add(new Contract { OrderId = id, File = filePath });
+                    }
+                }
             }
 
-            Core.QuotationManager.Save(model.ID, list);
-
-            return RedirectToAction("Shipping", new { id });
+            return RedirectToAction(submit ? "Shipping" : "Contract", new { id });
         }
 
         public ActionResult Shipping(int id)
         {
+            var model = GetOrder(id);
+            ViewBag.List = Core.ExpressManager.GetList();
+            ViewBag.Model = model;
             return View();
         }
 
-        public ActionResult Turn(int id)
+        public ActionResult SubmitShipping(int id, int express, string expressNo, bool submit = false)
         {
+            var model = GetOrder(id);
+            if (submit)
+            {
+                if (string.IsNullOrEmpty(expressNo) || express == 0)
+                {
+                    throw new ArgumentException("请选择快递公司并填写运单号");
+                }
+                model.State = State.Receive;
+            }
+
+            model.ExpressNo = expressNo;
+            model.Express = express;
+            Core.OrderManager.Update(model);
+            return RedirectToAction(submit ? "Receive" : "Shipping", new { id });
+        }
+
+        public ActionResult Receive(int id)
+        {
+            var model = GetOrder(id);
+            ViewBag.Model = model;
+            ViewBag.List = Core.OrderItemManager.GetList(model.ID);
             return View();
         }
 
-        public ActionResult Done(int id)
+        public ActionResult SubmitReceive(int orderId, int[] itemId, int[] dealprice, int[] dealnumber, bool submit = false)
         {
-            return View();
+            var model = GetOrder(orderId);
+            var list = Core.OrderItemManager.GetList(orderId);
+            foreach (var item in list)
+            {
+                for (var i = 0; i < itemId.Length; i++)
+                {
+                    if (itemId[i] == item.ID)
+                    {
+                        item.DealNumber = dealnumber[i];
+                        item.DealPrice = dealprice[i];
+                    }
+                }
+            }
+            Core.OrderItemManager.UpdateReceiveNumber(list);
+            model.State = submit ? State.Payment : State.Receive;
+            Core.OrderManager.Update(model);
+            return RedirectToAction(submit ? "Payment" : "Receive", new { id = orderId });
         }
 
         public ActionResult Payment(int id)
+        {
+            var order = GetOrder(id);
+            ViewBag.Order = order;
+            ViewBag.Model = Core.RemittanceManager.GetModel(id) ?? new Remittance { OrderId = order.ID };
+            return View();
+        }
+
+        public ActionResult SubmitPayment(int id, Remittance data, bool submit = false)
+        {
+            var order = GetOrder(id);
+            if (string.IsNullOrEmpty(data.Account))
+            {
+                throw new ArgumentException("没有填写汇款账户");
+            }
+            if (string.IsNullOrEmpty(data.Bank))
+            {
+                throw new ArgumentException("没有填写开户银行");
+            }
+            if (data.Money <= 0)
+            {
+                throw new ArgumentException("金额填写不正确");
+            }
+
+            Core.RemittanceManager.Save(data);
+            order.State = submit ? State.Done : State.Payment;
+            Core.OrderManager.Update(order);
+            return RedirectToAction(submit ? "Done" : "Payment", new { id = id });
+        }
+
+        public ActionResult Done(int id)
         {
             return View();
         }

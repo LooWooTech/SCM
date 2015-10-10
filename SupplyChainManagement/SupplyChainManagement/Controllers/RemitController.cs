@@ -14,7 +14,7 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult Add(Remittance remittance)
         {
             var index = Core.RemittanceManager.Add(remittance);
-            var order = Core.OrderManager.GetModel(remittance.SID);
+            var order = Core.OrderManager.GetModel(remittance.OrderId);
             return RedirectToAction("Index", "Stock", new { Type=order.Type});
         }
 

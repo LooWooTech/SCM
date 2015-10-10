@@ -7,9 +7,9 @@ using System.Web;
 
 namespace LoowooTech.SCM.Manager
 {
-    public class QuotationManager : ManagerBase
+    public class OrderItemManager : ManagerBase
     {
-        public List<Quotation> Acquire(HttpContextBase context, int OID)
+        public List<OrderItem> Acquire(HttpContextBase context, int OID)
         {
             var ids = context.Request.Form["ComponentId"].Split(',');
             var names = context.Request.Form["Component"].Split(',');
@@ -21,7 +21,7 @@ namespace LoowooTech.SCM.Manager
                 throw new ArgumentException("获取对应的值数量不对");
             }
 
-            var result = new List<Quotation>();
+            var result = new List<OrderItem>();
             for (var i = 0; i < count; i++)
             {
                 var id = 0;
@@ -44,7 +44,7 @@ namespace LoowooTech.SCM.Manager
                     throw new ArgumentException("数量填写不正确");
                 }
 
-                result.Add(new Quotation
+                result.Add(new OrderItem
                 {
                     ComponentId = id,
                     Price = price,
@@ -121,11 +121,11 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public void Update(Quotation quotation)
+        public void Update(OrderItem quotation)
         {
             using (var db = GetDataContext())
             {
-                var entity = db.Quotations.Find(quotation.ID);
+                var entity = db.OrderItems.Find(quotation.ID);
                 if (entity != null)
                 {
                     db.Entry(entity).CurrentValues.SetValues(quotation);
@@ -134,15 +134,15 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public Quotation Get(int ID)
+        public OrderItem Get(int ID)
         {
             using (var db = GetDataContext())
             {
-                return db.Quotations.Find(ID);
+                return db.OrderItems.Find(ID);
             }
         }
 
-        public void AddAll(List<Quotation> List)
+        public void AddAll(List<OrderItem> List)
         {
             foreach (var item in List)
             {
@@ -158,38 +158,56 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public List<Quotation> GetByOID(int OID)
+        public List<OrderItem> GetByOID(int OID)
         {
             using (var db = GetDataContext())
             {
-                return db.Quotations.Where(e => e.OrderId == OID).ToList();
+                return db.OrderItems.Where(e => e.OrderId == OID).ToList();
             }
         }
 
-        public void Add(Quotation quotation)
+        public void Add(OrderItem quotation)
         {
             using (var db = GetDataContext())
             {
-                db.Quotations.Add(quotation);
+                db.OrderItems.Add(quotation);
                 db.SaveChanges();
             }
         }
 
-        public List<Quotation> GetList(int orderId)
+        public List<OrderItem> GetList(int orderId)
         {
             using (var db = GetDataContext())
             {
-                return db.Quotations.Where(e => e.OrderId == orderId).ToList();
+                var list = db.OrderItems.Where(e => e.OrderId == orderId).ToList();
+                foreach (var item in list)
+                {
+                    item.Component = Core.ComponentManager.GetModel(item.ComponentId);
+                }
+                return list;
             }
         }
 
-        public void Save(int orderId, List<Quotation> list)
+        public void UpdateReceiveNumber(List<OrderItem> list)
         {
             using (var db = GetDataContext())
             {
-                var added = db.Quotations.Where(e => e.OrderId == orderId);
-                db.Quotations.RemoveRange(added);
-                db.Quotations.AddRange(list);
+                foreach (var item in list)
+                {
+                    var entity = db.OrderItems.FirstOrDefault(e => e.ID == item.ID);
+                    entity.DealNumber = item.DealNumber;
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public void Save(int orderId, List<OrderItem> list)
+        {
+            using (var db = GetDataContext())
+            {
+                var added = db.OrderItems.Where(e => e.OrderId == orderId);
+                db.OrderItems.RemoveRange(added);
+                db.OrderItems.AddRange(list);
                 db.SaveChanges();
             }
         }

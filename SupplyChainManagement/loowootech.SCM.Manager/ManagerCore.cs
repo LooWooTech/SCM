@@ -33,10 +33,10 @@ namespace LoowooTech.SCM.Manager
             get { return _addresslistManager == null ? _addresslistManager = new AddressListManager() : _addresslistManager; }
         }
 
-        private QuotationManager _quotationManager;
-        public QuotationManager QuotationManager
+        private OrderItemManager _orderItemManager;
+        public OrderItemManager OrderItemManager
         {
-            get { return _quotationManager == null ? _quotationManager = new QuotationManager() : _quotationManager; }
+            get { return _orderItemManager == null ? _orderItemManager = new OrderItemManager() : _orderItemManager; }
         }
         private OrderManager _orderManager;
         public OrderManager OrderManager
@@ -78,6 +78,18 @@ namespace LoowooTech.SCM.Manager
         public RemittanceManager RemittanceManager
         {
             get { return _remittanceManager == null ? _remittanceManager = new RemittanceManager() : _remittanceManager; }
+        }
+
+        private ExpressManager _expressManager;
+        public ExpressManager ExpressManager
+        {
+            get { return _expressManager == null ? _expressManager = new ExpressManager() : _expressManager; }
+        }
+
+        private ContractManager _contractManager;
+        public ContractManager ContractManager
+        {
+            get { return _contractManager == null ? _contractManager = new ContractManager() : _contractManager; }
         }
         
     }

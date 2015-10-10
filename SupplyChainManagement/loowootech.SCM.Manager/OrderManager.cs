@@ -87,7 +87,7 @@ namespace LoowooTech.SCM.Manager
                 throw new ArgumentException("未找到部件进货订单");
             }
             order.ExpressNo = Express;
-            order.Indenture = FilePath;
+            //order.Indenture = FilePath;
             if (!string.IsNullOrEmpty(Express))
             {
                 order.State = State.Shipping;

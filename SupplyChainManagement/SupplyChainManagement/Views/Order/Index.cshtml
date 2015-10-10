@@ -14,9 +14,11 @@
             <th>供应商</th>
         }
         <th>时间</th>
-        <th>快递单</th>
-        <th>订单状态</th>
-        <th>管理</th>
+        <th style="width:100px;"> 订单状态</th>
+        <th style="width:100px;">订单合同</th>
+        <th style="width:100px;">物流信息</th>
+        <th style="width:100px;">汇款信息</th>
+        <th style="width:100px;">管理</th>
     </tr>
     @foreach (var item in list)
     {
@@ -26,16 +28,18 @@
                 <td>@(item.Enterprise.Name)</td>
             }
             <td>@(item.CreateTime)</td>
-            <td>@(item.Express == 0 ? "" : (item.Express.ToString() + " 运单号:" + item.ExpressNo))</td>
             <td>@(item.State.GetDescription())</td>
+            <td><a href="/contract/view?orderId=@(item.ID)" data-toggle="modal" data-target="#modal"><i class="fa fa-paperclip"></i>查看合同</a></td>
+            <td><a href="/express/view?id=@(item.Express)&no=@(item.ExpressNo)" data-toggle="modal" data-target="#modal"><i class="fa fa-car"></i>查看物流</a></td>
+            <td><a href="/payment/view?orderId=@(item.ID)" data-toggle="modal" data-target="#modal"><i class="fa fa-cc-visa"></i>汇款查看</a></td>
             <td>
                 @switch (item.State)
                 {
-                    case State.Turn:
-                        <a href="/order/detail?id=@(item.ID)" class="btn btn-success btn-xs">查看</a>
+                    case State.Done:
+                        <a href="/order/detail?id=@(item.ID)" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> 查看</a>
                         break;
                     default:
-                        <a href="/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs">编辑订单</a>
+                    <a href="/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> 修改</a>
                         break;
                 }
             </td>
