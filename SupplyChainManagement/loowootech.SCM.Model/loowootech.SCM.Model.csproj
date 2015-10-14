@@ -69,8 +69,9 @@
     <Compile Include="Filters\ComponentFilter.cs" />
     <Compile Include="Filters\EnterpriseFilter.cs" />
     <Compile Include="Filters\OrderFilter.cs" />
+    <Compile Include="Filters\ProductFilter.cs" />
     <Compile Include="Inventory.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="ProductItem.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Filters\PageFilter.cs" />

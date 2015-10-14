@@ -62,16 +62,7 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public Item GetComponents(Item item)
-        {
-            using (var db = GetDataContext())
-            {
-                item.Components = db.Components.Find(item.CID);
-            }
-            return item;
-        }
-
-        public List<Component> GetList(ComponentFilter filter)
+        public List<Component> GetList(ComponentFilter filter = null)
         {
             using (var db = GetDataContext())
             {

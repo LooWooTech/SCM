@@ -19,10 +19,9 @@
             <div class="form-group">
                 <label class="control-label col-lg-3">部件名称</label>
                 <div class="col-lg-6">
-                    <input type="hidden" name="ComponentId" id="txtComponentId" />
-                    <input type="text" id="txtComponent" name="Component" class="form-control" autocomplete="off" />
+                    <input type="hidden" name="ComponentId" id="txt-componentId" />
+                    <input type="text" id="txt-component" name="Component" class="form-control" autocomplete="off" />
                 </div>
-
             </div>
             <div class="form-group">
                 <label for="Price" class="control-label col-lg-3">单价</label>
@@ -61,7 +60,7 @@
                         <th style="width:80px;">移除</th>
                     </tr>
                 </thead>
-                <tbody id="table-list">
+                <tbody id="list-items">
                     @*@foreach (var item in list)
                     {
                         <tr>
@@ -92,6 +91,11 @@
     $(function () {
         $("#form-add").submit(function(){
             var data  = $("#form-add").serializeObject();
+            if(data.ComponentId == 0 || data.Component == NaN)
+            {
+                alert("请选择提示列表中的部件，不能随意填写。");
+                return;
+            }
             addRow(data);
             this.reset();
             return false;
@@ -111,21 +115,23 @@
                 "<td><input type='text' name='Number' class='form-control' value='" + data.Number + "'/></td>"+
                 "<td><a href='javascript:;' class='btn btn-danger btn-xs btn-remove'><i class='fa fa-remove'></i></a></td>"+
                 "</tr>";
-            $("#table-list").append($str);
-            $("#table-list .btn-remove").unbind("click").bind("click", function () {
+            $("#list-items").append($str);
+            $("#list-items .btn-remove").unbind("click").bind("click", function () {
                 var tr = $(this).parents("tr");
                 tr.remove();
                 return;
             });
         }
-
-        $("#txtComponent").AutoComplete({
+        $("#txt-component").change(function(){
+            $("#txt-componentId").val(0);
+        });
+        $("#txt-component").AutoComplete({
             data: @Html.Raw(dataJson),
             width: 'auto',
             itemHeight:30,
             afterSelectedHandler:function(data){
-                $("#txtComponent").val(data.label);
-                $("#txtComponentId").val(data.value);
+                $("#txt-component").val(data.label);
+                $("#txt-componentId").val(data.value);
             },
             'onerror': function (msg) { alert(msg); },
         });

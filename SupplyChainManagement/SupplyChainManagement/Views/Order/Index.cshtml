@@ -5,7 +5,9 @@
 }
 @if (enterprise != null)
 {
-    <h3>@(enterprise.Name) - 进货订单</h3>
+    <h3>
+        @(enterprise.Name) - 进货订单 <a href="/order/edit?enterpriseId=@(enterprise.ID)" class="btn btn-success">进货</a>
+    </h3>
 }
 <table class="table table-bordered">
     <tr>

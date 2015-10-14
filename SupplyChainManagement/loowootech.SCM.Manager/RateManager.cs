@@ -7,7 +7,7 @@ using System.Text;
 
 namespace LoowooTech.SCM.Manager
 {
-    public class RateManager:ManagerBase
+    public class RateManager : ManagerBase
     {
         public int Add(Rate rate)
         {
@@ -20,15 +20,15 @@ namespace LoowooTech.SCM.Manager
         }
 
 
-        public List<Rate> Get(int ID)
+        public List<Rate> GetList(int id)
         {
             using (var db = GetDataContext())
             {
-                return db.Rates.Where(e => e.SID == ID).ToList();
+                return db.Rates.Where(e => e.SID == id).ToList();
             }
         }
 
-        public string GetJavaScriptContext(List<Rate> list,string FilePath)
+        public string GetJavaScriptContext(List<Rate> list, string FilePath)
         {
             string str = string.Empty;
             try
@@ -43,7 +43,7 @@ namespace LoowooTech.SCM.Manager
                 return null;
             }
             int Count = list.Count;
-            if(Count==0)
+            if (Count == 0)
             {
                 return str;
             }
@@ -54,7 +54,7 @@ namespace LoowooTech.SCM.Manager
             for (var i = 0; i < Count; i++)
             {
                 Labelsb.Append('"' + list[i].Time.ToString() + '"');
-                datasb.Append(Math.Round(list[i].Price,4));
+                datasb.Append(Math.Round(list[i].Price, 4));
                 if (i != (Count - 1))
                 {
                     Labelsb.Append(',');

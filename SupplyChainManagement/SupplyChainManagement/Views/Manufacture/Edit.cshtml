@@ -1,0 +1,114 @@
+﻿@{
+    Product model = ViewBag.Model;
+    ViewBag.Title = model.ID > 0 ? "修改产品" : "添加产品";
+    List<ProductItem> items = ViewBag.Items;
+    List<Component> components = ViewBag.Components;
+    var autocompletedData = components.Select(e => new
+    {
+        label = e.DisplayName,
+        value = e.ID
+    });
+    var dataJson = Newtonsoft.Json.JsonConvert.SerializeObject(autocompletedData);
+}
+<form id="form-product" class="form-horizontal" action="/Manufacture/Submit" method="post">
+    <input type="hidden" name="ID" value="@(model.ID)">
+    <div class="form-group">
+        <label for="Number" class="control-label col-lg-2">产品型号</label>
+        <div class="col-lg-8">
+            <input type="text" name="Number" class="form-control" value="@(model.Number)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Price" class="control-label col-lg-2">售价</label>
+        <div class="col-lg-8">
+            <input type="text" name="Price" class="form-control" value="@(model.Price)" />
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <label class="control-label col-lg-2">添加部件</label>
+        <div class="col-lg-4">
+            <input type="hidden" name="ComponentId" id="txt-componentId" />
+            <input type="text" id="txt-component" name="Component" class="form-control" autocomplete="off" placeholder="输入部件名称的一部分即可" />
+        </div>
+        <div class="col-lg-1">
+            <button id="btn-add" type="button" class="btn btn-success">添加</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-lg-2">部件列表</label>
+      <div class="col-lg-8">
+            <table class="table table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th>部件名称</th>
+                        <th style="width:100px;">数量</th>
+                        <th style="width:80px;">移除</th>
+                    </tr>
+                </thead>
+                <tbody id="list-items"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-8 col-lg-offset-2">
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i> 确定</button>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+
+        function addRow(data){
+            var componentName = typeof(data.Component) == "object"?data.Component.DisplayName:data.Component;
+            var $str = "<tr><td>"+
+                "<input type='hidden' name='ComponentId' value='"+data.ComponentId+"' />"+
+                "<input type='text' name='Component' class='form-control' value='" + componentName + "' /></td>"+
+                "<td><input type='text' name='Number' class='form-control' value='" + data.Number + "'/></td>"+
+                "<td><a href='javascript:;' class='btn btn-danger btn-xs btn-remove'><i class='fa fa-remove'></i></a></td>"+
+                "</tr>";
+            $("#list-items").append($str);
+            $("#list-items .btn-remove").unbind("click").bind("click", function () {
+                var tr = $(this).parents("tr");
+                tr.remove();
+                return;
+            });
+        }
+        $("#txt-component").change(function(){
+            $("#txt-componentId").val(0);
+        });
+        $("#txt-component").AutoComplete({
+            data: @Html.Raw(dataJson),
+            width: 'auto',
+            itemHeight:30,
+            afterSelectedHandler:function(data){
+                $("#txt-component").val(data.label);
+                $("#txt-componentId").val(data.value);
+            },
+            'onerror': function (msg) { alert(msg); },
+        });
+
+        $("#btn-add").click(function () {
+            var component = $("#txt-component").val();
+            var componentId= parseInt($("#txt-componentId").val());
+            if(componentId == 0 || component == NaN)
+            {
+                alert("请选择提示列表中的部件，不能随意填写。");
+                return;
+            }
+            addRow({
+                ComponentId : componentId,
+                Component:component,
+                Number:1
+            });
+        });
+
+        @foreach (var item in items)
+        {
+            <text>
+        addRow(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(item)))
+        </text>
+        }
+
+    });
+</script>

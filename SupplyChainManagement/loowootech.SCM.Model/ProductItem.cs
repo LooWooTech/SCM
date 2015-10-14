@@ -7,8 +7,8 @@ using System.Text;
 
 namespace LoowooTech.SCM.Model
 {
-    [Table("items")]
-    public class Item
+    [Table("product_items")]
+    public class ProductItem
     {
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
@@ -20,14 +20,13 @@ namespace LoowooTech.SCM.Model
         /// <summary>
         /// 对应的产品
         /// </summary>
-        public int PID { get; set; }
+        public int ProductId { get; set; }
         /// <summary>
         /// 对应的部件
         /// </summary>
-        public int CID { get; set; }
+        public int ComponentId { get; set; }
+
         [NotMapped]
-        public Component Components { get; set; }
-        [NotMapped]
-        public Product Product { get; set; }
+        public Component Component { get; set; }
     }
 }

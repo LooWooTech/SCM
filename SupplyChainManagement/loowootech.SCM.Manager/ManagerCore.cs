@@ -50,12 +50,6 @@ namespace LoowooTech.SCM.Manager
             get { return _productManager == null ? _productManager = new ProductManager() : _productManager; }
         }
 
-        private ItemManager _itemManager;
-        public ItemManager ItemManager
-        {
-            get { return _itemManager == null ? _itemManager = new ItemManager() : _itemManager; }
-        }
-
         private RateManager _rateManager;
         public RateManager RateManager
         {

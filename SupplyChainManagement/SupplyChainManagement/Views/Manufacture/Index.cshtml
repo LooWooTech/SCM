@@ -1,37 +1,38 @@
-﻿@model IEnumerable<Product>
-@{
+﻿@{
     ViewBag.Title = "产品列表";
-    List<Component> list = ViewBag.CList;
-    int serizlNumber = 1;
+    List<Product> list = ViewBag.List;
 }
-
-@{
-    Html.RenderPartial("AddProduct",list);
-}
-
-
+<form class="form-inline">
+    <div class="input-group">
+        <span class="input-group-addon">查询</span>
+        <input type="text" class="form-control" name="key" placeholder="产品型号" value="@(Request.QueryString["key"])">
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>查询</button>
+            <a class="btn btn-success" href="/manufacture/edit" >
+                <i class="glyphicon glyphicon-plus"></i>添加产品
+            </a>
+        </div>
+    </div>
+</form>
 
 <table class="table table-bordered">
     <tr>
-        <th>序号</th>
+        <th class="col-sm-1">ID</th>
         <th>产品型号</th>
-        <th>售价</th>
-        <th>部件</th>
+        <th class="col-lg-2">售价</th>
+        <th class="col-lg-2"></th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in list)
     {
         <tr>
-            <td>@(serizlNumber++)</td>
+            <td>@(item.ID)</td>
             <td>@(item.Number)</td>
             <td>
-                @Math.Round(item.Price,4)
-                @{
-                    Html.RenderPartial("Chart",item.ID);
-                }
+                <a href="/manufacture/price?id=@(item.ID)" title="点击查看历史价格" data-toggle="modal" data-target="#modal"><i class="fa fa-line-chart"></i>@Math.Round(item.Price, 4)￥</a>
             </td>
             <td>
-                @RenderPage("ListItem.cshtml", new { Items = item.Items, Index = item.ID })
-                <a href="#" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i>删除</a>
+                <a href="/manufacture/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i>修改</a>
+                <a href="/manufacture/delete?id=@(item.ID)" class="btn btn-danger btn-xs btn-delete"><i class="glyphicon glyphicon-remove"></i>删除</a>
             </td>
         </tr>
     }

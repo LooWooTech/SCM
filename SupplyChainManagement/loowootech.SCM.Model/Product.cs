@@ -24,8 +24,9 @@ namespace LoowooTech.SCM.Model
         /// 售价
         /// </summary>
         public double Price { get; set; }
+
         [NotMapped]
-        public List<Item> Items { get; set; }
+        public List<ProductItem> Items { get; set; }
         
         
     }

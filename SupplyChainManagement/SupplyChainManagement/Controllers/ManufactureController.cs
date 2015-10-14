@@ -14,51 +14,65 @@ namespace LoowooTech.SCM.Web.Controllers
         //
         // GET: /Manufacture/
 
-        public ActionResult Index()
+        public ActionResult Index(string key, int page = 1, int rows = 20)
         {
-            var list = Core.ProductManager.GetAll();
-            ViewBag.CList = Core.ComponentManager.GetList(null);//toodo
-            return View(list);
-        }
-
-        [HttpPost]
-        public ActionResult Add(Product product)
-        {
-            var Index = Core.ProductManager.Add(product);
-            if (Index > 0)
-            {
-                var list = Core.ItemManager.Acquire(HttpContext, Index);
-                try
-                {
-                    Core.ItemManager.Add(list);
-                }
-                catch (Exception ex)
-                {
-                    throw new ArgumentException(ex.Message);
-                }
-            }
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Price(int PID)
-        {
-            ViewBag.PID = PID;
+            var filter = new ProductFilter { Page = new PageFilter(page, rows), SearchKey = key };
+            ViewBag.Page = filter;
+            ViewBag.List = Core.ProductManager.GetList(filter);
             return View();
         }
 
-        public string JavaScriptContext(int ID)
+        public ActionResult Edit(int id = 0)
         {
-            var list = Core.RateManager.Get(ID);
-            return Core.RateManager.GetJavaScriptContext(list,Server.MapPath("~/Charts/Price.js"));
+            ViewBag.Model = Core.ProductManager.GetModel(id) ?? new Product();
+            ViewBag.Items = Core.ProductManager.GetItems(id);
+            ViewBag.Components = Core.ComponentManager.GetList();
+            return View();
         }
 
         [HttpPost]
-        public ActionResult AddRate(Rate rate)
+        public ActionResult Submit(Product product, int[] componentId, int[] number)
         {
-            Core.RateManager.Add(rate);
-            Core.ProductManager.Edit(rate);
+            Core.ProductManager.Save(product);
+            var items = new List<ProductItem>();
+            for (var i = 0; i < componentId.Length; i++)
+            {
+                items.Add(new ProductItem
+                {
+                    ComponentId = componentId[i],
+                    Number = number[i],
+                    ProductId = product.ID
+                });
+            }
+            Core.ProductManager.SaveItems(items);
             return RedirectToAction("Index");
         }
+
+        public ActionResult Price(int id)
+        {
+            ViewBag.List = Core.RateManager.GetList(id);
+            return View();
+        }
+
+        public ActionResult Delete(int id)
+        {
+            Core.ProductManager.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        //public string JavaScriptContext(int ID)
+        //{
+        //    var list = Core.RateManager.Get(ID);
+        //    return Core.RateManager.GetJavaScriptContext(list, Server.MapPath("~/Charts/Price.js"));
+        //}
+
+        //[HttpPost]
+        //public ActionResult AddRate(Rate rate)
+        //{
+        //    Core.RateManager.Add(rate);
+        //    Core.ProductManager.Edit(rate);
+        //    return RedirectToAction("Index");
+        //}
 
     }
 }

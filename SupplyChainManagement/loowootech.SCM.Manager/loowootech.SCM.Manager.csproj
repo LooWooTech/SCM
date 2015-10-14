@@ -65,7 +65,6 @@
     <Compile Include="EnterpriseManager.cs" />
     <Compile Include="ExpressManager.cs" />
     <Compile Include="InventoryManager.cs" />
-    <Compile Include="ItemManager.cs" />
     <Compile Include="ManagerBase.cs" />
     <Compile Include="ManagerCore.cs" />
     <Compile Include="MessageManager.cs" />

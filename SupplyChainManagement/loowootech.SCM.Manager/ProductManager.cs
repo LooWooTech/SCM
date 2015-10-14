@@ -7,83 +7,110 @@ using System.Web;
 
 namespace LoowooTech.SCM.Manager
 {
-    public class ProductManager:ManagerBase
+    public class ProductManager : ManagerBase
     {
-        public List<Product> GetAll()
+        public Product GetModel(int id)
         {
-            var listTemp = Get();
-            List<Product> list = new List<Product>();
-            foreach (var item in listTemp)
-            {
-                list.Add(Core.ItemManager.GetList(item));
-            }
-            return list;
-        }
-
-        public Product Get(int ID)
-        {
+            if (id == 0) return null;
             using (var db = GetDataContext())
             {
-                return db.Products.Find(ID);
+                return db.Products.FirstOrDefault(e => e.ID == id);
             }
         }
 
-        public List<Product> Get()
+        public List<Product> GetList(ProductFilter filter = null)
         {
             using (var db = GetDataContext())
             {
-                return db.Products.ToList();
+                var query = db.Products.AsQueryable();
+                if (filter == null)
+                {
+                    return query.ToList();
+                }
+                if (!string.IsNullOrEmpty(filter.SearchKey))
+                {
+                    query = query.Where(e => e.Number.Contains(filter.SearchKey));
+                }
+
+                return query.OrderByDescending(e => e.ID).SetPage(filter.Page).ToList();
             }
         }
-        public int Add(Product product)
+
+        public void Delete(int id)
         {
-            if (!Validate(product))
-            {
-                throw new ArgumentException("存在相同型号的产品，请核对产品型号名");
-            }
             using (var db = GetDataContext())
             {
-                db.Products.Add(product);
+                var entity = db.Products.FirstOrDefault(e => e.ID == id);
+                db.Products.Remove(entity);
+                var items = db.ProductItems.Where(e => e.ProductId == id);
+                db.ProductItems.RemoveRange(items);
                 db.SaveChanges();
             }
-            Core.RateManager.Add(new Rate
+        }
+
+        public int Save(Product product)
+        {
+            using(var db = GetDataContext())
             {
-                Price = product.Price,
-                SID = product.ID
-            });
+                var exist =  db.Products.FirstOrDefault(e => e.Number.ToUpper() == product.Number.ToUpper());
+                if (exist != null)
+                {
+                    if ((product.ID > 0 && exist.ID != product.ID) || product.ID == 0)
+                    {
+                        throw new ArgumentException("存在相同型号的产品，请核对产品型号名");
+                    }
+                }
+                if (product.ID > 0)
+                {
+                    var entity = db.Products.FirstOrDefault(e => e.ID == product.ID);
+                    if (entity != null)
+                    {
+                        db.Entry(entity).CurrentValues.SetValues(product);
+                    }
+                }
+                else
+                {
+                    db.Products.Add(product);
+                }
+
+                db.SaveChanges();
+            }
             return product.ID;
         }
 
-        public bool Validate(Product product)
+        public List<ProductItem> GetItems(int productId)
         {
             using (var db = GetDataContext())
             {
-                var entity = db.Products.Where(e => e.Number.ToUpper() == product.Number.ToUpper()).FirstOrDefault();
-                return entity == null ? true : false;
+                var list = db.ProductItems.Where(e => e.ProductId == productId).ToList();
+                foreach (var item in list)
+                {
+                    item.Component = Core.ComponentManager.GetModel(item.ComponentId);
+                }
+                return list;
             }
         }
 
-        public void Edit(Product product)
+        public void SaveItems(IEnumerable<ProductItem> items)
         {
             using (var db = GetDataContext())
-            {
-                var entity = db.Products.FirstOrDefault(e => e.Number.ToUpper() == product.Number.ToUpper());
+            { 
+                var productId = 0;
+                var firstItem  = items.FirstOrDefault();
+                if(firstItem == null)
+                {
+                    return ;
+                }
+                productId = firstItem.ProductId;
+
+                var entity = db.Products.FirstOrDefault(e => e.ID == productId);
                 if (entity != null)
                 {
-                    product.ID = entity.ID;
-                    db.Entry(entity).CurrentValues.SetValues(product);
+                    var old = db.ProductItems.Where(e => e.ProductId == productId);
+                    db.ProductItems.RemoveRange(old);
+                    db.ProductItems.AddRange(items);
                     db.SaveChanges();
                 }
-            }
-        }
-
-        public void Edit(Rate rate)
-        {
-            var product = Get(rate.SID);
-            if (product != null)
-            {
-                product.Price = rate.Price;
-                Edit(product);
             }
         }
     }

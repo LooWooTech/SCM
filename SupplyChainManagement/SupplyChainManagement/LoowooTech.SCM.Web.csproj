@@ -158,7 +158,6 @@
     <Content Include="Views\Component\Index.cshtml" />
     <Content Include="Views\Component\Edit.cshtml" />
     <Content Include="Views\Manufacture\Index.cshtml" />
-    <Content Include="Views\Manufacture\AddProduct.cshtml" />
     <Content Include="Views\Manufacture\ListItem.cshtml" />
     <Content Include="Views\Manufacture\Chart.cshtml" />
     <Content Include="Views\Manufacture\Price.cshtml" />
@@ -178,6 +177,7 @@
     <Content Include="Views\Express\Index.cshtml" />
     <Content Include="Views\Express\Edit.cshtml" />
     <Content Include="Views\Order\Detail.cshtml" />
+    <Content Include="Views\Manufacture\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Indentures\" />

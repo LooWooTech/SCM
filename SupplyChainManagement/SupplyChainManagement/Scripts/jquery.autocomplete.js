@@ -445,10 +445,10 @@
 
     // ------- Default Handler Function Here -------------
     var defaultMatchHandler = function(keyword, data){
-        var regex = RegExp(keyword.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), 'i');
-        if(this.option.emphasis && $.isFunction(this.option.emphasisHandler))
-            this.option.emphasisHandler.apply(this, [keyword, data]);
-        return regex.test(data.value);
+        var regex = new RegExp(keyword, 'gi');
+        //if(this.option.emphasis && $.isFunction(this.option.emphasisHandler))
+        //    this.option.emphasisHandler.apply(this, [keyword, data]);
+        return regex.test(data.label);
     };
 
     var defaultEmphasisHandler = function(keyword, data){
