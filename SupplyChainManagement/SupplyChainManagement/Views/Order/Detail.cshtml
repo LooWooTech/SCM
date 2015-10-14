@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "订单详情";
+    Order model = ViewBag.Model;
+    Enterprise enterprise = ViewBag.Enterprise;
+    List<OrderItem> items = ViewBag.OrderItems;
+    List<Contract> contracts = ViewBag.Contracts;
+    Remittance remittance = ViewBag.Remittance;
+    Message message = ViewBag.Message;
+    Express express = ViewBag.Express;
+}
+<div style="position: relative;">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#profile-basic" data-toggle="tab">基本资料</a></li>
+        <li class=""><a href="#profile-contact" data-toggle="tab">联系记录</a></li>
+        <li class=""><a href="#profile-contract" data-toggle="tab">合同文件</a></li>
+        <li class=""><a href="#profile-shipping" data-toggle="tab">物流记录</a></li>
+        <li class=""><a href="#profile-payment" data-toggle="tab">汇款信息</a></li>
+    </ul>
+</div>
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="profile-basic">
+        <div class="alert alert-info">
+            @(enterprise.Name) - @(model.CreateTime)
+        </div>
+        <table class="table">
+            <tr>
+                <th>部件名称</th>
+                <th>进货价格</th>
+                <th>进货数量</th>
+                <th>成交价格</th>
+                <th>成交数量</th>
+            </tr>
+            @foreach (var item in items)
+            {
+                <tr>
+                    <td>@(item.Component.DisplayName)</td>
+                    <td>@(item.Price)</td>
+                    <td>@(item.Number)</td>
+                    <td>@(item.DealPrice)</td>
+                    <td>@(item.DealNumber)</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="tab-pane fade" id="profile-contact">
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-lg-2">联系人</th>
+                <td>@(message.Contact.Name)</td>
+            </tr>
+            <tr>
+                <th>联系电话</th>
+                <td>@(message.Contact.Mobile)</td>
+            </tr>
+            <tr>
+                <th>联系时间</th>
+                <td>@(message.ContactTime)</td>
+            </tr>
+            <tr>
+                <th>联系内容</th>
+                <td>@(message.Note)</td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="tab-pane fade" id="profile-contract">
+        @if (contracts == null || contracts.Count == 0)
+        {
+            <span class="text-default">没有上传合同文件</span>
+        }
+        else
+        {
+            foreach (var item in contracts)
+            {
+                <div><a href="@(item.File)"><i class="fa fa-file"></i>@(item.File)</a></div>
+            }
+        }
+    </div>
+    <div class="tab-pane fade" id="profile-shipping">
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-lg-2">物流公司</th>
+                <td>@(express.Name)</td>
+            </tr>
+            <tr>
+                <th>运单号</th>
+                <td>@(model.ExpressNo)</td>
+            </tr>
+            <tr>
+                <th>物流详情</th>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="profile-payment">
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-lg-2">汇款账号</th>
+                <td>@(remittance.Account)</td>
+            </tr>
+            <tr>
+                <th>汇款银行</th>
+                <td>@(remittance.Bank)</td>
+            </tr>
+            <tr>
+                <th>汇款金额</th>
+                <td>@(remittance.Money)</td>
+            </tr>
+            <tr>
+                <th>汇款时间</th>
+                <td>@(remittance.Time)</td>
+            </tr>
+            <tr>
+                <th>汇款类型</th>
+                <td>@(remittance.Pay)</td>
+            </tr>
+            <tr>
+                <th>备注</th>
+                <td>@(remittance.Note)</td>
+            </tr>
+        </table>
+    </div>
+</div>

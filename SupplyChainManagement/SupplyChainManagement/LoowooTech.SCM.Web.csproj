@@ -104,7 +104,6 @@
     <Compile Include="Controllers\ManufactureController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RemitController.cs" />
-    <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -158,25 +157,17 @@
     <Content Include="Views\Enterprise\Index.cshtml" />
     <Content Include="Views\Component\Index.cshtml" />
     <Content Include="Views\Component\Edit.cshtml" />
-    <Content Include="Views\Stock\Detail.cshtml" />
-    <Content Include="Views\Stock\Place.cshtml" />
-    <Content Include="Views\Stock\Index.cshtml" />
     <Content Include="Views\Manufacture\Index.cshtml" />
     <Content Include="Views\Manufacture\AddProduct.cshtml" />
     <Content Include="Views\Manufacture\ListItem.cshtml" />
     <Content Include="Views\Manufacture\Chart.cshtml" />
-    <Content Include="Views\Stock\Backlog.cshtml" />
     <Content Include="Views\Manufacture\Price.cshtml" />
     <Content Include="Views\Epistolize\Index.cshtml" />
-    <Content Include="Views\Stock\Logistics.cshtml" />
-    <Content Include="Views\Stock\OrderList.cshtml" />
-    <Content Include="Views\Stock\AddRemittance.cshtml" />
     <Content Include="Views\Enterprise\Edit.cshtml" />
     <Content Include="Views\Shared\_pagination.cshtml" />
     <Content Include="Views\Enterprise\Detail.cshtml" />
     <Content Include="Views\Contact\Edit.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Views\Stock\Contact.cshtml" />
     <Content Include="Views\Order\Contact.cshtml" />
     <Content Include="Views\Order\Place.cshtml" />
     <Content Include="Views\Order\Shipping.cshtml" />
@@ -186,6 +177,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Express\Index.cshtml" />
     <Content Include="Views\Express\Edit.cshtml" />
+    <Content Include="Views\Order\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Indentures\" />

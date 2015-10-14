@@ -42,7 +42,12 @@ namespace LoowooTech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                return db.Messages.FirstOrDefault(e => e.OrderId == orderId);
+                var model =  db.Messages.FirstOrDefault(e => e.OrderId == orderId);
+                if (model != null)
+                {
+                    model.Contact = Core.ContactManager.GetModel(model.ContactId);
+                }
+                return model;
             }
         }
 

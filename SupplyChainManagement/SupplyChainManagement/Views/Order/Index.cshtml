@@ -15,9 +15,7 @@
         }
         <th>时间</th>
         <th style="width:100px;"> 订单状态</th>
-        <th style="width:100px;">订单合同</th>
         <th style="width:100px;">物流信息</th>
-        <th style="width:100px;">汇款信息</th>
         <th style="width:100px;">管理</th>
     </tr>
     @foreach (var item in list)
@@ -29,9 +27,7 @@
             }
             <td>@(item.CreateTime)</td>
             <td>@(item.State.GetDescription())</td>
-            <td><a href="/contract/view?orderId=@(item.ID)" data-toggle="modal" data-target="#modal"><i class="fa fa-paperclip"></i>查看合同</a></td>
             <td><a href="/express/view?id=@(item.Express)&no=@(item.ExpressNo)" data-toggle="modal" data-target="#modal"><i class="fa fa-car"></i>查看物流</a></td>
-            <td><a href="/payment/view?orderId=@(item.ID)" data-toggle="modal" data-target="#modal"><i class="fa fa-cc-visa"></i>汇款查看</a></td>
             <td>
                 @switch (item.State)
                 {

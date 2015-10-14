@@ -14,10 +14,6 @@ namespace LoowooTech.SCM.Model
     [Table("remittances")]
     public class Remittance
     {
-        public Remittance()
-        {
-            this.CreateTime = DateTime.Now;
-        }
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
@@ -28,7 +24,7 @@ namespace LoowooTech.SCM.Model
         /// <summary>
         /// 时间
         /// </summary>
-        public DateTime CreateTime { get; set; }
+        public DateTime Time { get; set; }
         /// <summary>
         /// 银行（支付宝）账号
         /// </summary>

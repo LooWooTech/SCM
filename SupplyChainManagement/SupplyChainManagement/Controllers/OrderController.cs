@@ -219,7 +219,7 @@ namespace LoowooTech.SCM.Web.Controllers
             return View();
         }
 
-        public ActionResult SubmitReceive(int orderId, int[] itemId, int[] dealprice, int[] dealnumber, bool submit = false)
+        public ActionResult SubmitReceive(int orderId, int[] itemId, double[] dealprice, int[] dealnumber, bool submit = false)
         {
             var model = GetOrder(orderId);
             var list = Core.OrderItemManager.GetList(orderId);
@@ -263,7 +263,7 @@ namespace LoowooTech.SCM.Web.Controllers
             {
                 throw new ArgumentException("金额填写不正确");
             }
-
+            data.OrderId = order.ID;
             Core.RemittanceManager.Save(data);
             order.State = submit ? State.Done : State.Payment;
             Core.OrderManager.Update(order);
@@ -272,6 +272,19 @@ namespace LoowooTech.SCM.Web.Controllers
 
         public ActionResult Done(int id)
         {
+            return RedirectToAction("Detail", new { id });
+        }
+
+        public ActionResult Detail(int id)
+        {
+            var model = GetOrder(id);
+            ViewBag.Model = model;
+            ViewBag.Enterprise = Core.EnterpriseManager.GetModel(model.EnterpriseId);
+            ViewBag.Message = Core.MessageManager.GetModelByOrderId(id);
+            ViewBag.Contracts = Core.ContractManager.GetList(id);
+            ViewBag.Remittance = Core.RemittanceManager.GetModel(id);
+            ViewBag.OrderItems = Core.OrderItemManager.GetList(id);
+            ViewBag.Express = Core.ExpressManager.GetModel(model.Express);
             return View();
         }
     }

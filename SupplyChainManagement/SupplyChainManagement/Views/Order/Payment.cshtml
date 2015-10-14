@@ -1,9 +1,10 @@
 ﻿@{
+    ViewBag.Title = "确认汇款";
     Order order = ViewBag.Order;
     Remittance model = ViewBag.Model;
 }
-<form method="post" action="" class="form-horizontal">
-    <input type="hidden" name="OrderId" value="@(model.OrderId)" />
+<form method="post" action="/order/SubmitPayment" class="form-horizontal">
+    <input type="hidden" name="id" value="@(model.OrderId)" />
     <div class="form-group">
         <label for="Pay" class="control-label col-lg-3">支付方式</label>
         <div class="col-lg-8">
@@ -32,6 +33,15 @@
         <label for="Money" class="control-label col-lg-3">金额</label>
         <div class="col-lg-8">
             <input type="number" class="form-control" name="Money" value="@(model.Money)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Money" class="control-label col-lg-3">汇款时间</label>
+        <div class="col-lg-8">
+            <input type="number" class="form-control" name="Time" value="@(model.Time)" />
+            <span class="help-block">
+                格式：@(DateTime.Now)
+            </span>
         </div>
     </div>
     <div class="form-group">
