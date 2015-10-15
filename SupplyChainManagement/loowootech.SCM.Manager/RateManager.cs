@@ -9,26 +9,26 @@ namespace LoowooTech.SCM.Manager
 {
     public class RateManager : ManagerBase
     {
-        public int Add(Rate rate)
+        public int Add(ProductPriceLog rate)
         {
             using (var db = GetDataContext())
             {
-                db.Rates.Add(rate);
+                db.ProductPriceLogs.Add(rate);
                 db.SaveChanges();
             }
             return rate.ID;
         }
 
 
-        public List<Rate> GetList(int id)
+        public List<ProductPriceLog> GetList(int id)
         {
             using (var db = GetDataContext())
             {
-                return db.Rates.Where(e => e.SID == id).ToList();
+                return db.ProductPriceLogs.Where(e => e.ProductId == id).ToList();
             }
         }
 
-        public string GetJavaScriptContext(List<Rate> list, string FilePath)
+        public string GetJavaScriptContext(List<ProductPriceLog> list, string FilePath)
         {
             string str = string.Empty;
             try
@@ -53,7 +53,7 @@ namespace LoowooTech.SCM.Manager
             StringBuilder datasb = new StringBuilder();
             for (var i = 0; i < Count; i++)
             {
-                Labelsb.Append('"' + list[i].Time.ToString() + '"');
+                Labelsb.Append('"' + list[i].CreateTime.ToString() + '"');
                 datasb.Append(Math.Round(list[i].Price, 4));
                 if (i != (Count - 1))
                 {

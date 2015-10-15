@@ -1,28 +1,42 @@
-﻿@{
+﻿@using Newtonsoft.Json
+@{
     Layout = null;
-    int PID = ViewBag.PID;
-
+    Product model = ViewBag.Model;
+    if (model == null)
+    {
+        <div class="alert alert-danger">参数错误</div>
+        return;
+    }
+    ViewBag.Title = model.Number + "-历史价格";
+    List<ProductPriceLog> list = ViewBag.List;
+    var labels = list.Select(e => e.CreateTime.ToShortDateString()).ToArray();
+    var data = list.Select(e => e.Price.ToString("f2")).ToArray();
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Price</title>
-    <script src="~/Scripts/Chart.js"></script>
-    <script type="text/javascript">
-        @{
-            Html.RenderAction("JavaScriptContext", new { ID = PID });
-        }
-    </script>
-
-</head>
-<body>
-    <div>
-        <div>
-            <canvas id="canvas" height="630" width="820"></canvas>
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">@(ViewBag.Title)</h3>
     </div>
-</body>
-</html>
+    <div class="panel-body">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+</div>
+<script>
+    $(function () {
+        var ctx = $("#myChart").get(0).getContext("2d");
+        var data = {
+            labels: @Html.Raw(JsonConvert.SerializeObject(labels)),
+            datasets: [
+                {
+                    label: "",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: @Html.Raw(JsonConvert.SerializeObject(data))
+                    }
+            ]
+        }; var myLineChart = new Chart(ctx).Line(data);
+    });
+</script>

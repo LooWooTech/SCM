@@ -48,34 +48,50 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public int Save(Product product)
+        public int Save(Product model)
         {
-            using(var db = GetDataContext())
+            using (var db = GetDataContext())
             {
-                var exist =  db.Products.FirstOrDefault(e => e.Number.ToUpper() == product.Number.ToUpper());
+                var exist = db.Products.FirstOrDefault(e => e.Number.ToUpper() == model.Number.ToUpper());
                 if (exist != null)
                 {
-                    if ((product.ID > 0 && exist.ID != product.ID) || product.ID == 0)
+                    if ((model.ID > 0 && exist.ID != model.ID) || model.ID == 0)
                     {
                         throw new ArgumentException("存在相同型号的产品，请核对产品型号名");
                     }
                 }
-                if (product.ID > 0)
+                if (model.ID > 0)
                 {
-                    var entity = db.Products.FirstOrDefault(e => e.ID == product.ID);
+                    var entity = db.Products.FirstOrDefault(e => e.ID == model.ID);
                     if (entity != null)
                     {
-                        db.Entry(entity).CurrentValues.SetValues(product);
+                        db.Entry(entity).CurrentValues.SetValues(model);
                     }
                 }
                 else
                 {
-                    db.Products.Add(product);
+                    db.Products.Add(model);
                 }
-
                 db.SaveChanges();
             }
-            return product.ID;
+            return model.ID;
+        }
+
+        public void AddPriceLog(int productId,double price)
+        {
+            using (var db = GetDataContext())
+            {
+                db.ProductPriceLogs.Add(new ProductPriceLog { Price = price, ProductId = productId });
+                db.SaveChanges();
+            }
+        }
+
+        public List<ProductPriceLog> GetPriceLogs(int productId)
+        {
+            using (var db = GetDataContext())
+            {
+                return db.ProductPriceLogs.Where(e => e.ProductId == productId).ToList();
+            }
         }
 
         public List<ProductItem> GetItems(int productId)
@@ -94,12 +110,12 @@ namespace LoowooTech.SCM.Manager
         public void SaveItems(IEnumerable<ProductItem> items)
         {
             using (var db = GetDataContext())
-            { 
+            {
                 var productId = 0;
-                var firstItem  = items.FirstOrDefault();
-                if(firstItem == null)
+                var firstItem = items.FirstOrDefault();
+                if (firstItem == null)
                 {
-                    return ;
+                    return;
                 }
                 productId = firstItem.ProductId;
 

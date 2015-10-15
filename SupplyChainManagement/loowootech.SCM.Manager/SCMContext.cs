@@ -22,7 +22,7 @@ namespace LoowooTech.SCM.Manager
         public DbSet<AddressList> AddressLists { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<ProductItem> ProductItems { get; set; }
-        public DbSet<Rate> Rates { get; set; }
+        public DbSet<ProductPriceLog> ProductPriceLogs { get; set; }
         public DbSet<Inventory> Inventorys { get; set; }
         public DbSet<Express> Expresses { get; set; }
         public DbSet<Contract> Contracts { get; set; }

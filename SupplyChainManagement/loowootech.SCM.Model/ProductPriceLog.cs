@@ -10,18 +10,18 @@ namespace LoowooTech.SCM.Model
     /// <summary>
     /// 价格记录
     /// </summary>
-    [Table("rates")]
-    public class Rate
+    [Table("product_price_logs")]
+    public class ProductPriceLog
     {
-        public Rate()
+        public ProductPriceLog()
         {
-            this.Time = DateTime.Now;
+            this.CreateTime = DateTime.Now;
         }
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public DateTime Time { get; set; }
+        public DateTime CreateTime { get; set; }
         public double Price { get; set; }
-        public int SID { get; set; }
+        public int ProductId { get; set; }
     }
 }

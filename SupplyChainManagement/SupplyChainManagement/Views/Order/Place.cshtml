@@ -62,23 +62,23 @@
                 </thead>
                 <tbody id="list-items">
                     @*@foreach (var item in list)
-                    {
-                        <tr>
-                            <td>
-                                <input type="hidden" name="ComponentId" value="@(item.ID)" />
-                                <input type="text" name="Component" class="form-control" value="@(item.Component.DisplayName)" />
-                            </td>
-                            <td>
-                                <input type="text" name="Price" class="form-control" value="@(item.Price)" />
-                            </td>
-                            <td>
-                                <input type="text" name="Number" class="form-control" value="@(item.Number)" />
-                            </td>
-                            <td>
-                                <a href="javascript:;" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-remove"></i></a>
-                            </td>
-                        </tr>
-                    }*@
+                        {
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="ItemComponentId" value="@(item.ID)" />
+                                    <input type="text" name="ItemComponent" class="form-control" value="@(item.Component.DisplayName)" />
+                                </td>
+                                <td>
+                                    <input type="text" name="ItemPrice" class="form-control" value="@(item.Price)" />
+                                </td>
+                                <td>
+                                    <input type="text" name="ItemNumber" class="form-control" value="@(item.Number)" />
+                                </td>
+                                <td>
+                                    <a href="javascript:;" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-remove"></i></a>
+                                </td>
+                            </tr>
+                        }*@
                 </tbody>
             </table>
             <input type="hidden" name="submit" id="hid-submit" value="false" />
@@ -101,18 +101,18 @@
             return false;
         });
         @foreach (var item in list)
-        { 
+        {
             <text>
-            addRow(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(item)))
+        addRow(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(item)))
         </text>
         }
         function addRow(data){
             var componentName = typeof(data.Component) == "object"?data.Component.DisplayName:data.Component;
             var $str = "<tr><td>"+
-                "<input type='hidden' name='ComponentId' value='"+data.ComponentId+"' />"+
-                "<input type='text' name='Component' class='form-control' value='" + componentName + "' /></td>"+
-                "<td><input type='text' name='Price' class='form-control' value='" + data.Price + "'/></td>"+
-                "<td><input type='text' name='Number' class='form-control' value='" + data.Number + "'/></td>"+
+                "<input type='hidden' name='ItemComponentId' value='"+data.ComponentId+"' />"+
+                "<input type='text' name='ItemComponent' class='form-control' value='" + componentName + "' /></td>"+
+                "<td><input type='text' name='ItemPrice' class='form-control' value='" + data.Price + "'/></td>"+
+                "<td><input type='text' name='ItemNumber' class='form-control' value='" + data.Number + "'/></td>"+
                 "<td><a href='javascript:;' class='btn btn-danger btn-xs btn-remove'><i class='fa fa-remove'></i></a></td>"+
                 "</tr>";
             $("#list-items").append($str);

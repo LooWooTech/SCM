@@ -31,26 +31,31 @@ namespace LoowooTech.SCM.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Submit(Product product, int[] componentId, int[] number)
+        public ActionResult Submit(Product product, int[] itemComponentId, int[] itemNumber, bool updatePrice = true)
         {
             Core.ProductManager.Save(product);
             var items = new List<ProductItem>();
-            for (var i = 0; i < componentId.Length; i++)
+            for (var i = 0; i < itemComponentId.Length; i++)
             {
                 items.Add(new ProductItem
                 {
-                    ComponentId = componentId[i],
-                    Number = number[i],
+                    ComponentId = itemComponentId[i],
+                    Number = itemNumber[i],
                     ProductId = product.ID
                 });
             }
             Core.ProductManager.SaveItems(items);
+            if (updatePrice)
+            {
+                Core.ProductManager.AddPriceLog(product.ID, product.Price);
+            }
             return RedirectToAction("Index");
         }
 
         public ActionResult Price(int id)
         {
-            ViewBag.List = Core.RateManager.GetList(id);
+            ViewBag.Model = Core.ProductManager.GetModel(id);
+            ViewBag.List = Core.ProductManager.GetPriceLogs(id);
             return View();
         }
 

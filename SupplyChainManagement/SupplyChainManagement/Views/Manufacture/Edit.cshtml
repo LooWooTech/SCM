@@ -20,8 +20,11 @@
     </div>
     <div class="form-group">
         <label for="Price" class="control-label col-lg-2">售价</label>
-        <div class="col-lg-8">
-            <input type="text" name="Price" class="form-control" value="@(model.Price)" />
+        <div class="col-lg-3">
+            <input type="text" name="Price" class="form-control" value="@(model.Price.ToString("f2"))" />
+        </div>
+        <div class="col-lg-2">
+            <input type="checkbox" name="UpdatePrice" checked="checked" value="true"/>更新价格记录
         </div>
     </div>
     <hr />
@@ -62,9 +65,10 @@
         function addRow(data){
             var componentName = typeof(data.Component) == "object"?data.Component.DisplayName:data.Component;
             var $str = "<tr><td>"+
-                "<input type='hidden' name='ComponentId' value='"+data.ComponentId+"' />"+
-                "<input type='text' name='Component' class='form-control' value='" + componentName + "' /></td>"+
-                "<td><input type='text' name='Number' class='form-control' value='" + data.Number + "'/></td>"+
+                "<input type='hidden' name='Id' value='"+(data.ID || 0)+"'>"+
+                "<input type='hidden' name='ItemComponentId' value='"+data.ComponentId+"' />"+
+                "<input type='text' name='ItemComponent' class='form-control' value='" + componentName + "' /></td>"+
+                "<td><input type='text' name='ItemNumber' class='form-control' value='" + (data.Number || 0) + "'/></td>"+
                 "<td><a href='javascript:;' class='btn btn-danger btn-xs btn-remove'><i class='fa fa-remove'></i></a></td>"+
                 "</tr>";
             $("#list-items").append($str);

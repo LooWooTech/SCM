@@ -109,29 +109,29 @@ namespace LoowooTech.SCM.Web.Controllers
             return View();
         }
 
-        public ActionResult SubmitPlace(int id, int[] componentId, string[] component, float[] price, int[] number, bool submit = false)
+        public ActionResult SubmitPlace(int id, int[] itemComponentId, string[] itemComponent, float[] itemPrice, int[] itemNumber, bool submit = false)
         {
             if (submit)
             {
-                if (componentId.Any(e => e == 0))
+                if (itemComponentId.Any(e => e == 0))
                 {
                     throw new ArgumentException("没有选择正确的部件");
                 }
 
-                if (number.Any(e => e == 0))
+                if (itemNumber.Any(e => e == 0))
                 {
                     throw new ArgumentException("部件数量填写不正确");
                 }
             }
 
             var list = new List<OrderItem>();
-            for (var i = 0; i < componentId.Length; i++)
+            for (var i = 0; i < itemComponentId.Length; i++)
             {
                 list.Add(new OrderItem
                 {
-                    ComponentId = componentId[i],
-                    Price = price[i],
-                    Number = number[i],
+                    ComponentId = itemComponentId[i],
+                    Price = itemPrice[i],
+                    Number = itemNumber[i],
                     OrderId = id,
                 });
             }
