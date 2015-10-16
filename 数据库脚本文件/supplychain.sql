@@ -1,311 +1,210 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : 90
-Source Server Version : 50173
-Source Host           : 10.22.102.90:3306
-Source Database       : supplychain
-
-Target Server Type    : MYSQL
-Target Server Version : 50173
-File Encoding         : 65001
-
-Date: 2015-09-22 14:16:41
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for `addresslist`
--- ----------------------------
+-- --------------------------------------------------------
+-- 主机:                           127.0.0.1
+-- 服务器版本:                        5.6.26 - MySQL Community Server (GPL)
+-- 服务器操作系统:                      Win64
+-- HeidiSQL 版本:                  9.3.0.4984
+-- --------------------------------------------------------
+-- 导出  表 scm.addresslist 结构
 DROP TABLE IF EXISTS `addresslist`;
-CREATE TABLE `addresslist` (
+CREATE TABLE IF NOT EXISTS `addresslist` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `way` int(10) NOT NULL,
   `Value` varchar(1023) DEFAULT NULL,
   `CID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of addresslist
--- ----------------------------
-INSERT INTO `addresslist` VALUES ('21', '0', '810844480', '5');
-INSERT INTO `addresslist` VALUES ('22', '0', '123456789；18758326914', '1');
-INSERT INTO `addresslist` VALUES ('23', '1', '810844480', '1');
-INSERT INTO `addresslist` VALUES ('24', '3', '11712785', '5');
-INSERT INTO `addresslist` VALUES ('25', '0', '737545324；22332', '6');
-INSERT INTO `addresslist` VALUES ('26', '1', '0571-86994975', '6');
-INSERT INTO `addresslist` VALUES ('27', '2', '73745324@qq.com', '6');
-INSERT INTO `addresslist` VALUES ('28', '3', '88063975', '6');
-INSERT INTO `addresslist` VALUES ('29', '4', '浙江省杭州市下城区中山北路632号越都商务大厦2101室', '6');
-INSERT INTO `addresslist` VALUES ('33', '0', '二二', '8');
-INSERT INTO `addresslist` VALUES ('34', '1', '返到', '8');
-INSERT INTO `addresslist` VALUES ('35', '2', '对方答复', '8');
-INSERT INTO `addresslist` VALUES ('36', '3', '地方', '8');
-INSERT INTO `addresslist` VALUES ('37', '4', '地方', '8');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `components`
--- ----------------------------
+
+-- 导出  表 scm.components 结构
 DROP TABLE IF EXISTS `components`;
-CREATE TABLE `components` (
+CREATE TABLE IF NOT EXISTS `components` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Brand` varchar(255) DEFAULT NULL,
   `Specification` varchar(255) DEFAULT NULL,
   `Number` varchar(255) DEFAULT NULL,
   `Memo` varchar(255) DEFAULT NULL,
   `Type` int(11) NOT NULL,
+  `Deleted` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of components
--- ----------------------------
-INSERT INTO `components` VALUES ('1', '英特尔', 'i7', '4700', null, '0');
-INSERT INTO `components` VALUES ('2', '英特尔', 'i3', '4160', '3.6GHZ', '0');
-INSERT INTO `components` VALUES ('3', '华硕', 'B85M', 'GAMER', null, '4');
-INSERT INTO `components` VALUES ('4', '三星', 'S34', '34英寸', null, '3');
-INSERT INTO `components` VALUES ('5', '英特尔', '3GHz', '5960X', '适用台式机', '0');
-INSERT INTO `components` VALUES ('6', '英特尔', '4GHz', '4790k', null, '0');
-INSERT INTO `components` VALUES ('7', '华硕', 'A15', '152', '协议', '1');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `contacts`
--- ----------------------------
+
+-- 导出  表 scm.contacts 结构
 DROP TABLE IF EXISTS `contacts`;
-CREATE TABLE `contacts` (
+CREATE TABLE IF NOT EXISTS `contacts` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) NOT NULL,
-  `sex` bit(1) DEFAULT NULL,
-  `EID` int(11) DEFAULT NULL,
+  `Name` varchar(45) NOT NULL,
+  `Gender` bit(1) NOT NULL,
+  `Mobile` varchar(45) DEFAULT NULL,
+  `QQ` varchar(45) DEFAULT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `EnterpriseID` int(11) NOT NULL,
+  `Email` varchar(128) DEFAULT NULL,
+  `Note` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `IX_EID` (`EnterpriseID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 scm.contracts 结构
+DROP TABLE IF EXISTS `contracts`;
+CREATE TABLE IF NOT EXISTS `contracts` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `OrderId` int(11) NOT NULL DEFAULT '0',
+  `File` varchar(128) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of contacts
--- ----------------------------
-INSERT INTO `contacts` VALUES ('1', '袁洋', '', '3');
-INSERT INTO `contacts` VALUES ('3', '156', '', '3');
-INSERT INTO `contacts` VALUES ('4', '58', '', '3');
-INSERT INTO `contacts` VALUES ('5', '女', '', '3');
-INSERT INTO `contacts` VALUES ('6', '孙夏阳', '', '5');
-INSERT INTO `contacts` VALUES ('8', 'ty', '', '5');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `enterprises`
--- ----------------------------
+
+-- 导出  表 scm.enterprises 结构
 DROP TABLE IF EXISTS `enterprises`;
-CREATE TABLE `enterprises` (
+CREATE TABLE IF NOT EXISTS `enterprises` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) NOT NULL,
   `Address` varchar(255) DEFAULT NULL,
+  `Contact` varchar(45) DEFAULT NULL,
+  `Tel` varchar(125) DEFAULT NULL,
+  `Province` varchar(45) DEFAULT NULL,
+  `City` varchar(45) DEFAULT NULL,
+  `Deleted` bit(1) NOT NULL,
   `Business` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of enterprises
--- ----------------------------
-INSERT INTO `enterprises` VALUES ('1', '供应商1', '浙江省杭州市下城区中山北路', '');
-INSERT INTO `enterprises` VALUES ('2', '供应商2', '浙江省杭州市中山北路', '');
-INSERT INTO `enterprises` VALUES ('3', '智拓', '浙江省杭州市下城区中山北路632号越都商务大厦2101室', '');
-INSERT INTO `enterprises` VALUES ('4', '瑞泽', '福州', '');
-INSERT INTO `enterprises` VALUES ('5', '杭州智拓土地规划设计咨询有限公司', '浙江省杭州市下城区中山北路632号越都商务大厦2101室', '');
-INSERT INTO `enterprises` VALUES ('6', '杭州智拓房地产土地评估咨询有限公司', '浙江省杭州市下城区中山北路632号越都商务大厦2101室', '');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `inventorys`
--- ----------------------------
+
+-- 导出  表 scm.express 结构
+DROP TABLE IF EXISTS `express`;
+CREATE TABLE IF NOT EXISTS `express` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) NOT NULL,
+  `Deleted` bit(1) NOT NULL,
+  `ApiInfo` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 scm.inventorys 结构
 DROP TABLE IF EXISTS `inventorys`;
-CREATE TABLE `inventorys` (
+CREATE TABLE IF NOT EXISTS `inventorys` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Number` int(11) NOT NULL,
   `CID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of inventorys
--- ----------------------------
-INSERT INTO `inventorys` VALUES ('1', '10', '1');
-INSERT INTO `inventorys` VALUES ('2', '12', '2');
-INSERT INTO `inventorys` VALUES ('3', '15', '3');
-INSERT INTO `inventorys` VALUES ('4', '10', '4');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `items`
--- ----------------------------
-DROP TABLE IF EXISTS `items`;
-CREATE TABLE `items` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Number` int(11) DEFAULT NULL,
-  `PID` int(11) NOT NULL,
-  `CID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of items
--- ----------------------------
-INSERT INTO `items` VALUES ('1', '1', '4', '1');
-INSERT INTO `items` VALUES ('2', '1', '4', '3');
-INSERT INTO `items` VALUES ('3', '1', '4', '4');
-INSERT INTO `items` VALUES ('4', '2', '5', '1');
-INSERT INTO `items` VALUES ('5', '3', '6', '1');
-
--- ----------------------------
--- Table structure for `messages`
--- ----------------------------
+-- 导出  表 scm.messages 结构
 DROP TABLE IF EXISTS `messages`;
-CREATE TABLE `messages` (
+CREATE TABLE IF NOT EXISTS `messages` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Word` varchar(255) DEFAULT NULL,
-  `Time` datetime NOT NULL,
-  `EID` int(11) NOT NULL,
-  `CID` int(11) NOT NULL,
+  `OrderId` int(11) NOT NULL DEFAULT '0',
+  `Note` varchar(255) DEFAULT NULL,
+  `ContactTime` datetime NOT NULL,
+  `EnterpriseId` int(11) NOT NULL,
+  `ContactId` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of messages
--- ----------------------------
-INSERT INTO `messages` VALUES ('1', '我是一只小小鸟\r\n怎么飞也飞不高\r\n\r\n\r\n\r\n一个温暖的拥抱', '2015-07-26 15:45:17', '3', '2');
-INSERT INTO `messages` VALUES ('2', '     我是\r\n杭州智拓\r\n             土地规划设计信息咨询\r\n                                                有限公司', '2015-07-26 16:00:20', '3', '1');
-INSERT INTO `messages` VALUES ('3', '       我是\r\n              杭州智拓\r\n                            土地规划设计信息咨询\r\n                                                               有限公司', '2015-07-26 16:01:33', '3', '1');
-INSERT INTO `messages` VALUES ('4', '有时候 我觉得我是一只小小鸟', '2015-07-27 14:08:08', '3', '3');
-INSERT INTO `messages` VALUES ('5', '反馈信息', '2015-09-10 11:25:57', '5', '8');
-INSERT INTO `messages` VALUES ('6', '翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想翻了亏信息想', '2015-09-10 11:26:15', '5', '6');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `orders`
--- ----------------------------
+
+-- 导出  表 scm.orders 结构
 DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
+CREATE TABLE IF NOT EXISTS `orders` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Time` datetime DEFAULT NULL,
-  `Express` varchar(255) DEFAULT NULL,
-  `Indenture` varchar(255) DEFAULT NULL,
-  `EID` int(11) NOT NULL,
-  `Type` bit(1) NOT NULL,
+  `CreateTime` datetime DEFAULT NULL,
+  `ExpressNo` varchar(255) DEFAULT NULL,
+  `Express` int(11) NOT NULL,
+  `Indenture` bit(1) NOT NULL,
+  `EnterpriseId` int(11) NOT NULL,
+  `Type` int(11) NOT NULL,
   `State` int(10) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Index 2` (`EnterpriseId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 scm.order_items 结构
+DROP TABLE IF EXISTS `order_items`;
+CREATE TABLE IF NOT EXISTS `order_items` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `OrderId` int(11) NOT NULL,
+  `ComponentId` int(11) NOT NULL,
+  `Price` float(10,4) DEFAULT NULL,
+  `Number` int(11) DEFAULT NULL,
+  `DealNumber` int(11) DEFAULT '0',
+  `DealPrice` float DEFAULT '0',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of orders
--- ----------------------------
-INSERT INTO `orders` VALUES ('1', '2015-07-22 19:07:40', '330521425846222', 'Indentures/P50613-141638-635736052540610787.jpg', '5', '', '2');
-INSERT INTO `orders` VALUES ('2', '2015-07-23 15:27:37', null, null, '6', '', '0');
-INSERT INTO `orders` VALUES ('3', '2015-07-29 15:25:17', null, null, '1', '', '0');
-INSERT INTO `orders` VALUES ('4', '2015-07-29 16:25:51', null, null, '1', '', '0');
-INSERT INTO `orders` VALUES ('5', '2015-07-29 16:27:26', null, null, '1', '', '0');
-INSERT INTO `orders` VALUES ('6', '2015-07-29 16:28:39', null, null, '1', '', '0');
-INSERT INTO `orders` VALUES ('7', '2015-07-29 16:29:59', null, null, '1', '', '0');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `products`
--- ----------------------------
+
+-- 导出  表 scm.products 结构
 DROP TABLE IF EXISTS `products`;
-CREATE TABLE `products` (
+CREATE TABLE IF NOT EXISTS `products` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Number` varchar(255) NOT NULL,
   `Price` float(10,4) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of products
--- ----------------------------
-INSERT INTO `products` VALUES ('1', '陆吾一号', '89.0000');
-INSERT INTO `products` VALUES ('2', '陆吾二号', '1586.0000');
-INSERT INTO `products` VALUES ('3', '陆吾三号', '200000.0000');
-INSERT INTO `products` VALUES ('4', '陆吾四号', '400000.0000');
-INSERT INTO `products` VALUES ('5', '陆吾五号', '10000.2354');
-INSERT INTO `products` VALUES ('6', '陆吾六号', '78.2350');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `quotations`
--- ----------------------------
-DROP TABLE IF EXISTS `quotations`;
-CREATE TABLE `quotations` (
+
+-- 导出  表 scm.product_items 结构
+DROP TABLE IF EXISTS `product_items`;
+CREATE TABLE IF NOT EXISTS `product_items` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Price` float(10,4) DEFAULT NULL,
-  `Time` datetime DEFAULT NULL,
   `Number` int(11) DEFAULT NULL,
-  `CID` int(11) NOT NULL,
-  `OID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `ProductId` int(11) NOT NULL,
+  `ComponentId` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `IX_ProductId` (`ProductId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of quotations
--- ----------------------------
-INSERT INTO `quotations` VALUES ('1', '5000.0000', null, '10', '1', '1');
-INSERT INTO `quotations` VALUES ('2', '3000.0000', null, '12', '2', '1');
-INSERT INTO `quotations` VALUES ('3', '688.0000', null, '15', '3', '1');
-INSERT INTO `quotations` VALUES ('4', '1500.0000', null, '10', '4', '1');
-INSERT INTO `quotations` VALUES ('5', '5000.0000', null, '10', '1', '2');
-INSERT INTO `quotations` VALUES ('6', '588.0000', null, '10', '3', '2');
-INSERT INTO `quotations` VALUES ('7', '1600.0000', null, '20', '4', '2');
-INSERT INTO `quotations` VALUES ('8', '1990.0000', null, '20', '1', '7');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `rates`
--- ----------------------------
-DROP TABLE IF EXISTS `rates`;
-CREATE TABLE `rates` (
+
+-- 导出  表 scm.product_price_logs 结构
+DROP TABLE IF EXISTS `product_price_logs`;
+CREATE TABLE IF NOT EXISTS `product_price_logs` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Time` datetime DEFAULT NULL,
-  `Price` float(10,4) DEFAULT NULL,
-  `SID` int(11) NOT NULL,
+  `CreateTime` datetime NOT NULL,
+  `Price` float(10,4) NOT NULL,
+  `ProductId` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of rates
--- ----------------------------
-INSERT INTO `rates` VALUES ('1', '2015-07-24 14:55:40', '0.0000', '1');
-INSERT INTO `rates` VALUES ('2', '2015-07-24 14:56:43', '500.0000', '1');
-INSERT INTO `rates` VALUES ('3', '2015-07-24 14:57:20', '800.0000', '1');
-INSERT INTO `rates` VALUES ('4', '2015-07-24 14:57:33', '100.5600', '1');
-INSERT INTO `rates` VALUES ('5', '2015-07-24 14:57:46', '900.6800', '1');
-INSERT INTO `rates` VALUES ('6', '2015-07-24 15:26:53', '89.0000', '1');
-INSERT INTO `rates` VALUES ('7', '2015-07-24 15:27:06', '12.5800', '1');
-INSERT INTO `rates` VALUES ('8', '2015-07-24 15:27:14', '1586.0000', '2');
-INSERT INTO `rates` VALUES ('9', '2015-07-24 15:27:46', '56.2530', '6');
-INSERT INTO `rates` VALUES ('10', '2015-07-24 15:29:41', '896.2356', '6');
-INSERT INTO `rates` VALUES ('11', '2015-07-24 15:29:56', '78.2350', '6');
-INSERT INTO `rates` VALUES ('12', '2015-07-24 15:47:55', '5.4000', '1');
-INSERT INTO `rates` VALUES ('13', '2015-07-24 15:48:06', '13.0000', '1');
-INSERT INTO `rates` VALUES ('14', '2015-07-24 15:48:25', '900.0000', '1');
-INSERT INTO `rates` VALUES ('15', '2015-07-24 15:48:39', '780.0000', '1');
-INSERT INTO `rates` VALUES ('16', '2015-07-24 15:48:55', '456.0000', '1');
-INSERT INTO `rates` VALUES ('17', '2015-07-24 15:49:02', '300.0000', '1');
-INSERT INTO `rates` VALUES ('18', '2015-07-24 15:49:22', '600.0000', '1');
-INSERT INTO `rates` VALUES ('19', '2015-07-24 15:49:36', '660.0000', '1');
-INSERT INTO `rates` VALUES ('20', '2015-07-24 15:49:47', '670.0000', '1');
-INSERT INTO `rates` VALUES ('21', '2015-07-24 15:50:16', '900.0000', '1');
-INSERT INTO `rates` VALUES ('22', '2015-07-24 18:57:27', '58.0000', '1');
-INSERT INTO `rates` VALUES ('23', '2015-07-24 19:13:28', '500.5556', '1');
-INSERT INTO `rates` VALUES ('24', '2015-07-29 16:56:54', '89.0000', '1');
+-- 数据导出被取消选择。
 
--- ----------------------------
--- Table structure for `remittances`
--- ----------------------------
+
+-- 导出  表 scm.remittances 结构
 DROP TABLE IF EXISTS `remittances`;
-CREATE TABLE `remittances` (
+CREATE TABLE IF NOT EXISTS `remittances` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Money` float(10,4) DEFAULT NULL,
   `Time` datetime NOT NULL,
   `Account` varchar(255) DEFAULT NULL,
   `Bank` varchar(255) DEFAULT NULL,
   `Pay` bit(1) NOT NULL,
-  `Memo` varchar(1023) DEFAULT NULL,
-  `SID` int(11) NOT NULL,
+  `Note` varchar(1023) DEFAULT NULL,
+  `OrderId` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of remittances
--- ----------------------------
