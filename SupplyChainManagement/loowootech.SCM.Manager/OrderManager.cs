@@ -123,7 +123,7 @@ namespace LoowooTech.SCM.Manager
         {
             using (var db = GetDataContext())
             {
-                var query = db.Orders.AsQueryable();
+                var query = db.Orders.Where(e => !e.Deleted);
                 if (filter.EnterpriseId > 0)
                 {
                     query = query.Where(e => e.EnterpriseId == filter.EnterpriseId);

@@ -44,9 +44,7 @@ namespace LoowooTech.SCM.Model
 
     public enum Business
     {
-        [Description("供应商")]
-        Supplier,
-        [Description("销售商")]
-        Seller
+        供应商,
+        销售商
     }
 }

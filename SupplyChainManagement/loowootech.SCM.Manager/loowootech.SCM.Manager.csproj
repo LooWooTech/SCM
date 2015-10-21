@@ -75,6 +75,7 @@
     <Compile Include="RateManager.cs" />
     <Compile Include="RemittanceManager.cs" />
     <Compile Include="SCMContext.cs" />
+    <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

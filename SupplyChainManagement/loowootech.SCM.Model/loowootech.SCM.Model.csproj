@@ -64,6 +64,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Contract.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Enterprise.cs" />
     <Compile Include="Express.cs" />
     <Compile Include="Filters\ComponentFilter.cs" />

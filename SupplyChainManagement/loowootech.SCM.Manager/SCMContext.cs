@@ -26,5 +26,6 @@ namespace LoowooTech.SCM.Manager
         public DbSet<Inventory> Inventorys { get; set; }
         public DbSet<Express> Expresses { get; set; }
         public DbSet<Contract> Contracts { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

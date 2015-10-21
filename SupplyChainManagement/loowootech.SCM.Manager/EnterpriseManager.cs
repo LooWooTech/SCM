@@ -75,6 +75,16 @@ namespace LoowooTech.SCM.Manager
                     entity.Deleted = true;
                     db.SaveChanges();
                 }
+                //删除相关进货或出货记录
+                if (entity.Business == Business.供应商)
+                {
+                    var list = db.Orders.Where(e => e.EnterpriseId == entity.ID);
+                    foreach (var item in list)
+                    {
+                        item.Deleted = true;
+                    }
+                    db.SaveChanges();
+                }
 
             }
         }

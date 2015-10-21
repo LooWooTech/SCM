@@ -41,6 +41,8 @@ namespace LoowooTech.SCM.Model
         /// </summary>
         public int EnterpriseId { get; set; }
 
+        public bool Deleted { get; set; }
+
         [Column(TypeName = "int")]
         public OrderType Type { get; set; }
 

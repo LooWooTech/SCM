@@ -25,7 +25,7 @@
         <tr>
             @if (enterprise == null)
             {
-                <td>@(item.Enterprise.Name)</td>
+                <td>@(item.Enterprise == null ? null : item.Enterprise.Name)</td>
             }
             <td>@(item.CreateTime)</td>
             <td>@(item.State.GetDescription())</td>

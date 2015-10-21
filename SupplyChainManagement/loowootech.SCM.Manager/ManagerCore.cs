@@ -85,6 +85,12 @@ namespace LoowooTech.SCM.Manager
         {
             get { return _contractManager == null ? _contractManager = new ContractManager() : _contractManager; }
         }
+
+        private UserManager _userManager;
+        public UserManager UserManager
+        {
+            get { return _userManager == null ? _userManager = new UserManager() : _userManager; }
+        }
         
     }
 }
