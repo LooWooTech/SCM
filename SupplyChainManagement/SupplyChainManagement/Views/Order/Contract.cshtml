@@ -1,0 +1,74 @@
+﻿@{
+    Order model = ViewBag.Model;
+    List<Contract> list = ViewBag.List;
+    ViewBag.Title = "上传订单合同";
+}
+<form id="form-contract" method="post" action="/order/submitcontract?id=@(model.ID)" enctype="multipart/form-data" class="form-horizontal">
+    @foreach(var item in list)
+    { 
+    <div class="form-group">
+        <label class="control-label col-lg-1">
+            合同
+        </label>
+        <div class="col-lg-5">
+            <a href="/file/?fileName=@(item.File)" target="_blank">@(item.File)</a>
+        </div>
+    </div>
+    }
+    <div class="form-group">
+        <label class="control-label col-lg-1">
+            上传文件
+        </label>
+        <div class="col-lg-5">
+            <input type="file" class="file form-control" name="file1" />
+        </div>
+    </div>
+    <div id="list-contract">
+
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-1 col-lg-2">
+            <button type="button" id="btn-add" class="btn btn-success"><i class="fa fa-plus"></i> 新增合同</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-1 col-lg-3">
+            <input type="hidden" name="submit" id="hid-submit" value="false" />
+            <button type="submit" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i>保存</button>
+            <button type="submit" class="btn btn-success" id="btn-submit"><i class="glyphicon glyphicon-floppy-open"></i> 提交订单</button>
+        </div>
+    </div>
+</form>
+<template id="template" style="display:none;">
+    <div class="form-group">
+        <label class="control-label col-lg-1">
+            上传文件
+        </label>
+        <div class="col-lg-5">
+            <input type="file" class="file form-control" name="file{index}" />
+        </div>
+        <div class="col-lg-1">
+            <button type="button" class="btn btn-xs btn-remove"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+</template>
+<script>
+    $(function () {
+        var template = $("#template").html();
+        $("#btn-add").click(function () {
+            var count = $("input[type='file']").length;
+            var html = template.replace("{index}", count + 1);
+            $("#list-contract").append(html);
+            $(".btn-remove").unbind("click").bind("click", function () {
+                $(this).parent().parent().remove();
+            });
+            return false;
+        });
+        $("#btn-save").click(function () {
+            $("#hid-submit").val(false);
+        });
+        $("#btn-submit").click(function () {
+            $("#hid-submit").val(true);
+        });
+    });
+</script>

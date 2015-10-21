@@ -66,7 +66,7 @@
     <div class="tab-pane fade" id="profile-contract">
         @if (contracts == null || contracts.Count == 0)
         {
-            <span class="text-default">没有上传合同文件</span>
+            <span>没有上传合同文件</span>
         }
         else
         {
@@ -77,22 +77,31 @@
         }
     </div>
     <div class="tab-pane fade" id="profile-shipping">
-        <table class="table table-bordered">
-            <tr>
-                <th class="col-lg-2">物流公司</th>
-                <td>@(express.Name)</td>
-            </tr>
-            <tr>
-                <th>运单号</th>
-                <td>@(model.ExpressNo)</td>
-            </tr>
-            <tr>
-                <th>物流详情</th>
-                <td></td>
-            </tr>
-        </table>
-    </div>
+        @if (express != null)
+        {
+            <table class="table table-bordered">
+                <tr>
+                    <th class="col-lg-2">物流公司</th>
+                    <td>@(express.Name)</td>
+                </tr>
+                <tr>
+                    <th>运单号</th>
+                    <td>@(model.ExpressNo)</td>
+                </tr>
+                <tr>
+                    <th>物流详情</th>
+                    <td></td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            <span>没有物流信息</span>
+        }
+  </div>
     <div class="tab-pane fade" id="profile-payment">
+        @if (remittance != null)
+        { 
         <table class="table table-bordered">
             <tr>
                 <th class="col-lg-2">汇款账号</th>
@@ -119,5 +128,10 @@
                 <td>@(remittance.Note)</td>
             </tr>
         </table>
+        }
+        else
+        { 
+            <span>没有汇款信息</span>
+        }
     </div>
 </div>

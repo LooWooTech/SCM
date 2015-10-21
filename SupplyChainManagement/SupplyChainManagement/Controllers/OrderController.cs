@@ -152,19 +152,6 @@ namespace LoowooTech.SCM.Web.Controllers
             return View();
         }
 
-        private string GetUploadPath(HttpPostedFileBase file)
-        {
-            var uploadPath = AppSettings.Current["UploadPath"];
-            if (!System.IO.Directory.Exists(uploadPath))
-            {
-                System.IO.Directory.CreateDirectory(uploadPath);
-            }
-            var savePath = System.IO.Path.Combine(uploadPath, file.FileName);
-            file.SaveAs(savePath);
-
-            return savePath;
-        }
-
         public ActionResult SubmitContract(int id, bool submit = false)
         {
             var model = GetOrder(id);
@@ -176,12 +163,12 @@ namespace LoowooTech.SCM.Web.Controllers
                 {
                     if (file.ContentLength > 0)
                     {
-                        var filePath = GetUploadPath(file);
+                        var filePath = file.Upload();
                         list.Add(new Contract { OrderId = id, File = filePath });
                     }
                 }
             }
-
+            Core.ContractManager.Save(id, list);
             return RedirectToAction(submit ? "Shipping" : "Contract", new { id });
         }
 

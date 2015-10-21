@@ -49,8 +49,6 @@
     <Compile Include="EncryptExtensions.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuotationHelper.cs" />
-    <Compile Include="UploadHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

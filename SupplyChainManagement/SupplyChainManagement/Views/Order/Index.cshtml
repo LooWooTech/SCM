@@ -18,7 +18,7 @@
         <th>时间</th>
         <th style="width:100px;"> 订单状态</th>
         <th style="width:100px;">物流信息</th>
-        <th style="width:100px;">管理</th>
+        <th style="width:130px;">管理</th>
     </tr>
     @foreach (var item in list)
     {
@@ -31,13 +31,13 @@
             <td>@(item.State.GetDescription())</td>
             <td><a href="/express/view?id=@(item.Express)&no=@(item.ExpressNo)" data-toggle="modal" data-target="#modal"><i class="fa fa-car"></i>查看物流</a></td>
             <td>
+                <a href="/order/detail?id=@(item.ID)" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> 查看</a>
                 @switch (item.State)
                 {
                     case State.Done:
-                        <a href="/order/detail?id=@(item.ID)" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> 查看</a>
                         break;
                     default:
-                    <a href="/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> 修改</a>
+                        <a href="/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> 修改</a>
                         break;
                 }
             </td>
