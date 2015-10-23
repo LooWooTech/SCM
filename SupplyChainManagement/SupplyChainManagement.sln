@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.SCM.Common", "lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.SCM.Model", "loowootech.SCM.Model\LoowooTech.SCM.Model.csproj", "{F4475B35-5EF6-4D0C-AA2D-C62E388BC17A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0A8042F8-E9AD-4197-8D01-38B53B252239}"
+	ProjectSection(SolutionItems) = preProject
+		..\数据库脚本文件\supplychain.sql = ..\数据库脚本文件\supplychain.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

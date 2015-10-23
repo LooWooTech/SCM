@@ -124,10 +124,10 @@ namespace LoowooTech.SCM.Web.Controllers
                 }
             }
 
-            var list = new List<OrderItem>();
+            var list = new List<OrderComponent>();
             for (var i = 0; i < itemComponentId.Length; i++)
             {
-                list.Add(new OrderItem
+                list.Add(new OrderComponent
                 {
                     ComponentId = itemComponentId[i],
                     Price = itemPrice[i],

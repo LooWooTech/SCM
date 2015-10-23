@@ -17,7 +17,7 @@ namespace LoowooTech.SCM.Web.Areas.Distributor
             context.MapRoute(
                 "Distributor_default",
                 "Distributor/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 new[] { this.GetType().Namespace + ".Controllers" }
             );
         }

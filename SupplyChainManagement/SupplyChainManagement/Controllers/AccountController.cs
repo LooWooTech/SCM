@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoowooTech.SCM.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 namespace LoowooTech.SCM.Web.Controllers
 {
     [UserAuthorize(Enabled = false)]
+    [UserRole(Role = UserRole.Everyone)]
     public class AccountController : ControllerBase
     {
         public ActionResult Login()

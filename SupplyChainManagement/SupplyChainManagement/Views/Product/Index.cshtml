@@ -8,7 +8,7 @@
         <input type="text" class="form-control" name="key" placeholder="产品型号" value="@(Request.QueryString["key"])">
         <div class="input-group-btn">
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>查询</button>
-            <a class="btn btn-success" href="/manufacture/edit" >
+            <a class="btn btn-success" href="/product/edit" >
                 <i class="glyphicon glyphicon-plus"></i>添加产品
             </a>
         </div>
@@ -28,11 +28,11 @@
             <td>@(item.ID)</td>
             <td>@(item.Number)</td>
             <td>
-                <a href="/manufacture/price?id=@(item.ID)" title="点击查看历史价格" data-toggle="modal" data-target="#modal"><i class="fa fa-line-chart"></i>@Math.Round(item.Price, 4)￥</a>
+                <a href="/product/price?id=@(item.ID)" title="点击查看历史价格" data-toggle="modal" data-target="#modal"><i class="fa fa-line-chart"></i>@Math.Round(item.Price, 4)￥</a>
             </td>
             <td>
-                <a href="/manufacture/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i>修改</a>
-                <a href="/manufacture/delete?id=@(item.ID)" class="btn btn-danger btn-xs btn-delete"><i class="glyphicon glyphicon-remove"></i>删除</a>
+                <a href="/product/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i>修改</a>
+                <a href="/product/delete?id=@(item.ID)" class="btn btn-danger btn-xs btn-delete"><i class="glyphicon glyphicon-remove"></i>删除</a>
             </td>
         </tr>
     }

@@ -26,7 +26,7 @@ namespace LoowooTech.SCM.Model
         public double Price { get; set; }
 
         [NotMapped]
-        public List<ProductItem> Items { get; set; }
+        public List<ProductComponent> Items { get; set; }
         
         
     }

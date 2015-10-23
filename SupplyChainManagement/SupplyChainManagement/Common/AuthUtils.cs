@@ -9,7 +9,7 @@ namespace LoowooTech.SCM.Web
 {
     public static class AuthUtils
     {
-        private const string _cookieName = ".inst_user";
+        private const string _cookieName = ".scm_user";
 
         public static void SaveAuth(this HttpContextBase context, User user)
         {
@@ -18,7 +18,7 @@ namespace LoowooTech.SCM.Web
                 ClearAuth(context);
                 return;
             }
-            var ticket = new FormsAuthenticationTicket(user.ID.ToString() + "|" + user.Role + "|" + user.Username, true, 60);
+            var ticket = new FormsAuthenticationTicket(Newtonsoft.Json.JsonConvert.SerializeObject(user), true, 60);
             var cookieValue = FormsAuthentication.Encrypt(ticket);
             var cookie = new HttpCookie(_cookieName, cookieValue);
             context.Response.Cookies.Remove(_cookieName);
@@ -33,23 +33,19 @@ namespace LoowooTech.SCM.Web
                 var ticket = FormsAuthentication.Decrypt(cookie.Value);
                 if (ticket != null && !string.IsNullOrEmpty(ticket.Name))
                 {
-                    var values = ticket.Name.Split('|');
-                    if (values.Length == 3)
+                    try
                     {
-                        var userId = 0;
-                        if (int.TryParse(values[0], out userId))
+                        var user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(ticket.Name);
+                        return new UserIdentity
                         {
-                            var role = UserRole.Everyone;
-                            if (values.Length > 1 && Enum.TryParse<UserRole>(values[1], out role))
-                            {
-                                return new UserIdentity
-                                {
-                                    UserID = userId,
-                                    Role = role,
-                                    Username = values[2]
-                                };
-                            }
-                        }
+                            UserID = user.ID,
+                            Role = user.Role,
+                            Username = user.Username,
+                            EnterpriseId = user.EnterpriseId
+                        };
+                    }
+                    catch
+                    {
                     }
                 }
             }

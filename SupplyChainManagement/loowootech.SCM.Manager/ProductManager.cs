@@ -42,8 +42,8 @@ namespace LoowooTech.SCM.Manager
             {
                 var entity = db.Products.FirstOrDefault(e => e.ID == id);
                 db.Products.Remove(entity);
-                var items = db.ProductItems.Where(e => e.ProductId == id);
-                db.ProductItems.RemoveRange(items);
+                var items = db.ProductComponents.Where(e => e.ProductId == id);
+                db.ProductComponents.RemoveRange(items);
                 db.SaveChanges();
             }
         }
@@ -94,11 +94,11 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public List<ProductItem> GetItems(int productId)
+        public List<ProductComponent> GetItems(int productId)
         {
             using (var db = GetDataContext())
             {
-                var list = db.ProductItems.Where(e => e.ProductId == productId).ToList();
+                var list = db.ProductComponents.Where(e => e.ProductId == productId).ToList();
                 foreach (var item in list)
                 {
                     item.Component = Core.ComponentManager.GetModel(item.ComponentId);
@@ -107,7 +107,7 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public void SaveItems(IEnumerable<ProductItem> items)
+        public void SaveItems(IEnumerable<ProductComponent> items)
         {
             using (var db = GetDataContext())
             {
@@ -122,9 +122,9 @@ namespace LoowooTech.SCM.Manager
                 var entity = db.Products.FirstOrDefault(e => e.ID == productId);
                 if (entity != null)
                 {
-                    var old = db.ProductItems.Where(e => e.ProductId == productId);
-                    db.ProductItems.RemoveRange(old);
-                    db.ProductItems.AddRange(items);
+                    var old = db.ProductComponents.Where(e => e.ProductId == productId);
+                    db.ProductComponents.RemoveRange(old);
+                    db.ProductComponents.AddRange(items);
                     db.SaveChanges();
                 }
             }

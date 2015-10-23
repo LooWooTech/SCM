@@ -1,9 +1,15 @@
--- --------------------------------------------------------
+﻿-- --------------------------------------------------------
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        5.6.26 - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Win64
 -- HeidiSQL 版本:                  9.3.0.4984
 -- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
 -- 导出  表 scm.addresslist 结构
 DROP TABLE IF EXISTS `addresslist`;
 CREATE TABLE IF NOT EXISTS `addresslist` (
@@ -130,19 +136,21 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `ExpressNo` varchar(255) DEFAULT NULL,
   `Express` int(11) NOT NULL,
   `Indenture` bit(1) NOT NULL,
+  `Deleted` bit(1) NOT NULL,
   `EnterpriseId` int(11) NOT NULL,
   `Type` int(11) NOT NULL,
   `State` int(10) NOT NULL,
+  `Payment` bit(1) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `Index 2` (`EnterpriseId`)
+  KEY `EnterpriseId` (`EnterpriseId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
 
 
--- 导出  表 scm.order_items 结构
-DROP TABLE IF EXISTS `order_items`;
-CREATE TABLE IF NOT EXISTS `order_items` (
+-- 导出  表 scm.order_components 结构
+DROP TABLE IF EXISTS `order_components`;
+CREATE TABLE IF NOT EXISTS `order_components` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `OrderId` int(11) NOT NULL,
   `ComponentId` int(11) NOT NULL,
@@ -150,7 +158,28 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   `Number` int(11) DEFAULT NULL,
   `DealNumber` int(11) DEFAULT '0',
   `DealPrice` float DEFAULT '0',
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `OrderId` (`OrderId`),
+  KEY `ComponentId` (`ComponentId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 scm.order_products 结构
+DROP TABLE IF EXISTS `order_products`;
+CREATE TABLE IF NOT EXISTS `order_products` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `OrderID` int(11) NOT NULL DEFAULT '0',
+  `ProductID` int(11) NOT NULL DEFAULT '0',
+  `Price` decimal(10,0) NOT NULL DEFAULT '0',
+  `Number` int(11) NOT NULL DEFAULT '0',
+  `Status` int(11) NOT NULL DEFAULT '0',
+  `DealPrice` decimal(10,0) DEFAULT '0',
+  `DealNumber` int(11) DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `OrderID` (`OrderID`),
+  KEY `ProductID` (`ProductID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -168,15 +197,16 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- 数据导出被取消选择。
 
 
--- 导出  表 scm.product_items 结构
-DROP TABLE IF EXISTS `product_items`;
-CREATE TABLE IF NOT EXISTS `product_items` (
+-- 导出  表 scm.product_components 结构
+DROP TABLE IF EXISTS `product_components`;
+CREATE TABLE IF NOT EXISTS `product_components` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Number` int(11) DEFAULT NULL,
   `ProductId` int(11) NOT NULL,
   `ComponentId` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `IX_ProductId` (`ProductId`)
+  KEY `IX_ProductId` (`ProductId`),
+  KEY `ComponentId` (`ComponentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -208,3 +238,26 @@ CREATE TABLE IF NOT EXISTS `remittances` (
   `OrderId` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 scm.users 结构
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Username` varchar(50) NOT NULL DEFAULT '0',
+  `Password` varchar(32) NOT NULL DEFAULT '0',
+  `EnterpriseId` int(11) NOT NULL DEFAULT '0',
+  `Role` int(11) NOT NULL DEFAULT '0',
+  `Deleted` bit(1) NOT NULL DEFAULT b'0',
+  `LastLoginTime` datetime DEFAULT '0000-00-00 00:00:00',
+  `LastLoginIp` varchar(50) DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `Username` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

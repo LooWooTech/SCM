@@ -1,18 +1,24 @@
 ﻿using LoowooTech.SCM.Manager;
+using LoowooTech.SCM.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
 namespace LoowooTech.SCM.Web.Controllers
 {
     [UserAuthorize]
-    public class ControllerBase : AsyncController   
+    [UserRole(Role = UserRole.Admin)]
+    public class ControllerBase : AsyncController
     {
         protected readonly ManagerCore Core = ManagerCore.Instance;
+
         private const string JsonContentType = "text/html";
+
+        protected UserIdentity Identity { get; private set; }
 
         protected ActionResult GetActionResult(object data)
         {
@@ -35,12 +41,11 @@ namespace LoowooTech.SCM.Web.Controllers
             return GetActionResult(new { result = 0, message });
         }
 
-
-
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             ViewBag.Controller = RouteData.Values["Controller"];
             ViewBag.Action = RouteData.Values["action"];
+            Identity = (UserIdentity)Thread.CurrentPrincipal.Identity;
             base.OnActionExecuting(filterContext);
         }
 

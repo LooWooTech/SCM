@@ -1,7 +1,7 @@
 ﻿@{
     Product model = ViewBag.Model;
     ViewBag.Title = model.ID > 0 ? "修改产品" : "添加产品";
-    List<ProductItem> items = ViewBag.Items;
+    List<ProductComponent> items = ViewBag.Items;
     List<Component> components = ViewBag.Components;
     var autocompletedData = components.Select(e => new
     {
@@ -10,7 +10,7 @@
     });
     var dataJson = Newtonsoft.Json.JsonConvert.SerializeObject(autocompletedData);
 }
-<form id="form-product" class="form-horizontal" action="/Manufacture/Submit" method="post">
+<form id="form-product" class="form-horizontal" action="/product/Submit" method="post">
     <input type="hidden" name="ID" value="@(model.ID)">
     <div class="form-group">
         <label for="Number" class="control-label col-lg-2">产品型号</label>

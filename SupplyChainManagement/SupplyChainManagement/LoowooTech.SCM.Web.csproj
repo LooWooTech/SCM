@@ -94,6 +94,9 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\DistributorControllerBase.cs" />
+    <Compile Include="Areas\Distributor\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Distributor\Controllers\OrderController.cs" />
     <Compile Include="Areas\Distributor\DistributorAreaRegistration.cs" />
     <Compile Include="Common\AuthenticateModule.cs" />
     <Compile Include="Common\AuthUtils.cs" />
@@ -108,7 +111,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ManufactureController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RemitController.cs" />
     <Compile Include="Global.asax.cs">
@@ -144,7 +147,13 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="Areas\Distributor\Views\Web.config" />
+    <Content Include="Areas\Distributor\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Distributor\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Distributor\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Distributor\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Distributor\Views\Order\Index.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -166,10 +175,10 @@
     <Content Include="Views\Enterprise\Index.cshtml" />
     <Content Include="Views\Component\Index.cshtml" />
     <Content Include="Views\Component\Edit.cshtml" />
-    <Content Include="Views\Manufacture\Index.cshtml" />
-    <Content Include="Views\Manufacture\ListItem.cshtml" />
-    <Content Include="Views\Manufacture\Chart.cshtml" />
-    <Content Include="Views\Manufacture\Price.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\ListItem.cshtml" />
+    <Content Include="Views\Product\Chart.cshtml" />
+    <Content Include="Views\Product\Price.cshtml" />
     <Content Include="Views\Epistolize\Index.cshtml" />
     <Content Include="Views\Enterprise\Edit.cshtml" />
     <Content Include="Views\Shared\_pagination.cshtml" />
@@ -186,14 +195,12 @@
     <Content Include="Views\Express\Index.cshtml" />
     <Content Include="Views\Express\Edit.cshtml" />
     <Content Include="Views\Order\Detail.cshtml" />
-    <Content Include="Views\Manufacture\Edit.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Order\Contract.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Distributor\Controllers\" />
     <Folder Include="Areas\Distributor\Models\" />
-    <Folder Include="Areas\Distributor\Views\Shared\" />
     <Folder Include="uploadfiles\" />
   </ItemGroup>
   <ItemGroup>

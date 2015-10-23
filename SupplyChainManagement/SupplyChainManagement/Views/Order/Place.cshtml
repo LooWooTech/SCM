@@ -2,7 +2,7 @@
     ViewBag.Title = "部件进货";
     Order model = ViewBag.Model;
     List<Component> components = ViewBag.Components;
-    List<OrderItem> list = ViewBag.List;
+    List<OrderComponent> list = ViewBag.List;
     var autocompletedData = components.Select(e => new
     {
         label = e.DisplayName,

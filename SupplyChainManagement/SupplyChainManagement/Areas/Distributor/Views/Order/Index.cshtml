@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "我的订单";
+    List<Order> list = ViewBag.List;
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in list)
+        {
+            <tr>
+                <td>@(item.ID)</td>
+                <td>@(item.CreateTime)</td>
+                <td>@(item.State.GetDescription())</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>

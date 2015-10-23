@@ -9,10 +9,10 @@ using System.Web.Mvc;
 
 namespace LoowooTech.SCM.Web.Controllers
 {
-    public class ManufactureController : ControllerBase
+    public class ProductController : ControllerBase
     {
         //
-        // GET: /Manufacture/
+        // GET: /product/
 
         public ActionResult Index(string key, int page = 1, int rows = 20)
         {
@@ -34,10 +34,10 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult Submit(Product product, int[] itemComponentId, int[] itemNumber, bool updatePrice = true)
         {
             Core.ProductManager.Save(product);
-            var items = new List<ProductItem>();
+            var items = new List<ProductComponent>();
             for (var i = 0; i < itemComponentId.Length; i++)
             {
-                items.Add(new ProductItem
+                items.Add(new ProductComponent
                 {
                     ComponentId = itemComponentId[i],
                     Number = itemNumber[i],

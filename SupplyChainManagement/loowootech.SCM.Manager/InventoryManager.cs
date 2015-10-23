@@ -8,7 +8,7 @@ namespace LoowooTech.SCM.Manager
 {
     public class InventoryManager:ManagerBase
     {
-        public void Add(List<OrderItem> List)
+        public void Add(List<OrderComponent> List)
         {
             foreach (var item in List)
             {
@@ -16,7 +16,7 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
-        public void Add(OrderItem quotation)
+        public void Add(OrderComponent quotation)
         {
             using (var db = GetDataContext())
             {
