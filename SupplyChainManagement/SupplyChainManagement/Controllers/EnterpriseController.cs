@@ -62,7 +62,7 @@ namespace LoowooTech.SCM.Web.Controllers
                         Username = username,
                         Password = password,
                         EnterpriseId = model.ID,
-                        Role = Role.User
+                        Role = UserRole.User
                     };
                     Core.UserManager.Save(user);
                 }

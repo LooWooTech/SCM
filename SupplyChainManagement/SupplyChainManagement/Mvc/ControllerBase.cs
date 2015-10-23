@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LoowooTech.SCM.Web.Controllers
 {
+    [UserAuthorize]
     public class ControllerBase : AsyncController   
     {
         protected readonly ManagerCore Core = ManagerCore.Instance;

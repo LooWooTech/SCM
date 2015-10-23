@@ -23,7 +23,7 @@ namespace LoowooTech.SCM.Model
 
         public int EnterpriseId { get; set; }
 
-        public Role Role { get; set; }
+        public UserRole Role { get; set; }
 
         public DateTime? LastLoginTime { get; set; }
 
@@ -32,9 +32,9 @@ namespace LoowooTech.SCM.Model
         public bool Deleted { get; set; }
     }
 
-    public enum Role
+    public enum UserRole
     {
-        Guest,
+        Everyone,
         User,
         Admin
     }

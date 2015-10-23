@@ -95,21 +95,26 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Distributor\DistributorAreaRegistration.cs" />
+    <Compile Include="Common\AuthenticateModule.cs" />
+    <Compile Include="Common\AuthUtils.cs" />
+    <Compile Include="Common\UserAuthorizeAttribute.cs" />
+    <Compile Include="Common\UserPrincipal.cs" />
     <Compile Include="Controllers\ComponentController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
-    <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Mvc\ControllerBase.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
     <Compile Include="Controllers\EpistolizeController.cs" />
     <Compile Include="Controllers\ExpressController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManufactureController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RemitController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mvc\UserRoleAttribute.cs" />
     <Compile Include="Mvc\WebUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -183,6 +188,7 @@
     <Content Include="Views\Order\Detail.cshtml" />
     <Content Include="Views\Manufacture\Edit.cshtml" />
     <Content Include="Views\Order\Contract.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Distributor\Controllers\" />

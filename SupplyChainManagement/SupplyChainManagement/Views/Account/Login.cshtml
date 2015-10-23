@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "用户登录";
+}
+
+<form id="form-login" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-lg-1">用户名</label>
+        <div class="col-lg-3">
+            <input type="text" id="txt-username" name="Username" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-lg-1">密码</label>
+        <div class="col-lg-3">
+            <input type="text" id="txt-password" name="Password" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-3 col-lg-offset-1">
+            <button type="submit" class="btn btn-primary">登录</button>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        $("#form-login").submit(function () {
+            var data = $(this).serialize();
+            if (!data.Username) {
+                $("#txt-username").focus();
+                return false;
+            }
+            if (!data.Password) {
+                $("#txt-password").focus();
+                return false;
+            }
+            $.request("/account/login", data, function (json) {
+                var role = json.data.role;
+                if (role == 1) {
+                    location.href = "/distributor";
+                } else {
+                    location.href = "/";
+                }
+            });
+            return false;
+        });
+    });
+</script>
