@@ -27,5 +27,7 @@ namespace LoowooTech.SCM.Manager
         public DbSet<Express> Expresses { get; set; }
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<ProduceLog> ProduceLogs { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
     }
 }

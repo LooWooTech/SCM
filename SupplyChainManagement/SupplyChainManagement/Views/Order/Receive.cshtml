@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "收货入库";
     Order model = ViewBag.Model;
-    List<OrderItem> list = ViewBag.List;
+    List<OrderComponent> list = ViewBag.List;
 }
 <form class="form-horizontal" method="post" action="/order/submitreceive">
     <input type="hidden" name="OrderId" value="@(model.ID)" />

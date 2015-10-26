@@ -64,6 +64,8 @@
     <Compile Include="Component.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Contract.cs" />
+    <Compile Include="OrderProduct.cs" />
+    <Compile Include="ProduceLog.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Enterprise.cs" />
     <Compile Include="Express.cs" />

@@ -6,34 +6,43 @@ using System.Text;
 
 namespace LoowooTech.SCM.Manager
 {
-    public class InventoryManager:ManagerBase
+    public class InventoryManager : ManagerBase
     {
-        public void Add(List<OrderComponent> List)
-        {
-            foreach (var item in List)
-            {
-                Add(item);
-            }
-        }
-
-        public void Add(OrderComponent quotation)
+        public int HaveProduct(int productId, int number = 1)
         {
             using (var db = GetDataContext())
             {
-                var entity = db.Inventorys.FirstOrDefault(e => e.CID == quotation.ComponentId);
-                if (entity != null)
+                var productCount = db.Inventorys.Where(e => e.InfoID == productId && e.InfoType == InfoType.Product).Sum(e => e.Number);
+                return productCount - number;
+            }
+        }
+
+        public bool CanProduce(int productId, int number = 1)
+        {
+            var result = true;
+            var product = Core.ProductManager.GetModel(productId);
+            using (var db = GetDataContext())
+            {
+                if (product != null)
                 {
-                    entity.Number += quotation.Number;
+                    var items = Core.ProductManager.GetItems(productId);
+                    foreach (var item in items)
+                    {
+                        var sum = db.Inventorys.Where(e => e.InfoID == item.ID && e.InfoType == InfoType.Component).Sum(e => e.Number);
+                        if (sum < item.Number * number)
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
                 }
                 else
                 {
-                    db.Inventorys.Add(new Inventory { 
-                        CID=quotation.ComponentId,
-                        Number=quotation.Number
-                    });
+                    result = false;
                 }
-                db.SaveChanges();
             }
+
+            return result;
         }
     }
 }

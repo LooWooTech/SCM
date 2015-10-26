@@ -154,6 +154,7 @@
     <Content Include="Areas\Distributor\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Distributor\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Distributor\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Distributor\Views\Order\Edit.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />

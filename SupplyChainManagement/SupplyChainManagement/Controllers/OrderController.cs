@@ -105,7 +105,7 @@ namespace LoowooTech.SCM.Web.Controllers
             var model = GetOrder(id);
             ViewBag.Model = model;
             ViewBag.Components = Core.ComponentManager.GetList(null);
-            ViewBag.List = Core.OrderItemManager.GetList(model.ID);
+            ViewBag.List = Core.OrderComponentManager.GetList(model.ID);
             return View();
         }
 
@@ -138,7 +138,7 @@ namespace LoowooTech.SCM.Web.Controllers
 
             var model = GetOrder(id);
             model.State = submit ? State.Contract : State.Place;
-            Core.OrderItemManager.Save(model.ID, list);
+            Core.OrderComponentManager.UpdateComponents(model.ID, list);
             Core.OrderManager.Update(model);
 
             return RedirectToAction(submit ? "Contract" : "Place", new { id });
@@ -202,14 +202,14 @@ namespace LoowooTech.SCM.Web.Controllers
         {
             var model = GetOrder(id);
             ViewBag.Model = model;
-            ViewBag.List = Core.OrderItemManager.GetList(model.ID);
+            ViewBag.List = Core.OrderComponentManager.GetList(model.ID);
             return View();
         }
 
         public ActionResult SubmitReceive(int orderId, int[] itemId, double[] dealprice, int[] dealnumber, bool submit = false)
         {
             var model = GetOrder(orderId);
-            var list = Core.OrderItemManager.GetList(orderId);
+            var list = Core.OrderComponentManager.GetList(orderId);
             foreach (var item in list)
             {
                 for (var i = 0; i < itemId.Length; i++)
@@ -221,7 +221,7 @@ namespace LoowooTech.SCM.Web.Controllers
                     }
                 }
             }
-            Core.OrderItemManager.UpdateReceiveNumber(list);
+            Core.OrderComponentManager.UpdateReceiveNumber(list);
             model.State = submit ? State.Payment : State.Receive;
             Core.OrderManager.Update(model);
             return RedirectToAction(submit ? "Payment" : "Receive", new { id = orderId });
@@ -270,7 +270,7 @@ namespace LoowooTech.SCM.Web.Controllers
             ViewBag.Message = Core.MessageManager.GetModelByOrderId(id);
             ViewBag.Contracts = Core.ContractManager.GetList(id);
             ViewBag.Remittance = Core.RemittanceManager.GetModel(id);
-            ViewBag.OrderItems = Core.OrderItemManager.GetList(id);
+            ViewBag.OrderItems = Core.OrderComponentManager.GetList(id);
             ViewBag.Express = Core.ExpressManager.GetModel(model.Express);
             return View();
         }

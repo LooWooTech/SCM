@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "订货";
+    List<Product> list = ViewBag.List;
+}
+<form id="form-order" class="form-horizontal">
+    <table id="list-order-product" class="table table-bordered">
+        <tr>
+            <th>型号</th>
+            <th style="width:140px;">价格</th>
+            <th style="width:100px;">数量</th>
+            <th style="width:100px;">
+
+            </th>
+        </tr>
+        <tbody id="list-product">
+            <tr>
+                <td>
+                    <select name="ProductID" class="form-control ddl-product">
+                        @foreach (var item in list)
+                        {
+                            <option value="@(item.ID)" data-price="@(item.Price.ToString("f2"))">@(item.Number)     【报价：@(item.Price.ToString("f2"))￥】</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="Price" class="form-control txt-price" />
+                </td>
+                <td>
+                    <input type="text" name="Number" class="form-control" value="1" />
+                </td>
+                <td>
+                    <a href="javascript:;" class="btn btn-danger btn-remove btn-xs"><i class="fa fa-remove"></i> 移除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" id="btn-add" class="btn btn-primary"><i class="fa fa-plus"></i>添加型号</button>
+    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> 提交订单</button>
+</form>
+
+<script>
+    $(function () {
+        var list = $("#list-product");
+        var template = list.html();
+        $("#btn-add").click(function () {
+            list.append(template);
+            bindSelect();
+            bindRemove();
+        });
+
+        bindSelect();
+        bindRemove();
+
+        function bindSelect() {
+            $(".ddl-product").unbind("change").bind("change", function () {
+                var price = $("option:selected", this).attr("data-price");
+                var txtPrice = $(".txt-price", $(this).parent().parent());
+                console.log(price)
+                txtPrice.val(price);
+            });
+        }
+
+        function bindRemove() {
+            $(".btn-remove").unbind("click").bind("click", function () {
+                $(this).parent().parent().remove();
+            });
+        }
+    });
+</script>

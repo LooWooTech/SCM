@@ -7,13 +7,10 @@ using System.Text;
 
 namespace LoowooTech.SCM.Model
 {
-    /// <summary>
-    /// 库存表
-    /// </summary>
-    [Table("inventorys")]
-    public class Inventory
+    [Table("produce_logs")]
+    public class ProduceLog
     {
-        public Inventory()
+        public ProduceLog()
         {
             CreateTime = DateTime.Now;
         }
@@ -21,16 +18,15 @@ namespace LoowooTech.SCM.Model
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public int Number { get; set; }
-        public int InfoID { get; set; }
-        public InfoType InfoType { get; set; }
-        public DateTime CreateTime { get; set; }
-        public int OrderID { get; set; }
-    }
 
-    public enum InfoType
-    {
-        Component,
-        Product
+        public int ProductID { get; set; }
+
+        public int ComponentID { get; set; }
+
+        public int Number { get; set; }
+
+        public int OrderID { get; set; }
+
+        public DateTime CreateTime { get; set; }
     }
 }

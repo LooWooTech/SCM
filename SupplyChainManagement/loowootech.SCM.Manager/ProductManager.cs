@@ -48,6 +48,41 @@ namespace LoowooTech.SCM.Manager
             }
         }
 
+        /// <summary>
+        /// 生产一个型号产品，消耗库存组件
+        /// </summary>
+        public void Produce(int productId, int orderId)
+        {
+            var items = GetItems(productId);
+            using (var db = GetDataContext())
+            {
+                foreach (var item in items)
+                {
+                    var query = db.Inventorys.Where(e => e.InfoID == item.ID && e.InfoType == InfoType.Component);
+                    if (query.Sum(e => e.Number) >= item.Number)
+                    {
+                        //根据型号的部件的数量，减去库存的数量
+                        var total = item.Number;
+                        foreach (var component in query)
+                        {
+                            if (total > component.Number)
+                            {
+                                component.Number = 0;
+                                total = total - component.Number;
+                            }
+                            else
+                            {
+                                component.Number = component.Number - total;
+                                break;
+                            }
+                        }
+                        db.ProduceLogs.Add(new ProduceLog { ComponentID = item.ID, ProductID = productId, Number = item.Number, OrderID = orderId });
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+
         public int Save(Product model)
         {
             using (var db = GetDataContext())
@@ -77,7 +112,7 @@ namespace LoowooTech.SCM.Manager
             return model.ID;
         }
 
-        public void AddPriceLog(int productId,double price)
+        public void AddPriceLog(int productId, double price)
         {
             using (var db = GetDataContext())
             {

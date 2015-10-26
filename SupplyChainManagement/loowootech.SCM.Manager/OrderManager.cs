@@ -8,7 +8,7 @@ using System.Web;
 
 namespace LoowooTech.SCM.Manager
 {
-    public class OrderManager:ManagerBase
+    public class OrderManager : ManagerBase
     {
         public int Add(Order order)
         {
