@@ -35,6 +35,10 @@ namespace LoowooTech.SCM.Model
 
     public enum ProductStatus
     {
+        [Description("正常")]
+        Normal,
+        [Description("库存不足")]
+        Shortage,
         [Description("开始生产")]
         Producing,
         [Description("生产完成")]

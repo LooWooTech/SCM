@@ -40,7 +40,7 @@
                 }
                 else if (item.Business == Business.销售商)
                 {
-                    <a href="/Dealer/enterpriseId?ID=@(item.ID)" class="btn btn-success btn-xs" title="订货"><i class="glyphicon glyphicon-log-out"></i></a>
+                    <a href="/Order/?enterpriseId=@(item.ID)" class="btn btn-success btn-xs" title="订货"><i class="glyphicon glyphicon-log-out"></i></a>
                 }
                 <a href="/enterprise/edit?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal" title="修改"><i class="fa fa-edit"></i></a>
                 <a href="/enterprise/delete?id=@(item.ID)" class="btn btn-danger btn-xs btn-delete" title="删除"><i class="fa fa-remove"></i></a>

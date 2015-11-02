@@ -8,41 +8,29 @@ namespace LoowooTech.SCM.Manager
 {
     public class InventoryManager : ManagerBase
     {
-        public int HaveProduct(int productId, int number = 1)
+        /// <summary>
+        /// 是否缺货
+        /// </summary>
+        public bool IsShortage(int productId, int number)
         {
             using (var db = GetDataContext())
             {
                 var productCount = db.Inventorys.Where(e => e.InfoID == productId && e.InfoType == InfoType.Product).Sum(e => e.Number);
-                return productCount - number;
-            }
-        }
-
-        public bool CanProduce(int productId, int number = 1)
-        {
-            var result = true;
-            var product = Core.ProductManager.GetModel(productId);
-            using (var db = GetDataContext())
-            {
-                if (product != null)
+                if (productCount < number)
                 {
+                    var produceCount = number - productCount;
                     var items = Core.ProductManager.GetItems(productId);
                     foreach (var item in items)
                     {
                         var sum = db.Inventorys.Where(e => e.InfoID == item.ID && e.InfoType == InfoType.Component).Sum(e => e.Number);
-                        if (sum < item.Number * number)
+                        if (sum < item.Number * produceCount)
                         {
-                            result = false;
-                            break;
+                            return false;
                         }
                     }
                 }
-                else
-                {
-                    result = false;
-                }
+                return true;
             }
-
-            return result;
         }
     }
 }

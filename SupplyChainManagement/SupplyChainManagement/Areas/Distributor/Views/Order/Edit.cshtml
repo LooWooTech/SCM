@@ -1,8 +1,15 @@
 ﻿@{
     ViewBag.Title = "订货";
-    List<Product> list = ViewBag.List;
+    Order model = ViewBag.Model;
+    List<OrderProduct> list = ViewBag.List;
+    List<Product> products = ViewBag.Products;
 }
-<form id="form-order" class="form-horizontal">
+@if (model.ID > 0 && model.State == State.Place)
+{ 
+    <a href="javascript:void()" class="btn btn-danger"><i class="fa fa-backward"></i>取消订单</a>
+}
+<form id="form-order" class="form-horizontal" method="post" action="submit">
+    <input type="hidden" name="ID" value="@(model.ID)" />
     <table id="list-order-product" class="table table-bordered">
         <tr>
             <th>型号</th>
@@ -13,35 +20,62 @@
             </th>
         </tr>
         <tbody id="list-product">
-            <tr>
-                <td>
-                    <select name="ProductID" class="form-control ddl-product">
-                        @foreach (var item in list)
-                        {
-                            <option value="@(item.ID)" data-price="@(item.Price.ToString("f2"))">@(item.Number)     【报价：@(item.Price.ToString("f2"))￥】</option>
-                        }
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="Price" class="form-control txt-price" />
-                </td>
-                <td>
-                    <input type="text" name="Number" class="form-control" value="1" />
-                </td>
-                <td>
-                    <a href="javascript:;" class="btn btn-danger btn-remove btn-xs"><i class="fa fa-remove"></i> 移除</a>
-                </td>
-            </tr>
+            @if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    <tr>
+                        <td>
+                            <select name="ProductID" class="form-control ddl-product">
+                                @foreach (var p in products)
+                                {
+                                    <option value="@(p.ID)" data-price="@(p.Price.ToString("f2"))" @(item.ProductID == p.ID?"selected":null)>@(p.Number)     【报价：@(p.Price.ToString("f2"))￥】</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" name="Price" class="form-control txt-price" value="@(item.Price.ToString("f2"))" />
+                        </td>
+                        <td>
+                            <input type="text" name="Number" class="form-control" value="@(item.Number)" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="btn btn-danger btn-remove btn-xs"><i class="fa fa-remove"></i> 移除</a>
+                        </td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
     <button type="button" id="btn-add" class="btn btn-primary"><i class="fa fa-plus"></i>添加型号</button>
     <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> 提交订单</button>
 </form>
+<script type="text/template" id="template-list">
+    <tr>
+        <td>
+            <select name="ProductID" class="form-control ddl-product">
+                @foreach (var item in products)
+                {
+                    <option value="@(item.ID)" data-price="@(item.Price.ToString("f2"))">@(item.Number)     【报价：@(item.Price.ToString("f2"))￥】</option>
+                }
+            </select>
+        </td>
+        <td>
+            <input type="text" name="Price" class="form-control txt-price" />
+        </td>
+        <td>
+            <input type="text" name="Number" class="form-control" value="1" />
+        </td>
+        <td>
+            <a href="javascript:;" class="btn btn-danger btn-remove btn-xs"><i class="fa fa-remove"></i> 移除</a>
+        </td>
+    </tr>
+</script>
 
 <script>
     $(function () {
         var list = $("#list-product");
-        var template = list.html();
+        var template = $("#template-list").html();
         $("#btn-add").click(function () {
             list.append(template);
             bindSelect();
@@ -64,6 +98,13 @@
             $(".btn-remove").unbind("click").bind("click", function () {
                 $(this).parent().parent().remove();
             });
+        }
+
+        @if (model.ID == 0)
+        { 
+            <text>
+        $("#btn-add").click();
+        </texT>
         }
     });
 </script>

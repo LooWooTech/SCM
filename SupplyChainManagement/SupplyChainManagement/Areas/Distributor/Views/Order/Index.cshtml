@@ -6,7 +6,11 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th></th>
+            <th style="width:80px;">编号</th>
+            <th>订购内容</th>
+            <th style="width:150px;">订单时间</th>
+            <th style="width:100px;">当前状态</th>
+            <th style="width:120px;">操作</th>
         </tr>
     </thead>
     <tbody>
@@ -14,9 +18,21 @@
         {
             <tr>
                 <td>@(item.ID)</td>
+                <td></td>
                 <td>@(item.CreateTime)</td>
                 <td>@(item.State.GetDescription())</td>
-                <td></td>
+                <td>
+                    @switch (item.State)
+                    {
+                        case State.Place:
+                            <a href="/distributor/order/cancel?id=@(item.ID)" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> 取消订单</a>
+                            <a href="/distributor/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>修改订单</a>
+                            break;
+                            default:
+                            <a href="">查看订单</a>
+                            break;
+                    }
+                </td>
             </tr>
         }
     </tbody>

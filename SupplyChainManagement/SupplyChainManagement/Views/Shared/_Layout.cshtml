@@ -34,7 +34,7 @@
                         <li class=""><a href="/Order/"><i class="glyphicon glyphicon-log-in"></i>部件进货</a></li>
                         <li class=""><a href="/product/"><i class="glyphicon glyphicon-plane"></i>产品型号</a></li>
                         <li class=""><a href="/Enterprise/?Business=@((int)(Business.销售商))"><i class="glyphicon glyphicon-shopping-cart"></i>经销商</a></li>
-                        <li class=""><a href="/Stock/?Type=@(OrderType.Shipment)"><i class="glyphicon glyphicon-gift"></i>经销商订货</a></li>
+                        <li class=""><a href="/Order/?Type=@((int)OrderType.Shipment)"><i class="glyphicon glyphicon-gift"></i>经销商订货</a></li>
                         <li class=""><a href="#"><i class="glyphicon glyphicon-hdd"></i>库存</a></li>
                     }
                     else if (user.Role == UserRole.User)

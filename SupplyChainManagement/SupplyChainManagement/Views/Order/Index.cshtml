@@ -6,7 +6,15 @@
 @if (enterprise != null)
 {
     <h3>
-        @(enterprise.Name) - 进货订单 <a href="/order/edit?enterpriseId=@(enterprise.ID)" class="btn btn-success">进货</a>
+        @(enterprise.Name)
+        @if (enterprise.Business == Business.供应商)
+        {
+            @:- 进货订单 <a href="/order/edit?enterpriseId=@(enterprise.ID)" class="btn btn-success">进货</a>
+        }
+        else
+        {
+            @:- 订货订单
+        }
     </h3>
 }
 <table class="table table-bordered">
@@ -31,14 +39,21 @@
             <td>@(item.State.GetDescription())</td>
             <td><a href="/express/view?id=@(item.Express)&no=@(item.ExpressNo)" data-toggle="modal" data-target="#modal"><i class="fa fa-car"></i>查看物流</a></td>
             <td>
-                <a href="/order/detail?id=@(item.ID)" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> 查看</a>
-                @switch (item.State)
+                @if (item.Type == OrderType.Bought)
                 {
-                    case State.Done:
-                        break;
-                    default:
-                        <a href="/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> 修改</a>
-                        break;
+                    <a href="/order/detail?id=@(item.ID)" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> 查看</a>
+                    @switch (item.State)
+                    {
+                        case State.Done:
+                            break;
+                        default:
+                            <a href="/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> 修改</a>
+                            break;
+                    }
+                }
+                else
+                {
+                    <a href="/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> 编辑</a>
                 }
             </td>
         </tr>

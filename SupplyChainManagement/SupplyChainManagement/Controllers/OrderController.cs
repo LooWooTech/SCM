@@ -12,6 +12,7 @@ namespace LoowooTech.SCM.Web.Controllers
     {
         public ActionResult Index(State? state, OrderType type = OrderType.Bought, int enterpriseId = 0, int page = 1, int rows = 20)
         {
+            Enterprise enterprise = null;
             var filter = new OrderFilter
             {
                 State = state,
@@ -19,7 +20,12 @@ namespace LoowooTech.SCM.Web.Controllers
                 EnterpriseId = enterpriseId,
                 Page = new PageFilter(page, rows)
             };
-            ViewBag.Enterprise = Core.EnterpriseManager.GetModel(enterpriseId);
+            if (enterpriseId > 0)
+            {
+                enterprise = Core.EnterpriseManager.GetModel(enterpriseId);
+                filter.Type = enterprise.Business == Business.销售商 ? OrderType.Shipment : OrderType.Bought;
+            }
+            ViewBag.Enterprise = enterprise;
             ViewBag.List = Core.OrderManager.GetList(filter);
             ViewBag.Page = filter.Page;
             return View();
@@ -270,8 +276,14 @@ namespace LoowooTech.SCM.Web.Controllers
             ViewBag.Message = Core.MessageManager.GetModelByOrderId(id);
             ViewBag.Contracts = Core.ContractManager.GetList(id);
             ViewBag.Remittance = Core.RemittanceManager.GetModel(id);
-            ViewBag.OrderItems = Core.OrderComponentManager.GetList(id);
+            ViewBag.OrderComponents = Core.OrderComponentManager.GetList(id);
+            ViewBag.OrderProducts = Core.OrderProductManager.GetList(id);
             ViewBag.Express = Core.ExpressManager.GetModel(model.Express);
+            //如果还没有配货或成产，则检查库存
+            if (model.State == State.Place)
+            {
+
+            }
             return View();
         }
     }

@@ -26,7 +26,13 @@ namespace LoowooTech.SCM.Web.Areas.Distributor.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            ViewBag.List = Core.ProductManager.GetList();
+            var model = Core.OrderManager.GetModel(id) ?? new Order { EnterpriseId = Identity.EnterpriseId };
+            if (model.ID > 0)
+            {
+                ViewBag.List = Core.OrderProductManager.GetList(model.ID);
+            }
+            ViewBag.Model = model;
+            ViewBag.Products = Core.ProductManager.GetList();
             return View();
         }
 
@@ -43,6 +49,7 @@ namespace LoowooTech.SCM.Web.Areas.Distributor.Controllers
                 order = new Order
                 {
                     EnterpriseId = Identity.EnterpriseId,
+                    Type = OrderType.Shipment,
                     State = State.Place//备货
                 };
                 id = Core.OrderManager.Add(order);
@@ -57,18 +64,18 @@ namespace LoowooTech.SCM.Web.Areas.Distributor.Controllers
                     Price = price[i],
                     Number = number[i],
                     OrderID = order.ID,
-                    Status = ProductStatus.Producing
                 };
                 if (p.ProductID == 0 || p.Price == 0 || p.Number == 0)
                 {
                     continue;
                 }
+                var isShortage = Core.InventoryManager.IsShortage(p.ProductID, p.Number);
+                p.Status = isShortage ? ProductStatus.Shortage : ProductStatus.Normal;
                 list.Add(p);
 
             }
 
             Core.OrderProductManager.UpdateProducts(order.ID, list);
-
             return RedirectToAction("Detail", new { order.ID });
         }
 
