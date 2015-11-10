@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "订单详情";
+    Order model = ViewBag.Model;
+    Enterprise enterprise = ViewBag.Enterprise;
+    List<OrderItem> orderItems = ViewBag.OrderItems;
+    List<Contract> contracts = ViewBag.Contracts;
+    Remittance remittance = ViewBag.Remittance;
+    Message message = ViewBag.Message;
+    Express express = ViewBag.Express;
+}
+<div style="position: relative;">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#profile-basic" data-toggle="tab">基本资料</a></li>
+        <li class=""><a href="#profile-contact" data-toggle="tab">联系记录</a></li>
+        <li class=""><a href="#profile-contract" data-toggle="tab">合同文件</a></li>
+        <li class=""><a href="#profile-shipping" data-toggle="tab">物流记录</a></li>
+        <li class=""><a href="#profile-payment" data-toggle="tab">汇款信息</a></li>
+    </ul>
+</div>
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="profile-basic">
+        <div class="alert alert-info">
+            @(enterprise.Name) - @(model.CreateTime)
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>部件名称</th>
+                <th style="width:80px;">进货价格</th>
+                <th style="width:80px;">进货数量</th>
+                <th style="width:80px;">库存</th>
+                <th style="width:400px;">
+                    <div class="col-lg-8">部件</div>
+                    <div class="col-lg-2">数量</div>
+                    <div class="col-lg-2">库存</div>
+                </th>
+                @if (model.State == (int)SellOrderState.Done)
+                {
+                    <th style="width:80px;">成交价格</th>
+                    <th style="width:80px;">成交数量</th>
+                }
+            </tr>
+            @foreach (var item in orderItems)
+            {
+                <tr>
+                    <td>@(item.ItemName)</td>
+                    <td>@(item.Price)</td>
+                    <td>@(item.Number)</td>
+                    <td>@(item.StoreNumber)</td>
+                    <td>
+                        @foreach (var c in item.Items)
+                        {
+                            <div class="col-lg-8">
+                                @(c.Component.DisplayName)
+                                @if (c.StoreNumber < c.Number)
+                                {
+                                    <a href="#@(c.ComponentId)" class="btn btn-primary btn-xs">进货</a>
+                                }
+                            </div>
+                            <div class="col-lg-2">@(c.Number)</div>
+                            <div class="col-lg-2">@(c.StoreNumber)</div>
+                        }
+                    </td>
+                    @if (model.State == (int)SellOrderState.Done)
+                    {
+                        <td>@(item.DealPrice)</td>
+                        <td>@(item.DealNumber)</td>
+                    }
+                </tr>
+            }
+        </table>
+        @switch ((SellOrderState)model.State)
+        {
+            case SellOrderState.Created:
+                <a id="btn-order-cancel" href="/sell/closed?id=@(model.ID)" class="btn btn-danger"><i class="fa fa-backward"></i>取消订单</a>
+                <a id="btn-order-prepare" href="/sell/prepare?id=@(model.ID)" class="btn btn-success"><i class="fa fa-list"></i>开始配货</a>
+                <script>
+                    $(function () {
+                        $("#btn-order-cancel").click(function () {
+                            return confirm("你确定要关闭该订单吗？");
+                        });
+                        $("#btn-order-prepare").click(function () {
+                            return confirm("你确定要把该订单改为配货状态吗？\n请保证库存充足！");
+                        });
+                    });
+                </script>
+                break;
+            case SellOrderState.Prepare:
+            <a id="btn-order-shipping" href="/sell/delivery?id=@(model.ID)" class="btn btn-success"><i class="fa fa-car"></i>快递配送</a>
+                break;
+            case SellOrderState.Delivery:
+                break;
+            case SellOrderState.Receive:
+                //如果有退货，如何处理？
+                <a id="btn-order-back" href="/sell/receive?id=@(model.ID)" class="btn btn-danger"><i class="fa fa-backward"></i>处理退货</a>
+                break;
+        }
+    </div>
+    <div class="tab-pane fade" id="profile-contact">
+        @if (message != null)
+        {
+            <table class="table table-bordered">
+                <tr>
+                    <th class="col-lg-2">联系人</th>
+                    <td>@(message.Contact.Name)</td>
+                </tr>
+                <tr>
+                    <th>联系电话</th>
+                    <td>@(message.Contact.Mobile)</td>
+                </tr>
+                <tr>
+                    <th>联系时间</th>
+                    <td>@(message.ContactTime)</td>
+                </tr>
+                <tr>
+                    <th>联系内容</th>
+                    <td>@(message.Note)</td>
+                </tr>
+
+            </table>
+        }
+        else
+        {
+            <span>没有联系记录</span>
+        }
+    </div>
+    <div class="tab-pane fade" id="profile-contract">
+        @if (contracts == null || contracts.Count == 0)
+        {
+            <span>没有上传合同文件</span>
+        }
+        else
+        {
+            foreach (var item in contracts)
+            {
+                <div><a href="@(item.File)"><i class="fa fa-file"></i>@(item.File)</a></div>
+            }
+        }
+    </div>
+    <div class="tab-pane fade" id="profile-shipping">
+        @if (express != null)
+        {
+            <table class="table table-bordered">
+                <tr>
+                    <th class="col-lg-2">物流公司</th>
+                    <td>@(express.Name)</td>
+                </tr>
+                <tr>
+                    <th>运单号</th>
+                    <td>@(model.ExpressNo)</td>
+                </tr>
+                <tr>
+                    <th>物流详情</th>
+                    <td></td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            <span>没有物流信息</span>
+        }
+    </div>
+    <div class="tab-pane fade" id="profile-payment">
+        @if (remittance != null)
+        {
+            <table class="table table-bordered">
+                <tr>
+                    <th class="col-lg-2">汇款账号</th>
+                    <td>@(remittance.Account)</td>
+                </tr>
+                <tr>
+                    <th>汇款银行</th>
+                    <td>@(remittance.Bank)</td>
+                </tr>
+                <tr>
+                    <th>汇款金额</th>
+                    <td>@(remittance.Money)</td>
+                </tr>
+                <tr>
+                    <th>汇款时间</th>
+                    <td>@(remittance.Time)</td>
+                </tr>
+                <tr>
+                    <th>汇款类型</th>
+                    <td>@(remittance.Pay)</td>
+                </tr>
+                <tr>
+                    <th>备注</th>
+                    <td>@(remittance.Note)</td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            <span>没有汇款信息</span>
+        }
+    </div>
+</div>

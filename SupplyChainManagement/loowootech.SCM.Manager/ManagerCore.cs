@@ -33,16 +33,10 @@ namespace LoowooTech.SCM.Manager
             get { return _addresslistManager == null ? _addresslistManager = new AddressListManager() : _addresslistManager; }
         }
 
-        private OrderComponentManager _orderItemManager;
-        public OrderComponentManager OrderComponentManager
+        private OrderItemManager _OrderItemManager;
+        public OrderItemManager OrderItemManager
         {
-            get { return _orderItemManager == null ? _orderItemManager = new OrderComponentManager() : _orderItemManager; }
-        }
-
-        private OrderProductManager _orderProductManager;
-        public OrderProductManager OrderProductManager
-        {
-            get { return _orderProductManager == null ? _orderProductManager = new OrderProductManager() : _orderProductManager; }
+            get { return _OrderItemManager == null ? _OrderItemManager = new OrderItemManager() : _OrderItemManager; }
         }
 
         private OrderManager _orderManager;

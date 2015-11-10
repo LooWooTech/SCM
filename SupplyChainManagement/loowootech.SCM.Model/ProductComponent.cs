@@ -27,6 +27,9 @@ namespace LoowooTech.SCM.Model
         public int ComponentId { get; set; }
 
         [NotMapped]
+        public int StoreNumber { get; set; }
+
+        [NotMapped]
         public Component Component { get; set; }
     }
 }

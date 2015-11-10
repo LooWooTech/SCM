@@ -28,8 +28,8 @@
                             <a href="/distributor/order/cancel?id=@(item.ID)" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> 取消订单</a>
                             <a href="/distributor/order/edit?id=@(item.ID)" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>修改订单</a>
                             break;
-                            default:
-                            <a href="">查看订单</a>
+                        default:
+                        <a href="/distributor/order/detail?id=@(item.ID)">查看订单</a>
                             break;
                     }
                 </td>

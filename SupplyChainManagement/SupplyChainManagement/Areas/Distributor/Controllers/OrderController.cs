@@ -18,7 +18,9 @@ namespace LoowooTech.SCM.Web.Areas.Distributor.Controllers
                 Page = new PageFilter(page, rows)
             };
 
-            ViewBag.List = Core.OrderManager.GetList(filter);
+            var orders = Core.OrderManager.GetList(filter);
+
+            ViewBag.List = ViewBag.List;
             ViewBag.Page = filter.Page;
 
             return View();
@@ -29,7 +31,7 @@ namespace LoowooTech.SCM.Web.Areas.Distributor.Controllers
             var model = Core.OrderManager.GetModel(id) ?? new Order { EnterpriseId = Identity.EnterpriseId };
             if (model.ID > 0)
             {
-                ViewBag.List = Core.OrderProductManager.GetList(model.ID);
+                ViewBag.List = Core.OrderItemManager.GetList(model.ID);
             }
             ViewBag.Model = model;
             ViewBag.Products = Core.ProductManager.GetList();
@@ -50,32 +52,32 @@ namespace LoowooTech.SCM.Web.Areas.Distributor.Controllers
                 {
                     EnterpriseId = Identity.EnterpriseId,
                     Type = OrderType.Shipment,
-                    State = State.Place//备货
+                    State = (int)SellOrderState.Created
                 };
                 id = Core.OrderManager.Add(order);
             }
 
-            var list = new List<OrderProduct>();
+            var list = new List<OrderItem>();
             for (var i = 0; i < productId.Length; i++)
             {
-                var p = new OrderProduct
+                var p = new OrderItem
                 {
-                    ProductID = productId[i],
+                    ItemID = productId[i],
+                    ItemType = OrderItemType.Product,
                     Price = price[i],
                     Number = number[i],
                     OrderID = order.ID,
                 };
-                if (p.ProductID == 0 || p.Price == 0 || p.Number == 0)
+                if (p.OrderID == 0 || p.Price == 0 || p.Number == 0)
                 {
                     continue;
                 }
-                var isShortage = Core.InventoryManager.IsShortage(p.ProductID, p.Number);
-                p.Status = isShortage ? ProductStatus.Shortage : ProductStatus.Normal;
+                p.Status = Core.InventoryManager.GetProductStatus(p.ItemID, p.Number);
                 list.Add(p);
 
             }
 
-            Core.OrderProductManager.UpdateProducts(order.ID, list);
+            Core.OrderItemManager.UpdateItems(order.ID, list);
             return RedirectToAction("Detail", new { order.ID });
         }
 

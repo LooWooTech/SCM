@@ -18,7 +18,6 @@ namespace LoowooTech.SCM.Manager
         public DbSet<Remittance> Remittances { get; set; }
         public DbSet<Component> Components { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<OrderComponent> OrderComponents { get; set; }
         public DbSet<AddressList> AddressLists { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<ProductComponent> ProductComponents { get; set; }
@@ -28,6 +27,6 @@ namespace LoowooTech.SCM.Manager
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ProduceLog> ProduceLogs { get; set; }
-        public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }

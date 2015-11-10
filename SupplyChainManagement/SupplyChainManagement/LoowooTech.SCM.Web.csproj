@@ -104,6 +104,7 @@
     <Compile Include="Common\UserPrincipal.cs" />
     <Compile Include="Controllers\ComponentController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\SellController.cs" />
     <Compile Include="Mvc\ControllerBase.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
     <Compile Include="Controllers\EpistolizeController.cs" />
@@ -112,7 +113,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\BuyController.cs" />
     <Compile Include="Controllers\RemitController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,19 +188,21 @@
     <Content Include="Views\Enterprise\Detail.cshtml" />
     <Content Include="Views\Contact\Edit.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Views\Order\Contact.cshtml" />
-    <Content Include="Views\Order\Place.cshtml" />
-    <Content Include="Views\Order\Shipping.cshtml" />
-    <Content Include="Views\Order\Receive.cshtml" />
-    <Content Include="Views\Order\Done.cshtml" />
-    <Content Include="Views\Order\Payment.cshtml" />
-    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Buy\Contact.cshtml" />
+    <Content Include="Views\Buy\Place.cshtml" />
+    <Content Include="Views\Buy\Shipping.cshtml" />
+    <Content Include="Views\Buy\Receive.cshtml" />
+    <Content Include="Views\Buy\Done.cshtml" />
+    <Content Include="Views\Buy\Payment.cshtml" />
+    <Content Include="Views\Buy\Index.cshtml" />
     <Content Include="Views\Express\Index.cshtml" />
     <Content Include="Views\Express\Edit.cshtml" />
-    <Content Include="Views\Order\Detail.cshtml" />
+    <Content Include="Views\Buy\Detail.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
-    <Content Include="Views\Order\Contract.cshtml" />
+    <Content Include="Views\Buy\Contract.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Sell\Index.cshtml" />
+    <Content Include="Views\Sell\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Distributor\Models\" />

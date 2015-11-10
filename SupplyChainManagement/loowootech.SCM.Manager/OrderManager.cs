@@ -44,7 +44,7 @@ namespace LoowooTech.SCM.Manager
         public void  Delete(int ID)
         {
             var order = GetModel(ID);
-            if (order == null || order.State != State.Place)
+            if (order == null || order.State != (int)BuyOrderState.Place)
             {
                 throw new ArgumentException("当前要删除的订单无效或者无法删除状态");
             }

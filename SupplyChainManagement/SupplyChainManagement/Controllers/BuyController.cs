@@ -8,15 +8,15 @@ using System.Web.Mvc;
 
 namespace LoowooTech.SCM.Web.Controllers
 {
-    public class OrderController : ControllerBase
+    public class BuyController : ControllerBase
     {
-        public ActionResult Index(State? state, OrderType type = OrderType.Bought, int enterpriseId = 0, int page = 1, int rows = 20)
+        public ActionResult Index(int? state, int enterpriseId = 0, int page = 1, int rows = 20)
         {
             Enterprise enterprise = null;
             var filter = new OrderFilter
             {
                 State = state,
-                Type = type,
+                Type = OrderType.Bought,
                 EnterpriseId = enterpriseId,
                 Page = new PageFilter(page, rows)
             };
@@ -38,16 +38,9 @@ namespace LoowooTech.SCM.Web.Controllers
                 throw new ArgumentException("参数异常");
             }
 
-            var model = Core.OrderManager.GetModel(id) ?? new Order { EnterpriseId = enterpriseId };
+            var model = Core.OrderManager.GetModel(id) ?? new Order { EnterpriseId = enterpriseId, State = (int)BuyOrderState.Contact };
             var routeData = new { id = model.ID, enterpriseId = model.EnterpriseId };
-            switch (model.State)
-            {
-                //case State.Turn:
-                //case State.Payment:
-                //    return RedirectToAction("Edit", routeData);
-                default:
-                    return RedirectToAction(model.State.ToString(), routeData);
-            }
+            return RedirectToAction(model.State.ToString(), routeData);
         }
 
         public ActionResult Contact(int id = 0, int enterpriseId = 0)
@@ -80,13 +73,13 @@ namespace LoowooTech.SCM.Web.Controllers
                 model.OrderId = Core.OrderManager.Add(new Order
                 {
                     EnterpriseId = model.EnterpriseId,
-                    State = submit ? State.Place : State.Contact
+                    State = submit ? (int)BuyOrderState.Place : (int)BuyOrderState.Contact
                 });
             }
             else
             {
                 var order = Core.OrderManager.GetModel(model.OrderId);
-                order.State = State.Place;
+                order.State = (int)BuyOrderState.Place;
                 Core.OrderManager.Update(order);
             }
 
@@ -111,7 +104,7 @@ namespace LoowooTech.SCM.Web.Controllers
             var model = GetOrder(id);
             ViewBag.Model = model;
             ViewBag.Components = Core.ComponentManager.GetList(null);
-            ViewBag.List = Core.OrderComponentManager.GetList(model.ID);
+            ViewBag.List = Core.OrderItemManager.GetList(model.ID);
             return View();
         }
 
@@ -130,21 +123,22 @@ namespace LoowooTech.SCM.Web.Controllers
                 }
             }
 
-            var list = new List<OrderComponent>();
+            var list = new List<OrderItem>();
             for (var i = 0; i < itemComponentId.Length; i++)
             {
-                list.Add(new OrderComponent
+                list.Add(new OrderItem
                 {
-                    ComponentId = itemComponentId[i],
+                    ItemID = itemComponentId[i],
+                    ItemType = OrderItemType.Component,
                     Price = itemPrice[i],
                     Number = itemNumber[i],
-                    OrderId = id,
+                    OrderID = id,
                 });
             }
 
             var model = GetOrder(id);
-            model.State = submit ? State.Contract : State.Place;
-            Core.OrderComponentManager.UpdateComponents(model.ID, list);
+            model.State = submit ? (int)BuyOrderState.Contract : (int)BuyOrderState.Place;
+            Core.OrderItemManager.UpdateItems(model.ID, list);
             Core.OrderManager.Update(model);
 
             return RedirectToAction(submit ? "Contract" : "Place", new { id });
@@ -161,7 +155,7 @@ namespace LoowooTech.SCM.Web.Controllers
         public ActionResult SubmitContract(int id, bool submit = false)
         {
             var model = GetOrder(id);
-            model.State = submit ? State.Shipping : State.Contract;
+            model.State = submit ? (int)BuyOrderState.Shipping : (int)BuyOrderState.Contract;
             var list = new List<Contract>();
             if (Request.Files.Count > 0)
             {
@@ -195,7 +189,7 @@ namespace LoowooTech.SCM.Web.Controllers
                 {
                     throw new ArgumentException("请选择快递公司并填写运单号");
                 }
-                model.State = State.Receive;
+                model.State = (int)BuyOrderState.Receive;
             }
 
             model.ExpressNo = expressNo;
@@ -208,14 +202,14 @@ namespace LoowooTech.SCM.Web.Controllers
         {
             var model = GetOrder(id);
             ViewBag.Model = model;
-            ViewBag.List = Core.OrderComponentManager.GetList(model.ID);
+            ViewBag.List = Core.OrderItemManager.GetList(model.ID);
             return View();
         }
 
         public ActionResult SubmitReceive(int orderId, int[] itemId, double[] dealprice, int[] dealnumber, bool submit = false)
         {
             var model = GetOrder(orderId);
-            var list = Core.OrderComponentManager.GetList(orderId);
+            var list = Core.OrderItemManager.GetList(orderId);
             foreach (var item in list)
             {
                 for (var i = 0; i < itemId.Length; i++)
@@ -227,8 +221,8 @@ namespace LoowooTech.SCM.Web.Controllers
                     }
                 }
             }
-            Core.OrderComponentManager.UpdateReceiveNumber(list);
-            model.State = submit ? State.Payment : State.Receive;
+            Core.OrderItemManager.UpdateReceiveNumber(list);
+            model.State = submit ? (int)BuyOrderState.Payment : (int)BuyOrderState.Receive;
             Core.OrderManager.Update(model);
             return RedirectToAction(submit ? "Payment" : "Receive", new { id = orderId });
         }
@@ -258,7 +252,7 @@ namespace LoowooTech.SCM.Web.Controllers
             }
             data.OrderId = order.ID;
             Core.RemittanceManager.Save(data);
-            order.State = submit ? State.Done : State.Payment;
+            order.State = submit ? (int)BuyOrderState.Done : (int)BuyOrderState.Payment;
             Core.OrderManager.Update(order);
             return RedirectToAction(submit ? "Done" : "Payment", new { id = id });
         }
@@ -276,14 +270,11 @@ namespace LoowooTech.SCM.Web.Controllers
             ViewBag.Message = Core.MessageManager.GetModelByOrderId(id);
             ViewBag.Contracts = Core.ContractManager.GetList(id);
             ViewBag.Remittance = Core.RemittanceManager.GetModel(id);
-            ViewBag.OrderComponents = Core.OrderComponentManager.GetList(id);
-            ViewBag.OrderProducts = Core.OrderProductManager.GetList(id);
-            ViewBag.Express = Core.ExpressManager.GetModel(model.Express);
-            //如果还没有配货或成产，则检查库存
-            if (model.State == State.Place)
-            {
 
-            }
+            ViewBag.Express = Core.ExpressManager.GetModel(model.Express);
+
+            ViewBag.OrderItems = Core.OrderItemManager.GetList(id);
+
             return View();
         }
     }

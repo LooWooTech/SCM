@@ -11,7 +11,7 @@ namespace LoowooTech.SCM.Model
 
         public OrderType? Type { get; set; }
 
-        public State? State { get; set; }
+        public int? State { get; set; }
 
         public int EnterpriseId { get; set; }
     }

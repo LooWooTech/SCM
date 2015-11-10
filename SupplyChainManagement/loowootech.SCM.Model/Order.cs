@@ -46,8 +46,12 @@ namespace LoowooTech.SCM.Model
         [Column(TypeName = "int")]
         public OrderType Type { get; set; }
 
-        [Column(TypeName = "int")]
-        public State State { get; set; }
+        public int State { get; set; }
+
+        /// <summary>
+        /// 是否付款
+        /// </summary>
+        public bool Payment { get; set; }
 
         [NotMapped]
         public Enterprise Enterprise { get; set; }
@@ -55,9 +59,34 @@ namespace LoowooTech.SCM.Model
         [NotMapped]
         public Remittance Remittance { get; set; }
 
+        [NotMapped]
+        public List<OrderItem> Items { get; set; }
+
+        [NotMapped]
+        public List<OrderItem> Products { get; set; }
+
     }
 
-    public enum State
+    public enum SellOrderState
+    {
+        [Description("创建订单")]
+        Created,
+        [Description("正在配货")]
+        Prepare,
+        [Description("配送途中")]
+        Delivery,
+        [Description("已收货")]
+        Receive,
+        [Description("合同备案")]
+        Contract,
+        [Description("完成")]
+        Done,
+        [Description("关闭订单")]
+        Closed
+
+    }
+
+    public enum BuyOrderState
     {
         [Description("联系卖家")]
         Contact,
@@ -72,7 +101,7 @@ namespace LoowooTech.SCM.Model
         [Description("汇款")]
         Payment,
         [Description("填写合同")]
-        Contract
+        Contract,
     }
 
     public enum OrderType

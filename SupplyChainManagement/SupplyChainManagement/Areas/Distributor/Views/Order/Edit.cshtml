@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "订货";
     Order model = ViewBag.Model;
-    List<OrderProduct> list = ViewBag.List;
+    List<OrderItem> list = ViewBag.List;
     List<Product> products = ViewBag.Products;
 }
 @if (model.ID > 0 && model.State == State.Place)

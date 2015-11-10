@@ -31,17 +31,17 @@
                         <li class=""><a href="/"><i class="glyphicon glyphicon-home"></i>首页</a></li>
                         <li class=""><a href="/Enterprise/?Business=@((int)(Business.供应商))"><i class="glyphicon glyphicon-cog"></i>供应商</a></li>
                         <li class=""><a href="/Component/"><i class="glyphicon glyphicon-wrench"></i>部件型号</a></li>
-                        <li class=""><a href="/Order/"><i class="glyphicon glyphicon-log-in"></i>部件进货</a></li>
+                        <li class=""><a href="/Buy/"><i class="glyphicon glyphicon-log-in"></i>部件进货</a></li>
                         <li class=""><a href="/product/"><i class="glyphicon glyphicon-plane"></i>产品型号</a></li>
                         <li class=""><a href="/Enterprise/?Business=@((int)(Business.销售商))"><i class="glyphicon glyphicon-shopping-cart"></i>经销商</a></li>
-                        <li class=""><a href="/Order/?Type=@((int)OrderType.Shipment)"><i class="glyphicon glyphicon-gift"></i>经销商订货</a></li>
+                        <li class=""><a href="/Sell/"><i class="glyphicon glyphicon-gift"></i>经销商订货</a></li>
                         <li class=""><a href="#"><i class="glyphicon glyphicon-hdd"></i>库存</a></li>
                     }
                     else if (user.Role == UserRole.User)
                     {
                         <li>@Html.ActionLink("产品型号&报价", "Index", "Product")</li>
-                        <li>@Html.ActionLink("订货管理", "Index", "Order")</li>
-                        <li>@Html.ActionLink("立即订货", "Edit", "Order")</li>
+                        <li>@Html.ActionLink("订货管理", "Index", "Buy")</li>
+                        <li>@Html.ActionLink("立即订货", "Edit", "Buy")</li>
                     }
                     else
                     {

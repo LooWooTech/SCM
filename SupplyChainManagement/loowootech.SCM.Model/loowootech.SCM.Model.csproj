@@ -64,7 +64,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Contract.cs" />
-    <Compile Include="OrderProduct.cs" />
+    <Compile Include="OrderItem.cs" />
     <Compile Include="ProduceLog.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Enterprise.cs" />
@@ -81,7 +81,6 @@
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryExtensions.cs" />
-    <Compile Include="OrderComponent.cs" />
     <Compile Include="ProductPriceLog.cs" />
     <Compile Include="Remittance.cs" />
   </ItemGroup>

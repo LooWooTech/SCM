@@ -35,7 +35,7 @@
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
                     data: @Html.Raw(JsonConvert.SerializeObject(data))
-                    }
+                }
             ]
         }; var myLineChart = new Chart(ctx).Line(data);
     });

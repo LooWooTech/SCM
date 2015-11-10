@@ -8,8 +8,8 @@ using System.Text;
 
 namespace LoowooTech.SCM.Model
 {
-    [Table("order_products")]
-    public class OrderProduct
+    [Table("order_items")]
+    public class OrderItem
     {
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
@@ -17,7 +17,9 @@ namespace LoowooTech.SCM.Model
 
         public int OrderID { get; set; }
 
-        public int ProductID { get; set; }
+        public int ItemID { get; set; }
+
+        public OrderItemType ItemType { get; set; }
 
         public double Price { get; set; }
 
@@ -28,21 +30,34 @@ namespace LoowooTech.SCM.Model
         public int? DealNumber { get; set; }
 
         [NotMapped]
-        public Product Product { get; set; }
+        public int StoreNumber { get; set; }
 
-        public ProductStatus Status { get; set; }
+        [NotMapped]
+        public string ItemName { get; set; }
+
+        /// <summary>
+        /// Product的Components
+        /// </summary>
+        [NotMapped]
+        public List<ProductComponent> Items { get; set; }
+
+        public OrderItemStatus Status { get; set; }
     }
 
-    public enum ProductStatus
+    public enum OrderItemType
     {
-        [Description("正常")]
+        Component,
+        Product
+    }
+
+    public enum OrderItemStatus
+    {
+        [Description("库存充足")]
         Normal,
         [Description("库存不足")]
         Shortage,
         [Description("开始生产")]
-        Producing,
-        [Description("生产完成")]
-        Completed
+        Producing
     }
 
 }
